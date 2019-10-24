@@ -1,7 +1,7 @@
 {
-	"name": "Konbi.Mi App",
-	"short_name": "Konbi.Mi",
-	"description": "Konbi.Mi Mobile Web App",
+	"name": "Konbi.PreOrder App",
+	"short_name": "Konbi.PreOrder",
+	"description": "Konbi.PreOrder Mobile Web App",
 	"start_url": ".",
 	"display": "standalone",
 	"orientation": "portrait",

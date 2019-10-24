@@ -11,7 +11,7 @@ window.config = {};
 window.config.app = {
 	id: 'website.nectar.classic',
 	version: '2.8.0',
-	title: 'Nectar',
+	title: 'Konbini',
 	tagline: 'Mobile Web App Kit',
 	logo: 'assets/custom/img/logo.svg'
 };
@@ -270,7 +270,7 @@ window.config.colors = {
 */
 
 window.config.theme = {
-	color: 'blue',
-	layout: 'light',
-  navigation: 'hamburger'
+	color: 'green',
+	layout: 'dark',
+  navigation: 'tabbar'
 };

@@ -365,6 +365,7 @@ $.extend( $.validator, {
 		required: "This field is required.",
 		remote: "Please fix this field.",
 		email: "Please enter a valid email address.",
+		mobile: "Please enter a valid phone number",
 		url: "Please enter a valid URL.",
 		date: "Please enter a valid date.",
 		dateISO: "Please enter a valid date (ISO).",
@@ -1176,6 +1177,7 @@ $.extend( $.validator, {
 	classRuleSettings: {
 		required: { required: true },
 		email: { email: true },
+		mobile: { mobile: true},
 		url: { url: true },
 		date: { date: true },
 		dateISO: { dateISO: true },
@@ -1414,6 +1416,12 @@ $.extend( $.validator, {
 			// If you have a problem with this implementation, report a bug against the above spec
 			// Or use custom methods to implement your own email validation
 			return this.optional( element ) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test( value );
+		},
+
+		// them RegEx kiem tra so dien thoai nhap vao
+		mobile: function( value, element ) {
+			// return this.optional( element ) || /^\(?([1-9]{1})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$/.test( value );
+			return this.optional( element ) || /^\(?([1-9]{1})\)?([0-9]*)$/.test( value );
 		},
 
 		// https://jqueryvalidation.org/url-method/

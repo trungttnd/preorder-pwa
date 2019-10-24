@@ -389,6 +389,14 @@
 | Brand Colors
 |------------------------------------------------------------------------------
 */
+.brand-bg-color-visa { background-color: #007AFF !important;}
+.brand-color-visa { color: #007AFF !important;}
+
+.brand-bg-color-mastercard { background-color: #FF6B6B !important;}
+.brand-color-mastercard { color: #FF6B6B !important;}
+
+.brand-bg-color-jcb { background-color: #007AFF !important;}
+.brand-color-jcb { color: #007AFF !important;}
 
 .brand-bg-color-500px { background-color: #0099E5 !important; }
 .brand-color-500px { color: #0099E5 !important; }

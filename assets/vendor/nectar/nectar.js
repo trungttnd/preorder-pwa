@@ -28,16 +28,18 @@ Framework7.utils.fastClick = {
 Framework7.utils.i18n = {
 
 	getLanguage: function() {
-		var language = localStorage.getItem('Nectar_Language') ? JSON.parse(localStorage.getItem('Nectar_Language')) : window.config.i18n;
+		// var language = localStorage.getItem('Konbini_Language') ? JSON.parse(localStorage.getItem('Konbini_Language')) : window.config.i18n;
+		var language = window.config.i18n;
 		return language;
 	},
 
 	setLanguage: function(language) {
-		var language = language ? language : window.config.i18n;
+		// var language = language ? language : window.config.i18n;
+		var language = window.config.i18n
 		var isCurrentRtl = app.params.rtl;
 
 		i18next.changeLanguage(language.lang, function() {
-			localStorage.setItem('Nectar_Language', JSON.stringify(language));
+			localStorage.setItem('Konbini_Language', JSON.stringify(language));
 
 			app.$('html').attr('lang', language.lang);
 			app.$('html').attr('dir', language.dir);
@@ -71,19 +73,19 @@ Framework7.utils.i18n = {
 Framework7.utils.theme = {
 
 	getColor: function() {
-		var color = localStorage.getItem('Nectar_Theme_Color') ? localStorage.getItem('Nectar_Theme_Color') : window.config.theme.color;
+		var color = window.config.theme.color;
 		return color;
 	},
 
 	getLayout: function() {
-		var layout = localStorage.getItem('Nectar_Theme_Layout') ? localStorage.getItem('Nectar_Theme_Layout') : window.config.theme.layout;
+		var layout = window.config.theme.layout;
 		return layout;
 	},
 
 	setColor: function(color) {
-		var color = color ? color : window.config.theme.color;
+		var color = window.config.theme.color;
 
-		localStorage.setItem('Nectar_Theme_Color', color);
+		localStorage.setItem('Konbini_Theme_Color', color);
 
 		app.$('body').removeClass('color-theme-red color-theme-green color-theme-blue color-theme-pink color-theme-yellow color-theme-orange color-theme-gray color-theme-black');
 		app.$('body').addClass('color-theme-' + color);
@@ -92,9 +94,9 @@ Framework7.utils.theme = {
 	},
 
 	setLayout: function(layout) {
-		var layout = layout ? layout : window.config.theme.layout;
+		var layout = window.config.theme.layout;
 
-		localStorage.setItem('Nectar_Theme_Layout', layout);
+		localStorage.setItem('Konbini_Theme_Layout', layout);
 
 		app.$('body').removeClass('theme-light theme-dark');
 		app.$('body').addClass('theme-' + layout);

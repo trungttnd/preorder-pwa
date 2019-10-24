@@ -1,0 +1,188 @@
+<template>
+	<div class="page">
+
+		<div class="navbar">
+			<div class="navbar-inner">
+				<!-- <div class="left">
+					<a href="#" class="link back">
+						<i class="icon icon-back"></i>
+						<span class="ios-only" data-i18n="components">Components</span>
+					</a>
+				</div> -->
+				<div class="title md-only" data-i18n="transaction-history">Transaction History</div>
+				<div class="subnavbar ios-only">
+					<div class="subnavbar-inner">
+						<div class="title" data-i18n="transaction-history">Transaction History</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-content">
+
+			<!-- <div class="block">
+				<p>Data Table displays sets of data in a tabular format.</p>
+			</div> -->
+
+			<div class="block-title">Transaction History</div>
+			<div class="data-table card">
+				<table>
+					<thead>
+						<tr>
+							<!-- <th class="label-cell">Dessert (Per 100g)</th>
+							<th class="numeric-cell">Calories</th>
+							<th class="numeric-cell">Fat (g)</th>
+							<th class="numeric-cell">Carbohydrate (g)</th>
+							<th class="numeric-cell">Protein (g)</th> -->
+							<th class="label-cell">Date</th>
+							<th class="label-cell">Transaction Code</th>
+							<th class="numeric-cell">Amount ($)</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each transactions}}
+						<tr>
+							<!-- <td class="label-cell">{{name}}</td>
+							<td class="numeric-cell">{{calories}}</td>
+							<td class="numeric-cell">{{fat}}</td>
+							<td class="numeric-cell">{{carbohydrate}}</td>
+							<td class="numeric-cell">{{protein}}</td> -->
+							<td class="label-cell">{{date}}</td>
+							<td class="label-cell">{{code}}</td>
+							<td class="numeric-cell">{{amount}}</td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+				<div class="data-table-footer">
+					<div class="data-table-rows-select">Per Page:
+						<div class="input input-dropdown">
+							<select>
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="25">25</option>
+								<option value="all">All</option>
+							</select>
+						</div>
+					</div>
+					<div class="data-table-pagination">
+						<span class="data-table-pagination-label">1-5 of 10</span>
+						<a href="#" class="link disabled">
+							<i class="icon icon-prev color-gray"></i>
+						</a>
+						<a href="#" class="link">
+							<i class="icon icon-next color-gray"></i>
+						</a>
+					</div>
+				</div>
+			</div>                
+
+		</div>
+
+	</div>
+</template>
+
+<script>
+	return {
+		data: function() {
+			return {
+				transactions: [
+					{
+						date: '10/10/2019',
+						code: 'O000010',
+						amount: '9'
+					},
+					{
+						date: '10/10/2019',
+						code: 'O000009',
+						amount: '7'
+					},
+					{
+						date: '10/10/2019',
+						code: 'O000008',
+						amount: '8'
+					},
+					{
+						date: '10/10/2019',
+						code: 'O000007',
+						amount: '4'
+					},
+					{
+						date: '10/10/2019',
+						code: 'O000006',
+						amount: '6'
+					},
+					{
+						date: '10/10/2019',
+						code: 'O000005',
+						amount: '3'
+					},
+					{
+						date: '10/10/2019',
+						code: 'O000004',
+						amount: '10'
+					},
+					{
+						date: '10/10/2019',
+						code: 'O000003',
+						amount: '11'
+					},
+					{
+						date: '10/10/2019',
+						code: 'O000002',
+						amount: '9'
+					},
+					{
+						date: '10/10/2019',
+						code: 'O000001',
+						amount: '9'
+					}
+				],
+				desserts: [
+					{
+						name: 'Cupcake',
+						calories: '305',
+						fat: '3.7',
+						carbohydrate: '67',
+						protein: '4.3'
+					},
+					{
+						name: 'Donut',
+						calories: '452',
+						fat: '25',
+						carbohydrate: '51',
+						protein: '4.9'
+					},
+					{
+						name: 'Frozen Yogurt',
+						calories: '159',
+						fat: '6',
+						carbohydrate: '24',
+						protein: '4'
+					},
+					{
+						name: 'Gingerbread',
+						calories: '356',
+						fat: '16',
+						carbohydrate: '49',
+						protein: '3.9'
+					},
+					{
+						name: 'Icecream Sandwich',
+						calories: '237',
+						fat: '9',
+						carbohydrate: '37',
+						protein: '4.3'
+					},
+					{
+						name: 'Nougat',
+						calories: '398',
+						fat: '1.7',
+						carbohydrate: '92',
+						protein: '3.3'
+					}
+				]
+			}
+		}
+	}
+</script>
