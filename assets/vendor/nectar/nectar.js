@@ -28,7 +28,7 @@ Framework7.utils.fastClick = {
 Framework7.utils.i18n = {
 
 	getLanguage: function() {
-		// var language = localStorage.getItem('Konbini_Language') ? JSON.parse(localStorage.getItem('Konbini_Language')) : window.config.i18n;
+		// var language = localStorage.getItem('WOKPPL_Language') ? JSON.parse(localStorage.getItem('WOKPPL_Language')) : window.config.i18n;
 		var language = window.config.i18n;
 		return language;
 	},
@@ -39,7 +39,7 @@ Framework7.utils.i18n = {
 		var isCurrentRtl = app.params.rtl;
 
 		i18next.changeLanguage(language.lang, function() {
-			localStorage.setItem('Konbini_Language', JSON.stringify(language));
+			localStorage.setItem('WOKPPL_Language', JSON.stringify(language));
 
 			app.$('html').attr('lang', language.lang);
 			app.$('html').attr('dir', language.dir);
@@ -85,7 +85,7 @@ Framework7.utils.theme = {
 	setColor: function(color) {
 		var color = window.config.theme.color;
 
-		localStorage.setItem('Konbini_Theme_Color', color);
+		localStorage.setItem('WOKPPL_Theme_Color', color);
 
 		app.$('body').removeClass('color-theme-red color-theme-green color-theme-blue color-theme-pink color-theme-yellow color-theme-orange color-theme-gray color-theme-black');
 		app.$('body').addClass('color-theme-' + color);
@@ -96,7 +96,7 @@ Framework7.utils.theme = {
 	setLayout: function(layout) {
 		var layout = window.config.theme.layout;
 
-		localStorage.setItem('Konbini_Theme_Layout', layout);
+		localStorage.setItem('WOKPPL_Theme_Layout', layout);
 
 		app.$('body').removeClass('theme-light theme-dark');
 		app.$('body').addClass('theme-' + layout);

@@ -410,7 +410,7 @@ function getInternetConnectionStatus() {
 function setAJAXDefaults() {
 	app.request.setup({
 		headers: {
-			'Authorization': 'bearer ' + localStorage.getItem('Konbini_accessToken'),
+			'Authorization': 'bearer ' + localStorage.getItem('WOKPPL_accessToken'),
 			'Content-Type': 'application/json'
 		},
 		beforeSend: function () {
