@@ -49,7 +49,7 @@ Framework7.utils.i18n = {
 				app.params.rtl = true;
 			}
 			else {
-				app.$('.f7[rel=stylesheet]').attr('href', 'assets/vendor/framework7/css/framework7.min.css');
+				app.$('.f7[rel=stylesheet]').attr('href', 'assets/vendor/framework7/css/framework7.css');
 				app.params.rtl = false;
 			}
 
@@ -128,6 +128,7 @@ Framework7.utils.theme = {
 				StatusBar.backgroundColorByHexString(statusBarColor);
 			});
 		}
+	// console.log(statusBarColor)
   }
 
 };

@@ -3799,6 +3799,7 @@ li.list-group-title:before,
   color: #8e8e93;
   line-height: 21px;
   max-height: 42px;
+  -webkit-line-clamp: 2;
 }
 .ios .list .item-header,
 .ios .list .item-footer {
@@ -4680,6 +4681,7 @@ html.device-pixel-ratio-3 .ios li:last-child li .item-inner:after {
   color: #757575;
   line-height: 20px;
   max-height: 40px;
+  -webkit-line-clamp: 2;
 }
 .md .list .item-header,
 .md .list .item-footer {

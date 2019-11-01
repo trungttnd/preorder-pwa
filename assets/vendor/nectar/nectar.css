@@ -2359,7 +2359,7 @@ input[type=color i] {
 }
 
 .list .item-text {
-	-webkit-line-clamp: unset;
+	-webkit-line-clamp: 2;
 	white-space: normal;
 }
 
