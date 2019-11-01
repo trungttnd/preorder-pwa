@@ -19,14 +19,7 @@ var app = new Framework7({
 	id: window.config.app.id,
 	name: window.config.app.title,
 	version: window.config.app.version,
-	theme: (function () {
-		if (document.location.search.indexOf('theme=') >= 0) {
-			return document.location.search.split('theme=')[1].split('&')[0];
-		}
-		else {
-			return 'auto';
-		}
-	})(),
+	theme: 'md',
 	rtl: false,
 	routes: window.routes,
 	lazyModulesPath: 'assets/vendor/framework7/lazy-components',

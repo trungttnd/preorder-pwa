@@ -112,7 +112,8 @@ window.config.colors = {
     statusbar_dark: '#1B1B1B'
 	},
 	md: {
-		red: '#F44336',
+    red: '#ff4a16',
+		// red: '#F44336',
 		green: '#4CAF50',
 		blue: '#2196F3',
 		pink: '#E91E63',
@@ -270,7 +271,7 @@ window.config.colors = {
 */
 
 window.config.theme = {
-	color: 'green',
-	layout: 'dark',
+	color: 'red',
+	layout: 'light',
   navigation: 'tabbar'
 };
