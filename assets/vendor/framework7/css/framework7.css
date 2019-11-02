@@ -80,7 +80,7 @@ p {
   pointer-events: none !important;
 }
 .ios body {
-  font-family: -apple-system, SF Pro Text, SF UI Text, system-ui, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, cabin regular, SF Pro Text, SF UI Text, system-ui, Helvetica Neue, Helvetica, Arial, sans-serif;
   color: #000;
   line-height: 1.4;
 }
