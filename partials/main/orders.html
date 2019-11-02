@@ -8,13 +8,44 @@
 				</div> -->
 				<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
 				<div class="right">
-					<a href="#" class="link icon-only searchbar-enable" data-searchbar=".searchbar">
+					<!-- <a href="#" class="link icon-only searchbar-enable" data-searchbar=".searchbar">
 						<i class="icon f7-icons ios-only">search</i>
 						<i class="icon material-icons md-only">search</i>
-					</a>
+					</a> -->
 				</div>
-
-				<form class="searchbar searchbar-expandable searchbar-init" data-search-container=".search-list"
+				<div class="subnavbar">
+						<div class="subnavbar-inner">
+								<div class="row">
+										<div class="col">
+											<div class="item-inner">
+												<div class="item-title item-label">Date</div>
+												<div class="item-input-wrap">
+													<input type="date" name="pickDate" value="2019-11-02" />
+												</div>
+											</div>
+										</div>
+										<div class="col">
+											<div class="item-inner">
+												<div class="item-title item-label">Session</div>
+												<div class="item-input-wrap input-dropdown-wrap">
+														<select>
+														  <option value="1">Session 1</option>
+														  <option value="2">Session 2</option>
+														  <option value="3">Session 3</option>
+														</select>
+													  </div>
+											</div>
+										</div>
+										<div class="col">
+											<div class="item-inner">
+												<button type="button" 
+													class="button button-small button-round button-fill">Search</button>
+											</div>
+										</div>
+									</div>
+						</div>
+					</div>
+				<!-- <form class="searchbar searchbar-expandable searchbar-init" data-search-container=".search-list"
 					data-search-item="li" data-search-in=".item-title">
 					<div class="searchbar-inner">
 						<div class="searchbar-input-wrap">
@@ -24,22 +55,22 @@
 						</div>
 						<span class="searchbar-disable-button" data-i18n="cancel">Cancel</span>
 					</div>
-				</form>
+				</form> -->
 			</div>
 		</div>
 
 		<div class="page-content">
 			<div class="toolbar tabbar tabbar-scrollable tabbar-sticky">
 				<div class="toolbar-inner">
-					<a href="#tab-pizza" class="tab-link tab-link-active">Pizzas</a>
+					<a href="#tab-pizza?1" class="tab-link tab-link-active">Pizzas</a>
 					<a href="#tab-drink" class="tab-link">Drinks</a>
 					<a href="#tab-cake" class="tab-link">Cakes</a>
 					<a href="#tab-food" class="tab-link">Foods</a>
 				</div>
 			</div>
 			<div class="tabs">
-				<div id="tab-pizza" class="tab tab-active">
-					<div class="searchbar-not-found">
+				<div id="tab-pizza?1" class="tab tab-active">
+					<!-- <div class="searchbar-not-found">
 						<div class="empty-state">
 							<div class="empty-state-media">
 								<img src="assets/custom/img/no-search.svg" alt="" />
@@ -50,9 +81,9 @@
 									data-i18n="try-again" @click="refreshSearchbar">Try Again</button>
 							</div>
 						</div>
-					</div>
-					<div class="searchbar-found">
-						<div class="list media-list no-hairlines no-hairlines-between margin-vertical search-list">
+					</div> -->
+					<!-- <div class="searchbar-found"> -->
+						<div class="list media-list no-hairlines no-hairlines-between margin-vertical">
 							<ul>
 								<li>
 									<div class="item-content">
@@ -272,7 +303,7 @@
 								</li>
 							</ul>
 						</div>
-					</div>
+					<!-- </div> -->
 
 				</div>
 
@@ -310,10 +341,10 @@
 					self.$('.toolbar').removeClass('toolbar-hidden');
 				});
 			},
-			refreshSearchbar: function() {
-				var self = this;
-				app.searchbar.clear('.searchbar');
-			}
+			// refreshSearchbar: function() {
+			// 	var self = this;
+			// 	app.searchbar.clear('.searchbar');
+			// }
 		},
 		on: {
 			pageInit: function () {
