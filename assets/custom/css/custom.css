@@ -22,8 +22,9 @@
 
 .categoriesFont {
 	font-family: 'BebasNeueRegular';
-   font-weight: normal;
+   font-weight: bold;
    font-style: normal;
+   font-size: larger;
 }  
 
 .descriptionFont{
