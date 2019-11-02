@@ -1616,7 +1616,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 .ios .tabbar-labels .tabbar-label {
   letter-spacing: 0.01em;
-  font-size: 10px;
+  font-size: 12px;
 }
 @media (min-width: 768px) {
   .ios .tabbar .toolbar-inner,
