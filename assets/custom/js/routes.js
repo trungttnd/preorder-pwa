@@ -6,6 +6,10 @@ window.routes = [
 		componentUrl: './partials/user/signin.html'
 	},
 	{
+		path: '/home',
+		componentUrl: './partials/main/home.html'
+	},
+	{
 		path: '/orders',
 		componentUrl: './partials/main/orders.html'
 	},

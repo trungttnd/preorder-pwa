@@ -3,152 +3,444 @@
 
 		<div class="navbar">
 			<div class="navbar-inner">
-				<!-- {{#js_if "app.data.config.theme.navigation == 'hamburger'"}}
-				<div class="left">
-					<a href="#" class="link back">
-						<i class="icon icon-back"></i>
-						<span class="ios-only" data-i18n="home">Home</span>
-					</a>
-				</div>
-				{{/js_if}}
-				<div class="title md-only" data-i18n="more">More</div> -->
+				<!-- <div class="title" data-i18n="more">More</div> -->
 				<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
-				<!-- <div class="right">
-					<a href="#" class="link icon-only searchbar-enable" data-searchbar=".searchbar">
-						<i class="icon f7-icons ios-only">search</i>
-						<i class="icon material-icons md-only">search</i>
+				<div class="right">
+                    <!-- <a href="#" @click="openQR" class="link icon-only">
+						<i class="fas fa-qrcode"></i>
 					</a>
-				</div> -->
-				<!-- <div class="subnavbar ios-only">
+					<a href="#" @click="notifications" class="link icon-only">
+						<i class="icon f7-icons ios-only">bell<span class="badge color-red">5</span></i>
+						<i class="icon material-icons md-only">notifications<span class="badge color-red">5</span></i>
+					</a> -->
+                </div>
+				<!-- <div class="subnavbar">
 					<div class="subnavbar-inner">
 						<div class="title" data-i18n="more">More</div>
 					</div>
 				</div> -->
-				<!-- <form class="searchbar searchbar-expandable searchbar-init" data-search-container=".search-list" data-search-item="li" data-search-in=".item-title">
-					<div class="searchbar-inner">
-						<div class="searchbar-input-wrap">
-							<input type="search" placeholder="Search" data-i18n="[placeholder]search" />
-							<i class="searchbar-icon"></i>
-							<span class="input-clear-button"></span>
-						</div>
-						<span class="searchbar-disable-button" data-i18n="cancel">Cancel</span>
-					</div>
-				</form> -->
 			</div>
 		</div>
 
 		<div class="page-content">
-
-			<div class="searchbar-not-found">
-				<div class="empty-state">
-					<div class="empty-state-media">
-						<img src="assets/custom/img/no-search.svg" alt="" />
-					</div>
-					<div class="empty-state-title" data-i18n="no-search-results">No Search Results</div>
-					<div class="empty-state-actions">
-						<button type="button" class="button button-big button-fill button-round" data-i18n="try-again" @click="refreshSearchbar">Try Again</button>
-					</div>
-				</div>
+			<div class="list">
+				<ul>
+					<li>
+						<a href="/screens/transaction-history" class="item-link">
+							<div class="item-content">
+								<div class="item-media">
+									<i class="fa-stack">
+										<span class="fas fa-circle fa-stack-2x color-pink-5"></span>
+										<span class="fas fa-history fa-stack-1x fa-inverse"></span>
+									</i>
+								</div>
+								<div class="item-inner">
+									<div class="item-title">Transaction History</div>
+								</div>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="/screens/feedback" class="item-link">
+							<div class="item-content">
+								<div class="item-media">
+									<i class="fa-stack">
+										<span class="fas fa-circle fa-stack-2x color-violet-5"></span>
+										<span class="fas fa-comment fa-stack-1x fa-inverse"></span>
+									</i>
+								</div>
+								<div class="item-inner">
+									<div class="item-title">Feedback</div>
+								</div>
+							</div>
+						</a>
+					</li>
+					<li>
+						<!-- <a href="/screens/user-profile" class="item-link"> -->
+						<a href="#" class="item-link popup-open" data-popup=".popup-userProfile">
+							<div class="item-content">
+								<div class="item-media">
+									<i class="fa-stack">
+										<span class="fas fa-circle fa-stack-2x color-green-5"></span>
+										<span class="fas fa-user fa-stack-1x fa-inverse"></span>
+									</i>
+								</div>
+								<div class="item-inner">
+									<div class="item-title">User Profile</div>
+								</div>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="item-link popup-open" data-popup=".popup-changePassword">
+							<div class="item-content">
+								<div class="item-media">
+									<i class="fa-stack">
+										<span class="fas fa-circle fa-stack-2x color-yellow-5"></span>
+										<span class="fas fa-exchange-alt fa-stack-1x fa-inverse"></span>
+									</i>
+								</div>
+								<div class="item-inner">
+									<div class="item-title">Change Password</div>
+								</div>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a @click="logout" class="item-link">
+							<div class="item-content">
+								<div class="item-media">
+									<i class="fa-stack">
+										<span class="fas fa-circle fa-stack-2x color-red-5"></span>
+										<span class="fas fa-sign-out-alt fa-stack-1x fa-inverse"></span>
+									</i>
+								</div>
+								<div class="item-inner">
+									<div class="item-title">Logout</div>
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
 			</div>
-
-			<div class="searchbar-found">
-				<div class="list search-list">
-					<ul>
-						<li>
-							<a href="/themes" class="item-link">
-								<div class="item-content">
-									<div class="item-media">
-										<i class="fa-stack">
-											<span class="fas fa-square fa-stack-2x color-pink-5 ios-only"></span>
-											<span class="fas fa-circle fa-stack-2x color-pink-5 md-only"></span>
-											<span class="fas fa-palette fa-stack-1x fa-inverse"></span>
-										</i>
-									</div>
-									<div class="item-inner">
-										<div class="item-title" data-i18n="themes">Themes</div>
-									</div>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="/web-apis" class="item-link">
-								<div class="item-content">
-									<div class="item-media">
-										<i class="fa-stack">
-											<span class="fas fa-square fa-stack-2x color-yellow-5 ios-only"></span>
-											<span class="fas fa-circle fa-stack-2x color-yellow-5 md-only"></span>
-											<span class="fas fa-code fa-stack-1x fa-inverse"></span>
-										</i>
-									</div>
-									<div class="item-inner">
-										<div class="item-title" data-i18n="web-apis">Web APIs</div>
-									</div>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="/cordova-plugins" class="item-link">
-								<div class="item-content">
-									<div class="item-media">
-										<i class="fa-stack">
-											<span class="fas fa-square fa-stack-2x color-violet-5 ios-only"></span>
-											<span class="fas fa-circle fa-stack-2x color-violet-5 md-only"></span>
-											<span class="fas fa-mobile-alt fa-stack-1x fa-inverse"></span>
-										</i>
-									</div>
-									<div class="item-inner">
-										<div class="item-title" data-i18n="cordova-plugins">Cordova Plugins</div>
-									</div>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="/integrations" class="item-link">
-								<div class="item-content">
-									<div class="item-media">
-										<i class="fa-stack">
-											<span class="fas fa-square fa-stack-2x color-red-5 ios-only"></span>
-											<span class="fas fa-circle fa-stack-2x color-red-5 md-only"></span>
-											<span class="fas fa-fire fa-stack-1x fa-inverse"></span>
-										</i>
-									</div>
-									<div class="item-inner">
-										<div class="item-title" data-i18n="integrations">Integrations</div>
-									</div>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="/utilities" class="item-link">
-								<div class="item-content">
-									<div class="item-media">
-										<i class="fa-stack">
-											<span class="fas fa-square fa-stack-2x color-orange-5 ios-only"></span>
-											<span class="fas fa-circle fa-stack-2x color-orange-5 md-only"></span>
-											<span class="fas fa-pencil-ruler fa-stack-1x fa-inverse"></span>
-										</i>
-									</div>
-									<div class="item-inner">
-										<div class="item-title" data-i18n="utilities">Utilities</div>
-									</div>
-								</div>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-
 		</div>
 
+		<div class="popup popup-tablet-fullscreen popup-userProfile">
+			<div class="view">
+				<div class="page">
+
+					<div class="navbar">
+						<div class="navbar-inner">
+							<!-- <div class="left ios-only">
+								<a href="#" class="link popup-close" data-popup=".popup-userProfile">
+									<span data-i18n="cancel">Cancel</span>
+								</a>
+							</div>
+							<div class="title">User Profile</div>
+							<div class="right ios-only">
+								<button type="submit" class="button link" form="review"
+									>Update</button>
+							</div> -->
+							<div class="right">
+								<a href="#" class="link icon-only popup-close" data-popup=".popup-userProfile">
+									<i class="icon material-icons">close</i>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="page-content">
+						<form name="profile" action="#" method="POST" enctype="multipart/form-data">
+							<div class="list no-hairlines no-hairlines-between no-margin-bottom">
+								<ul>
+									<li>
+										<div class="item-content item-input item-input-with-info">
+											<div class="item-media">
+												<i class="icon material-icons">local_phone</i>
+											</div>
+											<div class="item-inner">
+												<div class="item-title item-label">Mobile</div>
+												<div class="item-input-wrap">
+													<input type="tel" name="mobile" placeholder="+65xxxxxxx"
+														value="{{_username}}" disabled />
+													<div class="item-input-info input-error-message"></div>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="item-content item-input item-input-with-info">
+											<div class="item-media">
+												<i class="icon material-icons">person</i>
+											</div>
+											<div class="item-inner">
+												<div class="item-title item-label">Name</div>
+												<div class="item-input-wrap">
+													<input type="text" name="name" placeholder="Name" value="{{_name}}"
+														required />
+													<div class="item-input-info input-error-message"></div>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="item-content item-input item-input-with-info">
+											<div class="item-media">
+												<i class="icon material-icons">email</i>
+											</div>
+											<div class="item-inner">
+												<div class="item-title item-label">Email (Optional)</div>
+												<div class="item-input-wrap">
+													<input type="email" name="email" value="{{_email}}" />
+													<div class="item-input-info input-error-message"></div>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+								<div class="block text-align-center">
+									<button type="submit" class="button button-big button-fill">Update</button>
+
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="popup popup-tablet-fullscreen popup-changePassword">
+				<div class="view">
+					<div class="page">
+	
+						<div class="navbar">
+							<div class="navbar-inner">
+								<!-- <div class="left ios-only">
+									<a href="#" class="link popup-close" data-popup=".popup-userProfile">
+										<span data-i18n="cancel">Cancel</span>
+									</a>
+								</div>
+								<div class="title">User Profile</div>
+								<div class="right ios-only">
+									<button type="submit" class="button link" form="review"
+										>Update</button>
+								</div> -->
+								<div class="right">
+									<a href="#" class="link icon-only popup-close" data-popup=".popup-changePassword">
+										<i class="icon material-icons">close</i>
+									</a>
+								</div>
+							</div>
+						</div>
+	
+						<div class="page-content">
+								<form name="changePassword" action="#" method="POST" enctype="multipart/form-data">
+									<div class="list no-hairlines no-hairlines-between no-margin-bottom">
+										<ul>
+											<li>
+												<div class="item-content item-input item-input-with-info">
+													<div class="item-media">
+														<i class="icon material-icons">lock</i>
+													</div>
+													<div class="item-inner">
+														<div class="item-input-wrap">
+															<input type="password" name="old_password" placeholder="Old Password"
+																required />
+															<div class="item-input-info input-error-message"></div>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="item-content item-input item-input-with-info">
+													<div class="item-media">
+															<i class="icon material-icons">lock</i>
+													</div>
+													<div class="item-inner">
+														<div class="item-input-wrap">
+															<input type="password" name="new_password" placeholder="New Password"
+																required />
+															<div class="item-input-info input-error-message"></div>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="item-content item-input item-input-with-info">
+													<div class="item-media">
+															<i class="icon material-icons">lock</i>
+													</div>
+													<div class="item-inner">
+														<div class="item-input-wrap">
+															<input type="password" name="confirm_password" placeholder="Confirm Password"
+																required />
+															<div class="item-input-info input-error-message"></div>
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+										<div class="block text-align-center">
+											<button type="submit" class="button button-big button-fill">Save</button>
+										</div>
+									</div>
+								</form>
+							</div>
+	
+					</div>
+				</div>
+			</div>
 	</div>
 </template>
 
 <script>
 	return {
+		data: function () {
+			return {
+				formValidator: null,
+				_username: '',
+				_name: '',
+				_email: ''
+			}
+		},
 		methods: {
-			refreshSearchbar: function() {
+			loadData: function () {
+				var self = this;
+
+				self.$setState({
+					_username: localStorage.getItem('Konbini_username'),
+					_name: localStorage.getItem('Konbini_name'),
+					_email: localStorage.getItem('Konbini_email')
+				});
+
+			},
+			initializeFormValidator: function () {
+				var self = this;
+				self.formValidator = jQuery('form[name=profile]').validate({
+					rules: {
+						name: {
+							required: true
+						},
+					},
+					messages: {
+						name: {
+							required: 'Please enter name.'
+						},
+					},
+					submitHandler: function (form) {
+						self.submitForm(form);
+
+					}
+				});
+			},
+			submitForm: function (form) {
+				var self = this;
+				console.log(form.name.value, form.email.value)
+				//call api update profile
+				app.request({
+					url: window.config.url + 'api/services/app/Profile/UpdateCurrentUserProfile',
+					dataType: 'json',
+					contentType: "application/json",
+					method: 'PUT',
+					data: { name: form.name.value, surname: form.name.value, emailAddress: form.email.value, userName: self._username },
+					statusCode: {
+						404: function (xhr) {
+							console.log("URL not found");
+						},
+						400: function (xhr) {
+							console.log("Bad request. Some of the inputs provided to the request aren't valid.");
+						},
+						401: function (xhr) {
+							console.log("Not authenticated. The user session isn't valid.");
+						},
+						403: function (xhr) {
+							console.log("The user isn't authorized to perform the specified request.");
+						},
+						500: function (xhr) {
+							console.log("Internal server error. Additional details will be contained on the server logs.");
+						},
+						201: function (xhr) {
+							console.log("The requested resource has been created.");
+						}
+					},
+					success: function (data, status, xhr) {
+						console.log('update profile success');
+						console.log(data);
+						if (data.success) {
+							app.toast.show({
+								text: 'Update user profile successful.',
+								position: 'bottom',
+								cssClass: 'toast-round bg-color-green'
+							});
+							app.popup.close('.popup-userProfile', false);
+						}
+
+						localStorage.setItem('Konbini_name', form.name.value);
+						localStorage.setItem('Konbini_email', form.email.value);
+					},
+					error: function (xhr, status) {
+						console.log('update profile error');
+
+						let response = JSON.parse(xhr.response);
+						console.log(response);
+						var dialog = app.dialog.create({
+							content: '<div class="block no-margin margin-top text-align-center"><i class="fa-stack fa-3x"><span class="fas fa-stack-2x fa-circle text-color-red"></span><span class="fas fa-stack-1x fa-inverse fa-times"></span></i><p>' + response.error.details + '.</p></div>',
+							buttons: [
+								{
+									text: 'Retry',
+									bold: true,
+									color: 'red'
+								}
+							]
+						});
+						dialog.open();
+						//console.log(JSON.stringify(xhr));
+						//console.log(status);
+					}
+				});
+			},
+			hideToolbar: function () {
+				var self = this;
+				setTimeout(function () {
+					self.$('.toolbar').addClass('toolbar-hidden');
+					self.$('.toolbar').removeClass('tabbar');
+					self.$('.toolbar').removeClass('tabbar-labels');
+				});
+			},
+			refreshSearchbar: function () {
 				var self = this;
 				app.searchbar.clear('.searchbar');
+			},
+			logout: function () {
+				var self = this;
+				app.tab.show('#tab-home');
+
+				app.request.get(window.config.url + 'api/TokenAuth/LogOut',
+					function (suc) {
+						console.log('Logout success')
+						console.log(suc);
+					},
+					function (err) {
+						console.log('Logout error')
+						console.log(err);
+					});
+				self.removeCookie();
+				app.views.current.router.navigate('/screens/login');
+				self.hideToolbar();
+			},
+			exitApp: function () {
+				navigator.app.exitApp();
+			},
+			removeCookie: function () {
+				localStorage.removeItem('Konbini_OldUser');
+				localStorage.removeItem('Konbini_OldUser1');
+				localStorage.removeItem('Konbini_accessToken');
+				localStorage.removeItem('Konbini_expireInSeconds');
+				localStorage.removeItem('Konbini_expired');
+				localStorage.removeItem('Konbini_refreshToken');
+				localStorage.removeItem('Konbini_mobile');
+				localStorage.removeItem('Konbini_name');
+				localStorage.removeItem('Konbini_email');
+				localStorage.removeItem('Konbini_username');
+				localStorage.removeItem('Konbini_userId');
+			},
+			openQR: function () {
+				var self = this;
+				app.tab.show('#tab-home');
+				app.views.current.router.navigate('/qrcode');
+			},
+			notifications: function () {
+				var self = this;
+				app.tab.show('#tab-home');
+				app.views.current.router.navigate('/notifications');
+			}
+		},
+		on: {
+			pageInit: function () {
+				var self = this;
+				self.loadData();
+				self.initializeFormValidator();
 			}
 		}
 	}

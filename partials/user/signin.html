@@ -112,7 +112,11 @@
                             }
                         },
                         submitHandler: function (form) {
-                            self.submitForm(form);
+                            //self.submitForm(form);
+
+                            localStorage.setItem('WOKPPL_OldUser', 'true');
+                            app.views.current.router.navigate('/home');
+                            self.displayToolbar();
                         }
                     });
                 },
@@ -130,11 +134,11 @@
                         function (suc) {
                             console.log("login success")
                             console.log(suc);
-                            localStorage.setItem('Konbini_OldUser1', 'true');
-                            localStorage.setItem('Konbini_accessToken', suc.result.accessToken);
-                            localStorage.setItem('Konbini_expireInSeconds', suc.result.expireInSeconds);
-                            localStorage.setItem('Konbini_refreshToken', suc.result.refreshToken);
-                            localStorage.setItem('Konbini_userId', suc.result.userId);
+                            localStorage.setItem('WOKPPL_OldUser', 'true');
+                            localStorage.setItem('WOKPPL_accessToken', suc.result.accessToken);
+                            localStorage.setItem('WOKPPL_expireInSeconds', suc.result.expireInSeconds);
+                            localStorage.setItem('WOKPPL_refreshToken', suc.result.refreshToken);
+                            localStorage.setItem('WOKPPL_userId', suc.result.userId);
     
                             // var dt = new Date();
                             // dt.setDate(dt.getDate() + 1);
@@ -171,17 +175,17 @@
             on: {
                 pageInit: function () {
                     var self = this;
-                    // setTimeout(function () {
-                    //     if (localStorage.getItem('Konbini_OldUser1')) {
-                    //         app.views.current.router.navigate(self.nextScreen);
-                    //         self.displayToolbar();
-                    //     };
-                    //     if (localStorage.getItem('Konbini_registerSuccess')) {
-                    //         let mo = localStorage.getItem('Konbini_mobile');
-                    //         let pass = localStorage.getItem('Konbini_password');
-                    //         self.login(mo, pass);
-                    //     };
-                    // }, 0);
+                    setTimeout(function () {
+                        if (localStorage.getItem('WOKPPL_OldUser')) {
+                            app.views.current.router.navigate(self.nextScreen);
+                            self.displayToolbar();
+                        };
+                        // if (localStorage.getItem('Konbini_registerSuccess')) {
+                        //     let mo = localStorage.getItem('Konbini_mobile');
+                        //     let pass = localStorage.getItem('Konbini_password');
+                        //     self.login(mo, pass);
+                        // };
+                    }, 0);
                     self.initializeFormValidator();
                 }
             }
