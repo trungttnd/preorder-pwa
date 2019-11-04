@@ -122,17 +122,7 @@
                     self.login('+' + form.mobile.value, form.password.value);
     
                 },
-                // ISODateString: function (d) {
-                // 	function pad(n) {
-                // 		return n < 10 ? '0' + n : n
-                // 	}
-                // 	return d.getUTCFullYear() + '-'
-                // 		+ pad(d.getUTCMonth() + 1) + '-'
-                // 		+ pad(d.getUTCDate()) + 'T'
-                // 		+ pad(d.getUTCHours()) + ':'
-                // 		+ pad(d.getUTCMinutes()) + ':'
-                // 		+ pad(d.getUTCSeconds()) + 'Z'
-                // },
+                
                 login: function (mobile, password) {
                     var self = this;
                     app.request.postJSON(window.config.url + 'api/TokenAuth/Authenticate',
@@ -181,17 +171,17 @@
             on: {
                 pageInit: function () {
                     var self = this;
-                    setTimeout(function () {
-                        if (localStorage.getItem('Konbini_OldUser1')) {
-                            app.views.current.router.navigate(self.nextScreen);
-                            self.displayToolbar();
-                        };
-                        if (localStorage.getItem('Konbini_registerSuccess')) {
-                            let mo = localStorage.getItem('Konbini_mobile');
-                            let pass = localStorage.getItem('Konbini_password');
-                            self.login(mo, pass);
-                        };
-                    }, 0);
+                    // setTimeout(function () {
+                    //     if (localStorage.getItem('Konbini_OldUser1')) {
+                    //         app.views.current.router.navigate(self.nextScreen);
+                    //         self.displayToolbar();
+                    //     };
+                    //     if (localStorage.getItem('Konbini_registerSuccess')) {
+                    //         let mo = localStorage.getItem('Konbini_mobile');
+                    //         let pass = localStorage.getItem('Konbini_password');
+                    //         self.login(mo, pass);
+                    //     };
+                    // }, 0);
                     self.initializeFormValidator();
                 }
             }
