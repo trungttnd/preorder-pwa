@@ -64,6 +64,52 @@
 				</div>
 			</div>
 
+			{{#if business}}
+            <div class="card">
+                <div class="card-header justify-content-space-between">
+                    <span>Promotions</span>
+                    <a href="#">View All</a>
+                </div>
+                <div class="card-content card-content-padding">
+                    <div class="photo-gallery">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                {{#each business.photos}}
+                                <div class="swiper-slide">
+                                    <div class="slide-media">
+                                        <img class="img-responsive" src="{{this.url}}" alt="" />
+                                    </div>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header justify-content-space-between">
+                    <span>Popular Products</span>
+                    <a href="#">View All</a>
+                </div>
+                <div class="card-content card-content-padding">
+                    <div class="photo-gallery">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                {{#each business.photos}}
+                                <div class="swiper-slide">
+                                    <div class="slide-media">
+                                        <img class="img-responsive" src="{{this.url}}" alt="" />
+                                    </div>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{/if}}
+
 		</div>
 
 	</div>
@@ -119,7 +165,8 @@
 	return {
 		data: function () {
 			return {
-				sliderHero: null
+				sliderHero: null,
+				business: null,
 			}
 		},
 		methods: {
@@ -129,6 +176,43 @@
 					self.$('.toolbar').removeClass('toolbar-hidden');
 				});
 			},
+			loadData: function(){
+				var self = this;
+
+				app.request.json(
+                    'assets/custom/dataset/business.json',
+                    function (data) {
+                        if (data) {
+                            self.$setState({
+                                business: data
+                            });
+                            self.initializePhotos();
+                        }
+                    }
+                );
+			},
+			initializePhotos: function () {
+                var self = this;
+                app.swiper.create('.photo-gallery .swiper-container', {
+                    centeredSlides: true,
+                    grabCursor: true,
+                    initialSlide: 3,
+                    loop: true,
+                    slidesPerView: 2,
+                    spaceBetween: 16
+                });
+                self.$('.photo-gallery .slide-media img').on('click', function () {
+                    var currentSlide = self.$('.photo-gallery .slide-media img').parent().parent('.swiper-slide-active').data('swiper-slide-index');
+                    var photoBrowser = app.photoBrowser.create({
+                        photos: self.business.photos,
+                        swiper: {
+                            initialSlide: currentSlide
+                        },
+                        theme: app.utils.theme.getLayout()
+                    });
+                    photoBrowser.open();
+                });
+            },			
 			initializeSliderHero: function () {
 				var self = this;
 				self.sliderHero = app.swiper.create('.slider-hero .swiper-container', {
@@ -155,6 +239,7 @@
 			pageInit: function () {
 				var self = this;
 				self.showToolbar();
+				self.loadData();
 				self.initializeSliderHero();
 			}
 		}
