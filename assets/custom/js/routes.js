@@ -3,7 +3,7 @@
 window.routes = [
 	{
 		path: '/',
-		componentUrl: './partials/main/home.html'
+		componentUrl: './partials/user/signup.html'
 	},
 	{
 		path: '/orders',
@@ -20,6 +20,16 @@ window.routes = [
 	{
 		path: '/more',
 		componentUrl: './partials/main/more.html'
+	},
+	{
+		path: '/signup',
+		componentUrl: './partials/user/signup.html',
+		routes: [
+			{
+				path: '/otp',
+				componentUrl: './partials/user/signup-otp.html',
+			}
+		]
 	},
 	{
 		path: '(.*)',
