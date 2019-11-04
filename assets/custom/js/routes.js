@@ -3,7 +3,7 @@
 window.routes = [
 	{
 		path: '/',
-		componentUrl: './partials/user/signup.html'
+		componentUrl: './partials/user/signin.html'
 	},
 	{
 		path: '/orders',
@@ -27,17 +27,31 @@ window.routes = [
 		routes: [
 			{
 				path: '/otp',
-				componentUrl: './partials/user/signup-otp.html',
+				componentUrl: './partials/user/signup-otp.html'
 			},
 			{
 				path: '/password',
-				componentUrl: './partials/user/signup-password.html',
+				componentUrl: './partials/user/signup-password.html'
 			}
 		]
 	},
 	{
 		path: '/signin',
 		componentUrl: './partials/user/signin.html'
+	},
+	{
+		path: '/forgot-password',
+		componentUrl: './partials/user/forgot-password.html',
+		routes: [
+			{
+				path: '/otp',
+				componentUrl: './partials/user/forgot-password-otp.html'
+			},
+			{
+				path: '/new',
+				componentUrl: './partials/user/forgot-password-new.html'
+			}
+		]
 	},
 	{
 		path: '(.*)',
