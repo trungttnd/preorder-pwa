@@ -28,6 +28,10 @@ window.routes = [
 			{
 				path: '/otp',
 				componentUrl: './partials/user/signup-otp.html',
+			},
+			{
+				path: '/password',
+				componentUrl: './partials/user/signup-password.html',
 			}
 		]
 	},
