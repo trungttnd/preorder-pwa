@@ -36,6 +36,10 @@ window.routes = [
 		]
 	},
 	{
+		path: '/signin',
+		componentUrl: './partials/user/signin.html'
+	},
+	{
 		path: '(.*)',
 		componentUrl: './partials/404.html'
 	}
