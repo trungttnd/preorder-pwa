@@ -160,18 +160,18 @@ function initializeViews() {
 	});
 
 	if (window.config.theme.navigation == 'tabbar') {
-		var orders = app.views.create('.view-orders', {
-			url: '/orders', loadInitialPage: false
-		});
-		var transactions = app.views.create('.view-transactions', {
-			url: '/transactions'
-		});
-		var inbox = app.views.create('.view-inbox', {
-			url: '/inbox'
-		});
-		var moreView = app.views.create('.view-more', {
-			url: '/more'
-		});
+		// var orders = app.views.create('.view-orders', {
+		// 	url: '/orders', loadInitialPage: false
+		// });
+		// var transactions = app.views.create('.view-transactions', {
+		// 	url: '/transactions'
+		// });
+		// var inbox = app.views.create('.view-inbox', {
+		// 	url: '/inbox'
+		// });
+		// var moreView = app.views.create('.view-more', {
+		// 	url: '/more'
+		// });
 	}
 }
 

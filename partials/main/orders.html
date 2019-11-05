@@ -3,18 +3,11 @@
 
 		<div class="navbar">
 			<div class="navbar-inner">
-				<!-- <div class="title">
-					<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
-				</div> -->
 				<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
 				<div class="right">
-					<!-- <a href="#" class="link icon-only searchbar-enable" data-searchbar=".searchbar">
-						<i class="icon f7-icons ios-only">search</i>
-						<i class="icon material-icons md-only">search</i>
-					</a> -->
 					<a href="#" class="link icon-only">
 						<i class="icon material-icons">shopping_cart<span class="badge color-red">1</span></i></a>
-						<span class="text-color-red">$15.00</span>
+					<span class="text-color-red">$15.00</span>
 				</div>
 				<div class="subnavbar">
 					<div class="subnavbar-inner" style="justify-content: center;">
@@ -48,23 +41,13 @@
 						</div>
 					</div>
 				</div>
-				<!-- <form class="searchbar searchbar-expandable searchbar-init" data-search-container=".search-list"
-					data-search-item="li" data-search-in=".item-title">
-					<div class="searchbar-inner">
-						<div class="searchbar-input-wrap">
-							<input type="search" placeholder="Search" data-i18n="[placeholder]search" />
-							<i class="searchbar-icon"></i>
-							<span class="input-clear-button"></span>
-						</div>
-						<span class="searchbar-disable-button" data-i18n="cancel">Cancel</span>
-					</div>
-				</form> -->
+
 			</div>
 		</div>
 
 		<div class="page-content">
 			<div class="toolbar tabbar tabbar-scrollable tabbar-sticky">
-				<div class="toolbar-inner categoriesFont" >
+				<div class="toolbar-inner categoriesFont">
 					<a href="#tab-pizza?1" class="tab-link tab-link-active">Pizzas</a>
 					<a href="#tab-drink" class="tab-link">Drinks</a>
 					<a href="#tab-cake" class="tab-link">Cakes</a>
@@ -73,19 +56,7 @@
 			</div>
 			<div class="tabs">
 				<div id="tab-pizza?1" class="tab tab-active">
-					<!-- <div class="searchbar-not-found">
-						<div class="empty-state">
-							<div class="empty-state-media">
-								<img src="assets/custom/img/no-search.svg" alt="" />
-							</div>
-							<div class="empty-state-title" data-i18n="no-search-results">No Search Results</div>
-							<div class="empty-state-actions">
-								<button type="button" class="button button-big button-fill button-round"
-									data-i18n="try-again" @click="refreshSearchbar">Try Again</button>
-							</div>
-						</div>
-					</div> -->
-					<!-- <div class="searchbar-found"> -->
+
 					<div class="list media-list no-hairlines no-hairlines-between margin-vertical descriptionFont">
 						<ul>
 							<li>
@@ -107,7 +78,8 @@
 												about Pizza. Desscription about Pizza. Desscription about Pizza.
 											</div>
 											<div class="item-after" style="color: red; font-weight: bold;">
-												<a href="#" class="link tooltip-init" data-tooltip="Add to Cart">
+												<a href="#" class="item-link tooltip-init popup-open"
+													data-popup=".popup-addToCart" data-tooltip="Add to Cart">
 													<i class="fas fa-fw fa-lg fa-cart-plus text-color-red"></i></a>
 											</div>
 										</div>
@@ -134,7 +106,7 @@
 												about Pizza. Desscription about Pizza. Desscription about Pizza.
 											</div>
 											<div class="item-after" style="color: red; font-weight: bold;">
-												<a href="#" class="link tooltip-init" data-tooltip="Add to Cart">
+												<a href="/orders/options" class="link tooltip-init" data-tooltip="Add to Cart">
 													<i class="fas fa-fw fa-lg fa-cart-plus text-color-red"></i></a>
 											</div>
 										</div>
@@ -323,12 +295,59 @@
 
 
 		</div>
+		<div class="popup popup-tablet-fullscreen popup-addToCart">
+			<div class="view">
+				<div class="page">
 
+					<div class="navbar">
+						<div class="navbar-inner">
+							<div class="right">
+								<a href="#" class="link icon-only popup-close" data-popup=".popup-addToCart">
+									<i class="icon material-icons">close</i>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="page-content">			
+						
+					</div>
+
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <style scoped>
+	.swiper-slide {
+		box-sizing: border-box;
+		padding: 32px 16px;
+		text-align: center;
+	}
 
+	.swiper-slide img {
+		display: block;
+		height: 192px;
+		margin: 0 auto;
+		width: auto;
+	}
+
+	.product-name {
+		font-size: 18px;
+	}
+
+	.product-price {
+		font-size: 18px;
+	}
+
+	.product-price .price-original {
+		text-decoration: line-through;
+	}
+
+	.average-rating {
+		font-size: 14px;
+	}
 </style>
 
 <script>
@@ -344,15 +363,51 @@
 					self.$('.toolbar').removeClass('toolbar-hidden');
 				});
 			},
-			// refreshSearchbar: function() {
-			// 	var self = this;
-			// 	app.searchbar.clear('.searchbar');
-			// }
+			initializeProductSlider: function () {
+				var self = this;
+				app.swiper.create('.swiper-container', {
+					direction: 'horizontal',
+					grabCursor: true,
+					navigation: {
+						nextEl: '.swiper-button-next',
+						prevEl: '.swiper-button-prev'
+					},
+					spaceBetween: 16
+				});
+				self.$('.swiper-slide img').on('click', function () {
+					var currentSlide = self.$(this).parent().index();
+					var photos = [];
+					self.$('.swiper-slide img').each(function () {
+						photos.push({
+							url: self.$(this).attr('src'),
+							caption: self.$(this).attr('alt')
+						});
+					});
+					var photoBrowser = app.photoBrowser.create({
+						photos: photos,
+						swiper: {
+							initialSlide: currentSlide
+						},
+						theme: app.utils.theme.getLayout()
+					});
+					photoBrowser.open();
+				});
+			},
+			addToCart: function () {
+				var self = this;
+				app.toast.show({
+					icon: '<i class="fas fa-fw fa-lg fa-cart-plus"></i>',
+					text: 'Added to Cart',
+					position: 'bottom',
+					cssClass: 'toast-round bg-color-green'
+				});
+			}
 		},
 		on: {
 			pageInit: function () {
 				var self = this;
 				self.showToolbar();
+				self.initializeProductSlider();
 			}
 		}
 	}

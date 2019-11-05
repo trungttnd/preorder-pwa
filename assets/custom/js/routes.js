@@ -11,7 +11,13 @@ window.routes = [
 	},
 	{
 		path: '/orders',
-		componentUrl: './partials/main/orders.html'
+		componentUrl: './partials/main/orders.html',
+		routes: [
+			{
+				path: '/options',
+				componentUrl: './partials/main/orders-options.html'
+			},
+		]
 	},
 	{
 		path: '/transactions',
