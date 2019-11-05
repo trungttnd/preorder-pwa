@@ -3,9 +3,6 @@
 
 		<div class="navbar">
 			<div class="navbar-inner">
-				<!-- <div class="title">
-					<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
-				</div> -->
 				<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
 			</div>
 		</div>
@@ -180,6 +177,8 @@
 				var self = this;
 				setTimeout(function () {
 					self.$('.toolbar').removeClass('toolbar-hidden');
+					self.$('.toolbar').addClass('tabbar');
+					self.$('.toolbar').addClass('tabbar-labels');
 				});
 			},
 			loadData: function () {
@@ -253,6 +252,19 @@
 				self.showToolbar();
 				self.loadData();
 				self.initializeSliderHero();
+
+				var orders = app.views.create('.view-orders', {
+					url: '/orders', loadInitialPage: false
+				});
+				var transactions = app.views.create('.view-transactions', {
+					url: '/transactions'
+				});
+				var inbox = app.views.create('.view-inbox', {
+					url: '/inbox'
+				});
+				var moreView = app.views.create('.view-more', {
+					url: '/more'
+				});
 			},
 			pageBeforeOut: function () {
 				console.log('pageBeforeOut');

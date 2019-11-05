@@ -237,9 +237,10 @@
 	</script>
 	<script>
 		$("#tab-orders").on('tab:show', function (event, ui) {
-			var orders = app.views.create('.view-orders', {
-				url: '/orders', loadInitialPage: false
-			});
+			// var orders = app.views.create('.view-orders', {
+			// 	url: '/orders', loadInitialPage: false
+			// });
+			app.views.current.router.navigate('/orders');
 		});
 		$("#tab-transactions").on('tab:show', function (event, ui) {
 			var transactions = app.views.create('.view-transactions', {
