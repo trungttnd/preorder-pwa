@@ -98,8 +98,31 @@
 
 	<title>Konbini</title>
 	<style scoped>
-		body {
-			overscroll-behavior-y: contain;
+		.body,
+		.wrapper {
+			/* Break the flow */
+			position: absolute;
+			top: 0px;
+
+			/* Give them all the available space */
+			width: 100%;
+			height: 100%;
+
+			/* Remove the margins if any */
+			margin: 0;
+
+			/* Allow them to scroll down the document */
+			overflow-y: hidden;
+		}
+
+		.body {
+			/* Sending body at the bottom of the stack */
+			z-index: 1;
+		}
+
+		.wrapper {
+			/* Making the wrapper stack above the body */
+			z-index: 2;
 		}
 
 		.panel-header {
@@ -162,7 +185,7 @@
 
 	<!-- Begin: Tab Bar Navigation -->
 
-	<div class="views tabs ios-edges">
+	<div class="views tabs ios-edges wrapper">
 		<div class="toolbar toolbar-bottom-md toolbar-hidden">
 			<div class="toolbar-inner">
 				<a href="#tab-home" class="tab-link tab-link-active">

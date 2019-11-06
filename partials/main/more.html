@@ -289,9 +289,9 @@
 				var self = this;
 
 				self.$setState({
-					_username: localStorage.getItem('Konbini_username'),
-					_name: localStorage.getItem('Konbini_name'),
-					_email: localStorage.getItem('Konbini_email')
+					_username: localStorage.getItem('WOKPPL_username'),
+					_name: localStorage.getItem('WOKPPL_name'),
+					_email: localStorage.getItem('WOKPPL_email')
 				});
 
 			},
@@ -356,8 +356,8 @@
 							app.popup.close('.popup-userProfile', false);
 						}
 
-						localStorage.setItem('Konbini_name', form.name.value);
-						localStorage.setItem('Konbini_email', form.email.value);
+						localStorage.setItem('WOKPPL_name', form.name.value);
+						localStorage.setItem('WOKPPL_email', form.email.value);
 					},
 					error: function (xhr, status) {
 						console.log('update profile error');
@@ -413,17 +413,17 @@
 				navigator.app.exitApp();
 			},
 			removeCookie: function () {
-				localStorage.removeItem('Konbini_OldUser');
-				localStorage.removeItem('Konbini_OldUser1');
-				localStorage.removeItem('Konbini_accessToken');
-				localStorage.removeItem('Konbini_expireInSeconds');
-				localStorage.removeItem('Konbini_expired');
-				localStorage.removeItem('Konbini_refreshToken');
-				localStorage.removeItem('Konbini_mobile');
-				localStorage.removeItem('Konbini_name');
-				localStorage.removeItem('Konbini_email');
-				localStorage.removeItem('Konbini_username');
-				localStorage.removeItem('Konbini_userId');
+				localStorage.removeItem('WOKPPL_OldUser');
+				localStorage.removeItem('WOKPPL_OldUser1');
+				localStorage.removeItem('WOKPPL_accessToken');
+				localStorage.removeItem('WOKPPL_expireInSeconds');
+				localStorage.removeItem('WOKPPL_expired');
+				localStorage.removeItem('WOKPPL_refreshToken');
+				localStorage.removeItem('WOKPPL_mobile');
+				localStorage.removeItem('WOKPPL_name');
+				localStorage.removeItem('WOKPPL_email');
+				localStorage.removeItem('WOKPPL_username');
+				localStorage.removeItem('WOKPPL_userId');
 			},
 			openQR: function () {
 				var self = this;
