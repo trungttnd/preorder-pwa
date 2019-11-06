@@ -9869,6 +9869,7 @@ body > .progressbar-infinite,
   border-radius: 0 !important;
   -webkit-transform-origin: center top !important;
   transform-origin: center top !important;
+  overscroll-behavior-y: contain;
 }
 .with-statusbar.device-ios body > .progressbar,
 .with-statusbar.ios:not(.device-ios):not(.device-android) body > .progressbar,
