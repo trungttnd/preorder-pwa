@@ -114,7 +114,7 @@ app.on('init', function () {
 	setAJAXDefaults();
 	setFormValidatorDefaults();
 	//initializeFacebookJsSdk();
-	//noBackExitApp();
+	noBackExitApp();
 });
 
 app.on('pageInit', function () {
@@ -407,15 +407,31 @@ function getInternetConnectionStatus() {
 |------------------------------------------------------------------------------
 */
 function noBackExitApp() {
-	window.addEventListener('load', function () {
-		window.history.pushState({ noBackExitsApp: true }, '')
-	})
+	// window.addEventListener('load', function () {
+	// 	window.history.pushState({ noBackExitsApp: true }, '')
+	// })
 
-	window.addEventListener('popstate', function (event) {
-		if (event.state && event.state.noBackExitsApp) {
-			window.history.pushState({ noBackExitsApp: true }, 'Click again to exit')
-		}
-	})
+	// window.addEventListener('popstate', function (event) {
+	// 	if (event.state && event.state.noBackExitsApp) {
+	// 		window.history.pushState({ noBackExitsApp: true }, 'Click again to exit')
+	// 	}
+	// })
+
+	var backPresses = 0;
+	var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1;
+	var maxBackPresses = 2;
+	function handleBackButton(init) {
+		if (init !== true)
+			backPresses++;
+		if ((!isAndroid && backPresses >= maxBackPresses) ||
+			(isAndroid && backPresses >= maxBackPresses - 1))
+			window.history.back();
+		else
+			window.history.pushState({}, '');
+	}
+
+	handleBackButton(true);
+	window.addEventListener('popstate', handleBackButton);
 }
 /*
 |------------------------------------------------------------------------------
