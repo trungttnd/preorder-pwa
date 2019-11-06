@@ -114,7 +114,7 @@ app.on('init', function () {
 	setAJAXDefaults();
 	setFormValidatorDefaults();
 	//initializeFacebookJsSdk();
-	//noBackExitApp();
+	noBackExitApp();
 });
 
 app.on('pageInit', function () {
@@ -413,7 +413,7 @@ function noBackExitApp() {
 
 	window.addEventListener('popstate', function (event) {
 		if (event.state && event.state.noBackExitsApp) {
-			window.history.pushState({ noBackExitsApp: true }, '')
+			window.history.pushState({ noBackExitsApp: true }, 'Click again to exit')
 		}
 	})
 }
