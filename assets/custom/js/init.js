@@ -114,7 +114,7 @@ app.on('init', function () {
 	setAJAXDefaults();
 	setFormValidatorDefaults();
 	//initializeFacebookJsSdk();
-	noBackExitApp();
+	//noBackExitApp();
 });
 
 app.on('pageInit', function () {
