@@ -406,7 +406,7 @@
 						console.log(err);
 					});
 				self.removeCookie();
-				app.views.current.router.navigate('/screens/login');
+				app.views.current.router.navigate('/signin');
 				self.hideToolbar();
 			},
 			exitApp: function () {
@@ -424,16 +424,6 @@
 				localStorage.removeItem('WOKPPL_email');
 				localStorage.removeItem('WOKPPL_username');
 				localStorage.removeItem('WOKPPL_userId');
-			},
-			openQR: function () {
-				var self = this;
-				app.tab.show('#tab-home');
-				app.views.current.router.navigate('/qrcode');
-			},
-			notifications: function () {
-				var self = this;
-				app.tab.show('#tab-home');
-				app.views.current.router.navigate('/notifications');
 			}
 		},
 		on: {
