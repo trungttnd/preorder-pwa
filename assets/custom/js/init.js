@@ -94,7 +94,7 @@ var app = new Framework7({
 		})(),
 		pushStateSeparator: '#!'
 	},
-	
+
 });
 
 /*
@@ -114,6 +114,7 @@ app.on('init', function () {
 	setAJAXDefaults();
 	setFormValidatorDefaults();
 	//initializeFacebookJsSdk();
+	noBackExitApp();
 });
 
 app.on('pageInit', function () {
@@ -274,9 +275,9 @@ function initializeA2HS() {
 				}
 			]
 		});
-		
+
 		deferredPrompt = event;
-		
+
 		setTimeout(function () {
 			dialog.open();
 		}, 60000);
@@ -312,17 +313,17 @@ function initializeA2HS() {
 	}
 	// Detects if device is on iOS
 	const isIos = () => {
-        const userAgent = window.navigator.userAgent.toLowerCase();
-        return /iphone|ipad|ipod/.test( userAgent );
-      }
-      // Detects if device is in standalone mode
-      const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
-      // Checks if should display install popup notification:
-      if (isIos() && !isInStandaloneMode()) {
+		const userAgent = window.navigator.userAgent.toLowerCase();
+		return /iphone|ipad|ipod/.test(userAgent);
+	}
+	// Detects if device is in standalone mode
+	const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+	// Checks if should display install popup notification:
+	if (isIos() && !isInStandaloneMode()) {
 		// this.setState({ showInstallMessage: true });
-		
-        showIosInstall();
-      }
+
+		showIosInstall();
+	}
 }
 
 /*
@@ -400,7 +401,22 @@ function getInternetConnectionStatus() {
 		});
 	});
 }
+/*
+|------------------------------------------------------------------------------
+| No Back Exit App
+|------------------------------------------------------------------------------
+*/
+function noBackExitApp() {
+	window.addEventListener('load', function () {
+		window.history.pushState({ noBackExitsApp: true }, '')
+	})
 
+	window.addEventListener('popstate', function (event) {
+		if (event.state && event.state.noBackExitsApp) {
+			window.history.pushState({ noBackExitsApp: true }, '')
+		}
+	})
+}
 /*
 |------------------------------------------------------------------------------
 | Set AJAX Defaults
