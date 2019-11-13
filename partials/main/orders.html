@@ -6,8 +6,9 @@
 				<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
 				<div class="right">
 					<a href="#" class="link icon-only">
-						<i class="icon material-icons">shopping_cart<span class="badge color-red">1</span></i></a>
-					<span class="text-color-red">$15.00</span>
+						<i class="icon material-icons">shopping_cart<span
+								class="badge color-red">{{quantity}}</span></i></a>
+					<span class="text-color-red">${{total.toFixed(2)}}</span>
 				</div>
 				<div class="subnavbar">
 					<div class="subnavbar-inner" style="justify-content: center;">
@@ -58,6 +59,8 @@
 				<div id="tab-pizza" class="tab tab-active">
 					<div class="list media-list no-hairlines no-hairlines-between margin-vertical descriptionFont">
 						<ul>
+							{{#if productList}}
+							{{#each productList}}
 							<li>
 								<div class="item-content">
 									<div class="item-media"><img
@@ -65,18 +68,17 @@
 											width="80" /></div>
 									<div class="item-inner">
 										<div class="item-title-row">
-											<div class="item-title">Product 1</div>
-											<div class="item-title" style="font-weight: bold;">$15.00</div>
+											<div class="item-title">{{this.name}}</div>
+											<div class="item-title" style="font-weight: bold;">
+												${{this.price.toFixed(2)}}</div>
 										</div>
 										<div class="item-subtitle">Pizzas</div>
 										<div class="item-row">
-											<div class="item-text">Desscription about Pizza. Desscription about
-												Pizza.
-												Desscription
-												about Pizza. Desscription about Pizza. Desscription about Pizza.
+											<div class="item-text">{{this.description}}
 											</div>
 											<div class="item-after" style="color: red; font-weight: bold;">
-												<a href="#" class="item-link tooltip-init popup-open"
+												<a @click="selectOption({{this.id}})"
+													class="item-link tooltip-init popup-open"
 													data-popup=".popup-addToCart" data-tooltip="Add to Cart">
 													<i class="fas fa-fw fa-lg fa-cart-plus text-color-red"></i></a>
 											</div>
@@ -84,136 +86,8 @@
 									</div>
 								</div>
 							</li>
-							<li>
-								<div class="item-content">
-									<div class="item-media"><img
-											src="https://images.foody.vn/res/g79/785913/s570x570/8d125f53-e2eb-4d3c-a994-af251ae25c26.jpg"
-											width="80" /></div>
-									<div class="item-inner">
-										<div class="item-title-row">
-											<div class="item-title">Product 1</div>
-											<div class="item-title" style="font-weight: bold;">$15.00</div>
-										</div>
-										<div class="item-subtitle">Pizzas</div>
-										<div class="item-row">
-											<div class="item-text">Desscription about Pizza. Desscription about
-												Pizza.
-												Desscription
-												about Pizza. Desscription about Pizza. Desscription about Pizza.
-											</div>
-											<div class="item-after" style="color: red; font-weight: bold;">
-												<a href="#" class="item-link tooltip-init popup-open"
-													data-popup=".popup-addToCart" data-tooltip="Add to Cart">
-													<i class="fas fa-fw fa-lg fa-cart-plus text-color-red"></i></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="item-content">
-									<div class="item-media"><img
-											src="https://images.foody.vn/res/g79/785913/s570x570/8d125f53-e2eb-4d3c-a994-af251ae25c26.jpg"
-											width="80" /></div>
-									<div class="item-inner">
-										<div class="item-title-row">
-											<div class="item-title">Product 1</div>
-											<div class="item-title" style="font-weight: bold;">$15.00</div>
-										</div>
-										<div class="item-subtitle">Pizzas</div>
-										<div class="item-row">
-											<div class="item-text">Desscription about Pizza. Desscription about
-												Pizza.
-												Desscription
-												about Pizza. Desscription about Pizza. Desscription about Pizza.
-											</div>
-											<div class="item-after" style="color: red; font-weight: bold;">
-												<a href="#" class="item-link tooltip-init popup-open"
-													data-popup=".popup-addToCart" data-tooltip="Add to Cart">
-													<i class="fas fa-fw fa-lg fa-cart-plus text-color-red"></i></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="item-content">
-									<div class="item-media"><img
-											src="https://images.foody.vn/res/g79/785913/s570x570/8d125f53-e2eb-4d3c-a994-af251ae25c26.jpg"
-											width="80" /></div>
-									<div class="item-inner">
-										<div class="item-title-row">
-											<div class="item-title">Product 1</div>
-											<div class="item-title" style="font-weight: bold;">$15.00</div>
-										</div>
-										<div class="item-subtitle">Pizzas</div>
-										<div class="item-row">
-											<div class="item-text">Desscription about Pizza. Desscription about
-												Pizza.
-												Desscription
-												about Pizza. Desscription about Pizza. Desscription about Pizza.
-											</div>
-											<div class="item-after" style="color: red; font-weight: bold;">
-												<a href="#" class="item-link tooltip-init popup-open"
-													data-popup=".popup-addToCart" data-tooltip="Add to Cart">
-													<i class="fas fa-fw fa-lg fa-cart-plus text-color-red"></i></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="item-content">
-									<div class="item-media"><img
-											src="https://images.foody.vn/res/g79/785913/s570x570/8d125f53-e2eb-4d3c-a994-af251ae25c26.jpg"
-											width="80" /></div>
-									<div class="item-inner">
-										<div class="item-title-row">
-											<div class="item-title">Product 1</div>
-											<div class="item-title" style="font-weight: bold;">$15.00</div>
-										</div>
-										<div class="item-subtitle">Pizzas</div>
-										<div class="item-row">
-											<div class="item-text">Desscription about Pizza. Desscription about
-												Pizza.
-												Desscription
-												about Pizza. Desscription about Pizza. Desscription about Pizza.
-											</div>
-											<div class="item-after" style="color: red; font-weight: bold;">
-												<a href="#" class="item-link tooltip-init popup-open"
-													data-popup=".popup-addToCart" data-tooltip="Add to Cart">
-													<i class="fas fa-fw fa-lg fa-cart-plus text-color-red"></i></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="item-content">
-									<div class="item-media"><img
-											src="https://images.foody.vn/res/g79/785913/s570x570/8d125f53-e2eb-4d3c-a994-af251ae25c26.jpg"
-											width="80" /></div>
-									<div class="item-inner">
-										<div class="item-title-row">
-											<div class="item-title">Product 1</div>
-											<div class="item-title" style="font-weight: bold;">$15.00</div>
-										</div>
-										<div class="item-subtitle">Pizzas</div>
-										<div class="item-row">
-											<div class="item-text">Desscription about Pizza. Desscription about
-												Pizza.
-												Desscription
-												about Pizza. Desscription about Pizza. Desscription about Pizza.
-											</div>
-											<div class="item-after" style="color: red; font-weight: bold;">
-												<a href="#" class="item-link tooltip-init popup-open"
-													data-popup=".popup-addToCart" data-tooltip="Add to Cart">
-													<i class="fas fa-fw fa-lg fa-cart-plus text-color-red"></i></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
+							{{/each}}
+							{{/if}}
 						</ul>
 					</div>
 
@@ -246,35 +120,36 @@
 							<div class="right">
 								<a href="#" class="link icon-only">
 									<i class="icon material-icons">shopping_cart<span
-											class="badge color-red">0</span></i></a>
-								<span class="text-color-red">$0.00</span>
+											class="badge color-red">{{tempQuantity}}</span></i></a>
+								<span class="text-color-red">${{tempTotal}}</span>
 							</div>
 						</div>
 					</div>
 
 					<div class="page-content">
+						{{#if detail}}
 						<div class="block">
 							<img class="img-center img-responsive" src="assets/custom/food/f1.jpg" alt="" />
 						</div>
 						<div class="block">
 							<div class="row">
 								<div class="col" style="width: 70%;">
-									<div style="font-size: 18px;">Product Name</div>
-									<div class="item-text text-color-gray" style="font-size: 14px;">Product Description
-										Product
-										Description Product Description</div>
+									<div style="font-size: 18px;">{{detail.name}}</div>
+									<div class="item-text text-color-gray" style="font-size: 14px;">
+										{{detail.description}}</div>
 								</div>
 								<div class="col" style="width: 30%; text-align: right;">
 									<div style="font-size: 18px;">
 										<span>Price: </span>
-										<span class="text-color-red">$15.00</span>
+										<span class="text-color-red">${{detail.price.toFixed(2)}}</span>
 									</div>
 									<div class="stepper stepper-small stepper-round stepper-fill stepper-init">
-										<div class="stepper-button-minus"></div>
+										<div class="stepper-button-minus" @click="minusQuantity()"></div>
 										<div class="stepper-input-wrap">
-											<input type="number" value="1" min="0" max="100" step="1" />
+											<input type="number" name="detQuantity" value="1" min="1" max="100" readonly
+												step="1" />
 										</div>
-										<div class="stepper-button-plus"></div>
+										<div class="stepper-button-plus" @click="plusQuantity()"></div>
 									</div>
 								</div>
 							</div>
@@ -350,6 +225,7 @@
 						<div class="block">
 							&nbsp;
 						</div>
+						{{/if}}
 					</div>
 					<div class="fab fab-extended fab-center-bottom color-red" style="width: 120px;">
 						<a href="#">
@@ -370,6 +246,24 @@
 	return {
 		data: function () {
 			return {
+				quantity: 0,
+				total: 0.00,
+				tempQuantity: 0,
+				tempTotal: 0.00,
+				detQuantity: 0,
+				productList: [
+					{ id: 1, name: 'SUN PIZZA', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
+					{ id: 2, name: 'MOON PIZZA', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
+					{ id: 3, name: 'CHEESY BITES TRIO SHRIMP', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
+					{ id: 4, name: 'SEAFOOD DELUXE', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
+					{ id: 5, name: 'SUPER SUPREME', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
+					{ id: 6, name: 'SEAFOOD PESTO', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
+					{ id: 7, name: 'OCEAN DELIGHT', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
+					{ id: 8, name: 'SUPREME', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
+					{ id: 9, name: 'SEAFOOD BLACK PEPPER', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
+					{ id: 10, name: 'SUPREME MEAT LOVER', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
+				],
+				detail: null
 			}
 		},
 		methods: {
@@ -378,6 +272,34 @@
 				setTimeout(function () {
 					self.$('.toolbar').removeClass('toolbar-hidden');
 				});
+			},
+			selectOption: function (id) {
+				var self = this;
+				console.log(id);
+				let det = self.productList.find(function (el) {
+					return el.id == +id;
+				})
+				self.$setState({
+					detail: det,
+					tempQuantity: self.tempQuantity + 1,
+					tempTotal: self.tempTotal + det.price
+				})
+				console.log(self.detail)
+			},
+			minusQuantity: function () {
+				var self = this;
+				if (self.tempQuantity > 1)
+					self.$setState({
+						tempQuantity: self.tempQuantity - 1,
+						tempTotal: self.tempTotal - self.detail.price
+					})
+			},
+			plusQuantity: function () {
+				var self = this;
+				self.$setState({
+					tempQuantity: self.tempQuantity + 1,
+					tempTotal: self.tempTotal + self.detail.price
+				})
 			},
 			addToCart: function () {
 				var self = this;

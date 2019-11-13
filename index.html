@@ -250,9 +250,10 @@
 			app.views.current.router.navigate('/orders');
 		});
 		$("#tab-transactions").on('tab:show', function (event, ui) {
-			var transactions = app.views.create('.view-transactions', {
-				url: '/transactions'
-			});
+			// var transactions = app.views.create('.view-transactions', {
+			// 	url: '/transactions'
+			// });
+			app.views.current.router.navigate('/transactions');
 		});
 		$("#tab-inbox").on('tab:show', function (event, ui) {
 			var inbox = app.views.create('.view-inbox', {
