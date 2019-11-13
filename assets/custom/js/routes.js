@@ -41,7 +41,13 @@ window.routes = [
 	},	
 	{
 		path: '/more',
-		componentUrl: './partials/main/more.html'
+		componentUrl: './partials/main/more.html',
+		routes: [
+			{
+				path: '/loyalty',
+				componentUrl: './partials/main/loyalty.html'
+			}
+		]
 	},
 	{
 		path: '/signup',
