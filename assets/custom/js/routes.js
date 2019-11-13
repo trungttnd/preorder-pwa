@@ -46,6 +46,10 @@ window.routes = [
 			{
 				path: '/loyalty',
 				componentUrl: './partials/main/loyalty.html'
+			},
+			{
+				path: '/account',
+				componentUrl: './partials/main/account.html'
 			}
 		]
 	},

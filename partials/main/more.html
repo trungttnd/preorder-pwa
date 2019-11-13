@@ -3,22 +3,10 @@
 
 		<div class="navbar">
 			<div class="navbar-inner">
-				<!-- <div class="title" data-i18n="more">More</div> -->
 				<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
 				<div class="right">
-                    <!-- <a href="#" @click="openQR" class="link icon-only">
-						<i class="fas fa-qrcode"></i>
-					</a>
-					<a href="#" @click="notifications" class="link icon-only">
-						<i class="icon f7-icons ios-only">bell<span class="badge color-red">5</span></i>
-						<i class="icon material-icons md-only">notifications<span class="badge color-red">5</span></i>
-					</a> -->
+                    
                 </div>
-				<!-- <div class="subnavbar">
-					<div class="subnavbar-inner">
-						<div class="title" data-i18n="more">More</div>
-					</div>
-				</div> -->
 			</div>
 		</div>
 
@@ -56,8 +44,7 @@
 						</a>
 					</li>
 					<li>
-						<!-- <a href="/screens/user-profile" class="item-link"> -->
-						<a href="#" class="item-link popup-open" data-popup=".popup-userProfile">
+						<a href="/more/account" class="item-link">
 							<div class="item-content">
 								<div class="item-media">
 									<i class="fa-stack">
@@ -105,90 +92,6 @@
 			</div>
 		</div>
 
-		<div class="popup popup-tablet-fullscreen popup-userProfile">
-			<div class="view">
-				<div class="page">
-
-					<div class="navbar">
-						<div class="navbar-inner">
-							<!-- <div class="left ios-only">
-								<a href="#" class="link popup-close" data-popup=".popup-userProfile">
-									<span data-i18n="cancel">Cancel</span>
-								</a>
-							</div>
-							<div class="title">User Profile</div>
-							<div class="right ios-only">
-								<button type="submit" class="button link" form="review"
-									>Update</button>
-							</div> -->
-							<div class="right">
-								<a href="#" class="link icon-only popup-close" data-popup=".popup-userProfile">
-									<i class="icon material-icons">close</i>
-								</a>
-							</div>
-						</div>
-					</div>
-
-					<div class="page-content">
-						<form name="profile" action="#" method="POST" enctype="multipart/form-data">
-							<div class="list no-hairlines no-hairlines-between no-margin-bottom">
-								<ul>
-									<li>
-										<div class="item-content item-input item-input-with-info">
-											<div class="item-media">
-												<i class="icon material-icons">local_phone</i>
-											</div>
-											<div class="item-inner">
-												<div class="item-title item-label">Mobile</div>
-												<div class="item-input-wrap">
-													<input type="tel" name="mobile" placeholder="+65xxxxxxx"
-														value="{{_username}}" disabled />
-													<div class="item-input-info input-error-message"></div>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li>
-										<div class="item-content item-input item-input-with-info">
-											<div class="item-media">
-												<i class="icon material-icons">person</i>
-											</div>
-											<div class="item-inner">
-												<div class="item-title item-label">Name</div>
-												<div class="item-input-wrap">
-													<input type="text" name="name" placeholder="Name" value="{{_name}}"
-														required />
-													<div class="item-input-info input-error-message"></div>
-												</div>
-											</div>
-										</div>
-									</li>
-									<li>
-										<div class="item-content item-input item-input-with-info">
-											<div class="item-media">
-												<i class="icon material-icons">email</i>
-											</div>
-											<div class="item-inner">
-												<div class="item-title item-label">Email (Optional)</div>
-												<div class="item-input-wrap">
-													<input type="email" name="email" value="{{_email}}" />
-													<div class="item-input-info input-error-message"></div>
-												</div>
-											</div>
-										</div>
-									</li>
-								</ul>
-								<div class="block text-align-center">
-									<button type="submit" class="button button-big button-fill">Update</button>
-
-								</div>
-							</div>
-						</form>
-					</div>
-
-				</div>
-			</div>
-		</div>
 
 	</div>
 </template>
@@ -214,91 +117,8 @@
 				});
 
 			},
-			initializeFormValidator: function () {
-				var self = this;
-				self.formValidator = jQuery('form[name=profile]').validate({
-					rules: {
-						name: {
-							required: true
-						},
-					},
-					messages: {
-						name: {
-							required: 'Please enter name.'
-						},
-					},
-					submitHandler: function (form) {
-						self.submitForm(form);
-
-					}
-				});
-			},
-			submitForm: function (form) {
-				var self = this;
-				console.log(form.name.value, form.email.value)
-				//call api update profile
-				app.request({
-					url: window.config.url + 'api/services/app/Profile/UpdateCurrentUserProfile',
-					dataType: 'json',
-					contentType: "application/json",
-					method: 'PUT',
-					data: { name: form.name.value, surname: form.name.value, emailAddress: form.email.value, userName: self._username },
-					statusCode: {
-						404: function (xhr) {
-							console.log("URL not found");
-						},
-						400: function (xhr) {
-							console.log("Bad request. Some of the inputs provided to the request aren't valid.");
-						},
-						401: function (xhr) {
-							console.log("Not authenticated. The user session isn't valid.");
-						},
-						403: function (xhr) {
-							console.log("The user isn't authorized to perform the specified request.");
-						},
-						500: function (xhr) {
-							console.log("Internal server error. Additional details will be contained on the server logs.");
-						},
-						201: function (xhr) {
-							console.log("The requested resource has been created.");
-						}
-					},
-					success: function (data, status, xhr) {
-						console.log('update profile success');
-						console.log(data);
-						if (data.success) {
-							app.toast.show({
-								text: 'Update user profile successful.',
-								position: 'bottom',
-								cssClass: 'toast-round bg-color-green'
-							});
-							app.popup.close('.popup-userProfile', false);
-						}
-
-						localStorage.setItem('WOKPPL_name', form.name.value);
-						localStorage.setItem('WOKPPL_email', form.email.value);
-					},
-					error: function (xhr, status) {
-						console.log('update profile error');
-
-						let response = JSON.parse(xhr.response);
-						console.log(response);
-						var dialog = app.dialog.create({
-							content: '<div class="block no-margin margin-top text-align-center"><i class="fa-stack fa-3x"><span class="fas fa-stack-2x fa-circle text-color-red"></span><span class="fas fa-stack-1x fa-inverse fa-times"></span></i><p>' + response.error.details + '.</p></div>',
-							buttons: [
-								{
-									text: 'Retry',
-									bold: true,
-									color: 'red'
-								}
-							]
-						});
-						dialog.open();
-						//console.log(JSON.stringify(xhr));
-						//console.log(status);
-					}
-				});
-			},
+			
+			
 			hideToolbar: function () {
 				var self = this;
 				setTimeout(function () {
@@ -349,7 +169,6 @@
 			pageInit: function () {
 				var self = this;
 				self.loadData();
-				self.initializeFormValidator();
 			}
 		}
 	}
