@@ -262,9 +262,10 @@
 			app.views.current.router.navigate('/inbox');
 		});
 		$("#tab-more").on('tab:show', function (event, ui) {
-			var moreView = app.views.create('.view-more', {
-				url: '/more'
-			});
+			// var moreView = app.views.create('.view-more', {
+			// 	url: '/more'
+			// });
+			app.views.current.router.navigate('/more');
 		});
 
 		

@@ -35,7 +35,7 @@
 									</i>
 								</div>
 								<div class="item-inner">
-									<div class="item-title">Transaction History</div>
+									<div class="item-title">Loyalty Points</div>
 								</div>
 							</div>
 						</a>
@@ -66,26 +66,26 @@
 									</i>
 								</div>
 								<div class="item-inner">
-									<div class="item-title">User Profile</div>
+									<div class="item-title">Account Info</div>
 								</div>
 							</div>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="item-link popup-open" data-popup=".popup-changePassword">
-							<div class="item-content">
-								<div class="item-media">
-									<i class="fa-stack">
-										<span class="fas fa-circle fa-stack-2x color-yellow-5"></span>
-										<span class="fas fa-exchange-alt fa-stack-1x fa-inverse"></span>
-									</i>
+							<a href="/screens/setting" class="item-link">
+								<div class="item-content">
+									<div class="item-media">
+										<i class="fa-stack">
+											<span class="fas fa-circle fa-stack-2x color-orange-5"></span>
+											<span class="fas fa-cog fa-stack-1x fa-inverse"></span>
+										</i>
+									</div>
+									<div class="item-inner">
+										<div class="item-title">Setting</div>
+									</div>
 								</div>
-								<div class="item-inner">
-									<div class="item-title">Change Password</div>
-								</div>
-							</div>
-						</a>
-					</li>
+							</a>
+						</li>
 					<li>
 						<a @click="logout" class="item-link">
 							<div class="item-content">
@@ -190,87 +190,6 @@
 			</div>
 		</div>
 
-		<div class="popup popup-tablet-fullscreen popup-changePassword">
-				<div class="view">
-					<div class="page">
-	
-						<div class="navbar">
-							<div class="navbar-inner">
-								<!-- <div class="left ios-only">
-									<a href="#" class="link popup-close" data-popup=".popup-userProfile">
-										<span data-i18n="cancel">Cancel</span>
-									</a>
-								</div>
-								<div class="title">User Profile</div>
-								<div class="right ios-only">
-									<button type="submit" class="button link" form="review"
-										>Update</button>
-								</div> -->
-								<div class="right">
-									<a href="#" class="link icon-only popup-close" data-popup=".popup-changePassword">
-										<i class="icon material-icons">close</i>
-									</a>
-								</div>
-							</div>
-						</div>
-	
-						<div class="page-content">
-								<form name="changePassword" action="#" method="POST" enctype="multipart/form-data">
-									<div class="list no-hairlines no-hairlines-between no-margin-bottom">
-										<ul>
-											<li>
-												<div class="item-content item-input item-input-with-info">
-													<div class="item-media">
-														<i class="icon material-icons">lock</i>
-													</div>
-													<div class="item-inner">
-														<div class="item-input-wrap">
-															<input type="password" name="old_password" placeholder="Old Password"
-																required />
-															<div class="item-input-info input-error-message"></div>
-														</div>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="item-content item-input item-input-with-info">
-													<div class="item-media">
-															<i class="icon material-icons">lock</i>
-													</div>
-													<div class="item-inner">
-														<div class="item-input-wrap">
-															<input type="password" name="new_password" placeholder="New Password"
-																required />
-															<div class="item-input-info input-error-message"></div>
-														</div>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="item-content item-input item-input-with-info">
-													<div class="item-media">
-															<i class="icon material-icons">lock</i>
-													</div>
-													<div class="item-inner">
-														<div class="item-input-wrap">
-															<input type="password" name="confirm_password" placeholder="Confirm Password"
-																required />
-															<div class="item-input-info input-error-message"></div>
-														</div>
-													</div>
-												</div>
-											</li>
-										</ul>
-										<div class="block text-align-center">
-											<button type="submit" class="button button-big button-fill">Save</button>
-										</div>
-									</div>
-								</form>
-							</div>
-	
-					</div>
-				</div>
-			</div>
 	</div>
 </template>
 
