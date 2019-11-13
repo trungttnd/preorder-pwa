@@ -4,6 +4,11 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 				<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
+				<div class="right">
+					<a href="#" class="link icon-only" title="Read All">
+						<i class="fas fa-check-double"></i>
+					</a>
+				</div>
 			</div>
 		</div>
 
@@ -64,30 +69,31 @@
 						</div>
 					</li>
 					<li class="swipeout">
-							<a href="/inbox/detail" @click="getId(1)" class="item-link item-content swipeout-content">
-								<div class="item-content">
-									<div class="item-media text-color-red">
-										<i class="fa-stack">
-											<span class="fas fa-envelope-open fa-stack-1x"></span>
-										</i>
-									</div>
-									<div class="item-inner">
-										<div class="item-text text-color-black" style="-webkit-line-clamp: 1;">Promotion notification:
-											Description Description Description Description </div>
-										<div class="item-after">11/11</div>
-									</div>
+						<a href="/inbox/detail" @click="getId(1)" class="item-link item-content swipeout-content">
+							<div class="item-content">
+								<div class="item-media text-color-red">
+									<i class="fa-stack">
+										<span class="fas fa-envelope-open fa-stack-1x"></span>
+									</i>
 								</div>
-							</a>
-							<div class="swipeout-actions swipeout-actions-left">
-								<a href="#" @click="deleteNoti(1)"
-									class="swipeout-action swipeout-close swipeout-delete color-red">
-									<div class="swipeout-action-icon">
-										<i class="icon far fa-trash-alt"></i>
-									</div>
-									<div class="swipeout-action-label">Delete</div>
-								</a>
+								<div class="item-inner">
+									<div class="item-text text-color-black" style="-webkit-line-clamp: 1;">Promotion
+										notification:
+										Description Description Description Description </div>
+									<div class="item-after">11/11</div>
+								</div>
 							</div>
-						</li>
+						</a>
+						<div class="swipeout-actions swipeout-actions-left">
+							<a href="#" @click="deleteNoti(1)"
+								class="swipeout-action swipeout-close swipeout-delete color-red">
+								<div class="swipeout-action-icon">
+									<i class="icon far fa-trash-alt"></i>
+								</div>
+								<div class="swipeout-action-label">Delete</div>
+							</a>
+						</div>
+					</li>
 					<li class="swipeout">
 						<a href="/inbox/detail" @click="getId(1)" class="item-link item-content swipeout-content">
 							<div class="item-content">
@@ -97,8 +103,9 @@
 									</i>
 								</div>
 								<div class="item-inner">
-									<div class="item-text text-color-black" style="-webkit-line-clamp: 1;">Promotion notification:
-											Description Description Description Description</div>
+									<div class="item-text text-color-black" style="-webkit-line-clamp: 1;">Promotion
+										notification:
+										Description Description Description Description</div>
 									<div class="item-after">11/11</div>
 								</div>
 							</div>
@@ -122,8 +129,9 @@
 									</i>
 								</div>
 								<div class="item-inner">
-									<div class="item-text text-color-black" style="-webkit-line-clamp: 1;">Promotion notification:
-											Description Description Description Description</div>
+									<div class="item-text text-color-black" style="-webkit-line-clamp: 1;">Promotion
+										notification:
+										Description Description Description Description</div>
 									<div class="item-after">10/11</div>
 								</div>
 							</div>
@@ -186,7 +194,7 @@
 			getId: function (id) {
 				var self = this;
 			},
-			deleteNoti: function (id){
+			deleteNoti: function (id) {
 				var self = this;
 			}
 		},
