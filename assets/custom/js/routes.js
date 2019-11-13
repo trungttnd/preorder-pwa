@@ -50,6 +50,10 @@ window.routes = [
 			{
 				path: '/account',
 				componentUrl: './partials/main/account.html'
+			},
+			{
+				path: '/user-profile',
+				componentUrl: './partials/main/user-profile.html'
 			}
 		]
 	},
