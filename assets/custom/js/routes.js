@@ -31,7 +31,13 @@ window.routes = [
 	},
 	{
 		path: '/inbox',
-		componentUrl: './partials/main/inbox.html'
+		componentUrl: './partials/main/inbox.html',
+		routes: [
+			{
+				path: '/detail',
+				componentUrl: './partials/main/inbox-detail.html'
+			}
+		]
 	},	
 	{
 		path: '/more',

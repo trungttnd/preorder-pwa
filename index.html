@@ -256,9 +256,10 @@
 			app.views.current.router.navigate('/transactions');
 		});
 		$("#tab-inbox").on('tab:show', function (event, ui) {
-			var inbox = app.views.create('.view-inbox', {
-				url: '/inbox'
-			});
+			// var inbox = app.views.create('.view-inbox', {
+			// 	url: '/inbox'
+			// });
+			app.views.current.router.navigate('/inbox');
 		});
 		$("#tab-more").on('tab:show', function (event, ui) {
 			var moreView = app.views.create('.view-more', {

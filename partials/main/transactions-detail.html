@@ -24,47 +24,34 @@
         </div>
 
         <div class="page-content">
-            <div class="block-title display-flex justify-content-space-between">
+            <div class="block-title display-flex justify-content-space-between text-color-black">
                 <span>Transactions Id: 100101</span>
             </div>
-            <div class="card">
-                <div class="card-content card-content-padding">
-                    <div class="list media-list no-hairlines no-hairlines-between">
-                        <ul>
-                            <li>
-                                <div class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title-row">
-                                            <div class="item-title">Chicken rice</div>
-                                            <div class="item-after">$1.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title-row">
-                                            <div class="item-title">Sushi</div>
-                                            <div class="item-after">$1.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title-row">
-                                            <div class="item-title">Noodle</div>
-                                            <div class="item-after">$1.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="data-table card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="label-cell">Your cart</th>
+                                <th class="numeric-cell">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="label-cell">Noodle</td>
+                                <td class="numeric-cell">$1.00</td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">Chicken Rice</td>
+                                <td class="numeric-cell">$1.00</td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">Sushi</td>
+                                <td class="numeric-cell">$1.00</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
                 </div>
-            </div>
             <div class="card">
                 <div class="card-content card-content-padding">
                     <div class="list no-hairlines no-hairlines-between">
@@ -128,64 +115,7 @@
                 // self.detail = JSON.parse(localStorage.getItem('Konbini_cardDetail'));
 
             },
-            deleteCard: function (id) {
-                var self = this;
-
-                app.request({
-                    url: window.config.url + 'api/services/app/Card/DeleteCard',
-                    dataType: 'json',
-                    contentType: "application/json",
-                    method: 'DELETE',
-                    data: { id: id },
-                    statusCode: {
-                        404: function (xhr) {
-                            console.log("URL not found");
-                        },
-                        400: function (xhr) {
-                            console.log("Bad request. Some of the inputs provided to the request aren't valid.");
-                        },
-                        401: function (xhr) {
-                            console.log("Not authenticated. The user session isn't valid.");
-                        },
-                        403: function (xhr) {
-                            console.log("The user isn't authorized to perform the specified request.");
-                        },
-                        500: function (xhr) {
-                            console.log("Internal server error. Additional details will be contained on the server logs.");
-                        },
-                        201: function (xhr) {
-                            console.log("The requested resource has been created.");
-                        }
-                    },
-                    success: function (data, status, xhr) {
-                        console.log(data);
-                        if (data.success) {
-                            app.toast.show({
-                                text: 'Delete Credit Card successful.',
-                                position: 'bottom',
-                                cssClass: 'toast-round bg-color-green'
-                            });
-                            // app.popup.close('.popup-cardDetail', false);
-                            app.views.current.router.navigate('/creditcard');
-                        }
-                    },
-                    error: function (xhr, status) {
-                        let response = JSON.parse(xhr.response);
-                        console.log(response);
-                        var dialog = app.dialog.create({
-                            content: '<div class="block no-margin margin-top text-align-center"><i class="fa-stack fa-3x"><span class="fas fa-stack-2x fa-circle text-color-red"></span><span class="fas fa-stack-1x fa-inverse fa-times"></span></i><p>' + response.error.message + '.</p></div>',
-                            buttons: [
-                                {
-                                    text: 'Retry',
-                                    bold: true,
-                                    color: 'red'
-                                }
-                            ]
-                        });
-                        dialog.open();
-                    }
-                });
-            }
+            
         },
         on: {
             pageInit: function () {
