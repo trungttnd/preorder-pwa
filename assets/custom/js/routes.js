@@ -70,6 +70,14 @@ window.routes = [
 			{
 				path: '/payment-method-new',
 				componentUrl: './partials/main/payment-method-new.html'
+			},
+			{
+				path: '/setting',
+				componentUrl: './partials/main/setting.html'
+			},
+			{
+				path: '/feedback',
+				componentUrl: './partials/main/feedback.html'
 			}
 		]
 	},
