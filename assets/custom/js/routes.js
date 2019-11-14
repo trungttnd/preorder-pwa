@@ -58,6 +58,18 @@ window.routes = [
 			{
 				path: '/change-password',
 				componentUrl: './partials/main/change-password.html'
+			},
+			{
+				path: '/payment-method',
+				componentUrl: './partials/main/payment-method.html'
+			},
+			{
+				path: '/payment-method-view',
+				componentUrl: './partials/main/payment-method-view.html'
+			},
+			{
+				path: '/payment-method-new',
+				componentUrl: './partials/main/payment-method-new.html'
 			}
 		]
 	},

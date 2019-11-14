@@ -1,0 +1,167 @@
+<template>
+    <div class="page">
+
+        <div class="navbar">
+            <div class="navbar-inner">
+                <img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
+                <div class="right">
+                    <a href="#" class="link back">
+                        <span>Back</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-content">
+
+            <div class="block-title">Payment Methods</div>
+            <div class="list inset">
+                <ul>
+                    {{#if listCard}}
+                    {{#each listCard}}
+                    <li class="swipeout">
+                        <div class="swipeout-content">
+                            <div class="item-content">
+                                <div class="item-media">
+                                    <i class="fa-stack">
+                                        <span class="fas fa-circle fa-stack-2x brand-color-strava"></span>
+                                        <span class="fa fa-university fa-stack-1x fa-inverse"></span>
+                                    </i>
+                                </div>
+                                <div class="item-inner">
+                                    <a href="/more/payment-method-view" @click="getId({{this.id}})" class="item-link">
+                                        <div class="item-title-row">
+                                            <div class="item-title">{{this.cardHolderName}}</div>
+                                        </div>
+                                        <div class="item-text">{{this.cardNumber}}</div>
+                                    </a>
+                                    <div class="item-after">
+                                        <label class="toggle toggle-init" id="toggle1"
+                                            @click="clickHandle({{this.id}}, {{this.isDefault}})">
+                                            {{#if this.isDefault}}
+                                            <input type="checkbox" checked disabled />
+                                            {{else}}
+                                            <input type="checkbox" />
+                                            {{/if}}
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swipeout-actions swipeout-actions-left">
+                            <a @click="deleteCard({{this.id}}"
+                                class="swipeout-action swipeout-close swipeout-delete color-red">
+                                <div class="swipeout-action-icon">
+                                    <i class="icon far fa-trash-alt"></i>
+                                </div>
+                                <div class="swipeout-action-label">Delete</div>
+                            </a>
+                        </div>
+                    </li>
+                    {{/each}}
+                    {{/if}}
+                    <li>
+                        <a href="/more/payment-method-new" class="item-link">
+                            <div class="item-content">
+                                <div class="item-media">
+                                    <i class="fa-stack">
+                                        <span class="fas fa-circle fa-stack-2x brand-color-google"></span>
+                                        <span class="fa fa-plus fa-stack-1x fa-inverse"></span>
+                                    </i>
+                                </div>
+                                <div class="item-inner">
+                                    <div class="item-title">Add new credit card</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</template>
+
+<script>
+    return {
+        data: function () {
+            return {
+                listCard: [{
+                    id: 1,
+                    cardHolderName: "Trung Vooy",
+                    cardNumber: "123xxxxx456",
+                    isDefault: true
+                },
+                {
+                    id: 2,
+                    cardHolderName: "James Knox",
+                    cardNumber: "123xxxxx456",
+                    isDefault: false
+                },
+                {
+                    id: 3,
+                    cardHolderName: "Smith Alber",
+                    cardNumber: "123xxxxx456",
+                    isDefault: false
+                }
+                ],
+                detail: null,
+            }
+        },
+        methods: {
+            getId: function (id) {
+
+            },
+            deleteCard: function (id) {
+                var self = this;
+            },
+            clickHandle: function (id, isDefault) {
+                var self = this;
+                console.log(id, isDefault)
+                if (!isDefault) {
+                    //uncheck others checkbox
+                    $('input[type="checkbox"]').on('change', function () {
+                        $('input[type="checkbox"]').not(this).prop('checked', false);
+                    });
+                    //refresh listCard
+                    let list = self.listCard
+                    list.forEach(element => {
+                        if (element.id != id) element.isDefault = false;
+                        else element.isDefault = true;
+                    });
+
+                    self.$setState({
+                        listCard: list
+                    })
+                    //set Default card
+                    // app.request.post(window.config.url + 'api/services/app/Card/SetDefault?id=' + id,
+                    //     function (suc) {
+                    //         let response = JSON.parse(suc);
+                    //         console.log(response)
+                    //     },
+                    //     function (err) {
+                    //         let response = JSON.parse(err.response);
+                    //         console.log(response);
+                    //         var dialog = app.dialog.create({
+                    //             content: '<div class="block no-margin margin-top text-align-center"><i class="fa-stack fa-3x"><span class="fas fa-stack-2x fa-circle text-color-red"></span><span class="fas fa-stack-1x fa-inverse fa-times"></span></i><p>' + response.error.message + '.</p></div>',
+                    //             buttons: [
+                    //                 {
+                    //                     text: 'Retry',
+                    //                     bold: true,
+                    //                     color: 'red'
+                    //                 }
+                    //             ]
+                    //         });
+                    //         dialog.open();
+                    //     })
+                }
+
+            },
+        },
+        on: {
+
+        }
+    }
+</script>
