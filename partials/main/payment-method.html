@@ -22,27 +22,6 @@
                     <li class="swipeout">
 
                         <div class="swipeout-content">
-                            <!-- <a href="/more/payment-method-view" @click="getId({{this.id}})" class="item-link">
-                                <div class="item-content">
-                                    <div class="item-media">
-                                        <i class="fa-stack">
-                                            <span class="fas fa-circle fa-stack-2x brand-color-strava"></span>
-                                            <span class="fa fa-university fa-stack-1x fa-inverse"></span>
-                                        </i>
-                                    </div>
-                                    <div class="item-inner">
-                                        <a href="#" class="item-link">
-                                            <div class="item-title-row">
-                                                <div class="item-title">{{this.cardHolderName}}</div>
-                                            </div>
-                                            <div class="item-text">{{this.cardNumber}}</div>
-                                        </a>
-                                        <div class="item-after">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </a> -->
                             <a href="/more/payment-method-view" @click="getId({{this.id}})" class="item-link">
                                     <div class="item-content">
                                         <div class="item-media">
@@ -129,48 +108,7 @@
             deleteCard: function (id) {
                 var self = this;
             },
-            clickHandle: function (id, isDefault) {
-                var self = this;
-                console.log(id, isDefault)
-                if (!isDefault) {
-                    //uncheck others checkbox
-                    $('input[type="checkbox"]').on('change', function () {
-                        $('input[type="checkbox"]').not(this).prop('checked', false);
-                    });
-                    //refresh listCard
-                    let list = self.listCard
-                    list.forEach(element => {
-                        if (element.id != id) element.isDefault = false;
-                        else element.isDefault = true;
-                    });
-
-                    self.$setState({
-                        listCard: list
-                    })
-                    //set Default card
-                    // app.request.post(window.config.url + 'api/services/app/Card/SetDefault?id=' + id,
-                    //     function (suc) {
-                    //         let response = JSON.parse(suc);
-                    //         console.log(response)
-                    //     },
-                    //     function (err) {
-                    //         let response = JSON.parse(err.response);
-                    //         console.log(response);
-                    //         var dialog = app.dialog.create({
-                    //             content: '<div class="block no-margin margin-top text-align-center"><i class="fa-stack fa-3x"><span class="fas fa-stack-2x fa-circle text-color-red"></span><span class="fas fa-stack-1x fa-inverse fa-times"></span></i><p>' + response.error.message + '.</p></div>',
-                    //             buttons: [
-                    //                 {
-                    //                     text: 'Retry',
-                    //                     bold: true,
-                    //                     color: 'red'
-                    //                 }
-                    //             ]
-                    //         });
-                    //         dialog.open();
-                    //     })
-                }
-
-            },
+            
         },
         on: {
 

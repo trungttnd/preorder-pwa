@@ -17,10 +17,9 @@
                 <div class="list inset">
                         <ul>
                             {{#if listCard}}
-                            {{#each listCard}}
-        
+                            {{#each listCard}}        
                             <li>
-                                <label class="item-radio item-content">
+                                <!-- <label class="item-radio item-content">
                                     <input type="radio" name="creditcard" value="{{this.id}}" />
                                     <i class="icon icon-radio"></i>
                                     <div class="item-media">
@@ -33,7 +32,25 @@
                                         <div class="item-title">{{this.cardHolderName}}</div>
                                         <div class="item-text">{{this.cardNumber}}</div>
                                     </div>
-                                </label>
+                                </label> -->
+                                
+                                    <label class="item-radio item-content">
+                                            <input type="radio" name="creditcard" value="{{this.id}}" />
+                                            <i class="icon icon-radio"></i>
+                                        <div class="item-media">
+                                            <i class="fa-stack">
+                                                    <span class="fas fa-circle fa-stack-2x brand-color-strava"></span>
+                                                    <span class="fa fa-university fa-stack-1x fa-inverse"></span>
+                                            </i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">
+                                                <span>{{this.cardHolderName}}</span>
+                                                <div class="item-header">{{this.cardNumber}}</div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                
                             </li>
                             {{/each}}
                             {{/if}}
