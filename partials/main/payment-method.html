@@ -20,35 +20,47 @@
                     {{#if listCard}}
                     {{#each listCard}}
                     <li class="swipeout">
+
                         <div class="swipeout-content">
-                            <div class="item-content">
-                                <div class="item-media">
-                                    <i class="fa-stack">
-                                        <span class="fas fa-circle fa-stack-2x brand-color-strava"></span>
-                                        <span class="fa fa-university fa-stack-1x fa-inverse"></span>
-                                    </i>
-                                </div>
-                                <div class="item-inner">
-                                    <a href="/more/payment-method-view" @click="getId({{this.id}})" class="item-link">
-                                        <div class="item-title-row">
-                                            <div class="item-title">{{this.cardHolderName}}</div>
+                            <!-- <a href="/more/payment-method-view" @click="getId({{this.id}})" class="item-link">
+                                <div class="item-content">
+                                    <div class="item-media">
+                                        <i class="fa-stack">
+                                            <span class="fas fa-circle fa-stack-2x brand-color-strava"></span>
+                                            <span class="fa fa-university fa-stack-1x fa-inverse"></span>
+                                        </i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <a href="#" class="item-link">
+                                            <div class="item-title-row">
+                                                <div class="item-title">{{this.cardHolderName}}</div>
+                                            </div>
+                                            <div class="item-text">{{this.cardNumber}}</div>
+                                        </a>
+                                        <div class="item-after">
+                                            
                                         </div>
-                                        <div class="item-text">{{this.cardNumber}}</div>
-                                    </a>
-                                    <div class="item-after">
-                                        <label class="toggle toggle-init" id="toggle1"
-                                            @click="clickHandle({{this.id}}, {{this.isDefault}})">
-                                            {{#if this.isDefault}}
-                                            <input type="checkbox" checked disabled />
-                                            {{else}}
-                                            <input type="checkbox" />
-                                            {{/if}}
-                                            <span class="toggle-icon"></span>
-                                        </label>
                                     </div>
                                 </div>
-                            </div>
+                            </a> -->
+                            <a href="/more/payment-method-view" @click="getId({{this.id}})" class="item-link">
+                                    <div class="item-content">
+                                        <div class="item-media">
+                                            <i class="fa-stack">
+                                                    <span class="fas fa-circle fa-stack-2x brand-color-strava"></span>
+                                                    <span class="fa fa-university fa-stack-1x fa-inverse"></span>
+                                            </i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">
+                                                <span>{{this.cardHolderName}}</span>
+                                                <div class="item-header">{{this.cardNumber}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
                         </div>
+
                         <div class="swipeout-actions swipeout-actions-left">
                             <a @click="deleteCard({{this.id}}"
                                 class="swipeout-action swipeout-close swipeout-delete color-red">
