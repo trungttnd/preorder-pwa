@@ -17,6 +17,10 @@ window.routes = [
 				path: '/options',
 				componentUrl: './partials/main/orders-options.html'
 			},
+			{
+				path: '/cart',
+				componentUrl: './partials/main/orders-cart.html'
+			},
 		]
 	},
 	{

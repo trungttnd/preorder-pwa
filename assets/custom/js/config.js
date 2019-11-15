@@ -276,4 +276,4 @@ window.config.theme = {
   navigation: 'tabbar'
 };
 
-window.config.url = 'https://customercloud.azurewebsites.net/';
+window.config.url = 'https://u.konbi.cloud/';
