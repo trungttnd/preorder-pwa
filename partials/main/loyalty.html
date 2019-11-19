@@ -1,6 +1,5 @@
 <template>
     <div class="page">
-
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="right">
@@ -23,46 +22,56 @@
                 Redeem $1 of your next order with 50 points<br>
                 Track your progress
             </div>
+
             <div class="block">
-                <div class="progressbar progressbar-determinate-inline color-red" data-progress="40"></div>
-                <p class="row">
-                    <span>0</span>
-                    <span>1000</span>
+                <p>Loyalty points: {{displayPoint}}
                 </p>
+                <p>Redeem points: ${{displayRedeem.toFixed(2)}}
+                </p>
+                <div class="item-cell">
+                    <div class="range-slider range-slider-init" data-label="true" id="rang">
+                        <input id="loyaltyPoint" name="loyaltyPoint" type="range" min="0" max="{{loyalty}}" step="5" />
+                    </div>
+                </div>
             </div>
-            <div class="block">
-                <span>Redeem points: <red>
-                        <bold>$xx.xx</bold>
-                    </red></span>
-            </div>
+
             <div class="block">
                 <div class="col">
                     <button class="button button-big button-fill button-raised">Tap here to Redeem</button>
                 </div>
             </div>
         </div>
-
     </div>
 </template>
-
 <script>
     return {
         data: function () {
             return {
-
+                loyalty: 1000,
+                displayPoint: 0,
+                redeem: 0.00,
+                displayRedeem: 0.00
             }
         },
         methods: {
             loadData: function () {
                 var self = this;
-
-            },
-
+            }
         },
         on: {
             pageInit: function () {
                 var self = this;
                 //self.loadData()
+                
+                self.$('input[name=loyaltyPoint]').change(function () {
+                    console.log($(this).val())
+                    let p = 0;
+                    p = $(this).val()
+                    self.$setState({                        
+                        displayPoint: self.loyalty - p,
+                        displayRedeem: self.redeem + p/50
+                    })
+                });
             }
         }
     }
