@@ -48,7 +48,7 @@
         data: function () {
             return {
                 loyalty: 1000,
-                displayPoint: 0,
+                displayPoint: 1000,
                 redeem: 0.00,
                 displayRedeem: 0.00
             }
@@ -64,7 +64,7 @@
                 //self.loadData()
                 
                 self.$('input[name=loyaltyPoint]').change(function () {
-                    console.log($(this).val())
+                    // console.log($(this).val())
                     let p = 0;
                     p = $(this).val()
                     self.$setState({                        

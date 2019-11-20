@@ -112,8 +112,7 @@ window.config.colors = {
     statusbar_dark: '#1B1B1B'
 	},
 	md: {
-    red: '#ff4a16',
-		// red: '#F44336',
+		red: '#F44336',
 		green: '#4CAF50',
 		blue: '#2196F3',
 		pink: '#E91E63',
@@ -273,7 +272,7 @@ window.config.colors = {
 window.config.theme = {
 	color: 'red',
 	layout: 'light',
-  navigation: 'tabbar'
+  navigation: 'hamburger'
 };
 
-window.config.url = 'https://u.konbi.cloud/';
+window.config.url = 'https://wokpplapi.konbi.cloud/';

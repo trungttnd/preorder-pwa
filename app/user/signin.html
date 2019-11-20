@@ -68,7 +68,7 @@
         return {
             data: function () {
                 return {
-                    nextScreen: '/home',
+                    nextScreen: '/main/',
                     formValidator: null,
                     isPasswordVisible: false
                 }
@@ -113,9 +113,9 @@
                         },
                         submitHandler: function (form) {
                             //self.submitForm(form);
-
+                            console.log('tesst')
                             localStorage.setItem('WOKPPL_OldUser', 'true');
-                            app.views.current.router.navigate('/home');
+                            app.views.current.router.navigate('/main/');
                             self.displayToolbar();
                         }
                     });
@@ -143,7 +143,7 @@
                             // var dt = new Date();
                             // dt.setDate(dt.getDate() + 1);
                             // localStorage.setItem('WOKPPL_expired', self.ISODateString(dt));
-                            app.views.current.router.navigate('/home');
+                            app.views.current.router.navigate('/main/');
                             self.displayToolbar();
                             // self.$('.toolbar').removeClass('toolbar-hidden');
                             // self.$('.toolbar').addClass('tabbar');
@@ -178,7 +178,7 @@
                     setTimeout(function () {
                         if (localStorage.getItem('WOKPPL_OldUser')) {
                             app.views.current.router.navigate(self.nextScreen);
-                            self.displayToolbar();
+                            //self.displayToolbar();
                         };
                         // if (localStorage.getItem('WOKPPL_registerSuccess')) {
                         //     let mo = localStorage.getItem('WOKPPL_mobile');

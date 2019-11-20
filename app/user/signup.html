@@ -66,10 +66,10 @@
 											data-toggle="show-hide-password" />
 										<div class="item-input-info input-error-message"></div>
 									</div>
-								</div>								
+								</div>
 							</div>
 						</li>
-						
+
 					</ul>
 					<div class="block text-align-center">
 						<button type="submit" class="button button-big button-fill">Continue</button>
@@ -94,7 +94,7 @@
 				codes: null
 			}
 		},
-		methods: {			
+		methods: {
 			initializeFormValidator: function () {
 				var self = this;
 				self.formValidator = jQuery('form[name=signup]').validate({
@@ -108,7 +108,7 @@
 						},
 						passcode: {
 							required: true
-						}						
+						}
 					},
 					messages: {
 						name: {
@@ -118,10 +118,10 @@
 						mobile: {
 							required: 'Please enter phone number.',
 							mobile: 'Please enter a valid phone number.'
-                        },
-                        passcode: {
-                            required: 'Please enter passcode.',
-                        }						
+						},
+						passcode: {
+							required: 'Please enter passcode.',
+						}
 					},
 					submitHandler: function (form) {
 						self.submitForm(form);
@@ -131,7 +131,72 @@
 			},
 			submitForm: function (form) {
 				var self = this;
-				app.views.current.router.navigate('/signup/otp');
+				//app.views.current.router.navigate('/signup/otp');
+				console.log('mobile', '+' + form.code.value + form.mobile.value)
+				console.log('name', form.name.value)
+				console.log('passcode', form.passcode.value)
+				//call api register
+				app.request.postJSON(window.config.url + 'api/services/app/Account/ValidateRegistrationInfo',
+					{
+						mobile: '+' + form.code.value + form.mobile.value,
+						name: form.name.value,
+						passcode: form.passcode.value
+					},
+					function (suc) {
+						console.log("code 200")
+						console.log(suc);
+						//let response = JSON.parse(suc.response);
+						if (suc.result) {
+							app.toast.show({
+								text: 'Thank you for signing up. OTP code will to send to your mobile number.',
+								position: 'bottom',
+								cssClass: 'toast-round bg-color-green'
+							});
+							//Send OTP
+							app.request.postJSON(window.config.url + 'api/services/app/Account/SendOtpCode',
+							{
+								mobile: '+' + form.code.value + form.mobile.value
+							},
+							function (s){
+							},
+							function (e){
+							});
+							localStorage.setItem("WOKPPL_mobile", '+' + form.code.value + form.mobile.value);
+							localStorage.setItem("WOKPPL_passcode", form.passcode.value);
+							localStorage.setItem('WOKPPL_name', form.name.value);
+
+							app.views.current.router.navigate('/signup/otp');
+						}
+						else {
+							var dialog = app.dialog.create({
+								content: '<div class="block no-margin margin-top text-align-center"><i class="fa-stack fa-3x"><span class="fas fa-stack-2x fa-circle text-color-orange"></span><span class="fas fa-stack-1x fa-inverse fa-exclamation"></span></i><p>' + suc.error.message + '.</p></div>',
+								buttons: [
+									{
+										text: 'Okay',
+										bold: true,
+										color: 'orange'
+									}
+								]
+							});
+							dialog.open();
+						}
+					},
+					function (err) {
+						console.log("code 500")
+						console.log(JSON.parse(err.response));
+						let response = JSON.parse(err.response);
+						var dialog = app.dialog.create({
+							content: '<div class="block no-margin margin-top text-align-center"><i class="fa-stack fa-3x"><span class="fas fa-stack-2x fa-circle text-color-red"></span><span class="fas fa-stack-1x fa-inverse fa-times"></span></i><p>' + response.error.message + '.</p></div>',
+							buttons: [
+								{
+									text: 'Retry',
+									bold: true,
+									color: 'red'
+								}
+							]
+						});
+						dialog.open();
+					});
 			},
 
 			getCountryCodes: function () {

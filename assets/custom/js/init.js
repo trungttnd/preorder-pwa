@@ -19,12 +19,20 @@ var app = new Framework7({
 	id: window.config.app.id,
 	name: window.config.app.title,
 	version: window.config.app.version,
+	// theme: (function() {
+	// 	if (document.location.search.indexOf('theme=') >= 0) {
+	// 		return document.location.search.split('theme=')[1].split('&')[0];
+	// 	}
+	// 	else {
+	// 		return 'auto';
+	// 	}
+	// })(),
 	theme: 'ios',
 	rtl: false,
 	routes: window.routes,
 	lazyModulesPath: 'assets/vendor/framework7/lazy-components',
 	init: false,
-	data: function () {
+	data: function() {
 		return {
 			a2hs: null,
 			config: window.config
@@ -58,7 +66,7 @@ var app = new Framework7({
 	},
 	notification: {
 		closeButton: true,
-		// icon: '<img src="' + window.config.app.logo + '" alt="" />',
+		icon: '<img src="' + window.config.app.logo + '" alt="" />',
 		title: window.config.app.title
 	},
 	panel: {
@@ -81,7 +89,7 @@ var app = new Framework7({
 		fastClicksExclude: '.ap-dropdown-menu, .pac-container .pac-item'
 	},
 	view: {
-		pushState: (function () {
+		pushState: (function() {
 			if (window.config.theme.navigation == 'hamburger') {
 				return !Framework7.device.cordova;
 			}
@@ -89,12 +97,11 @@ var app = new Framework7({
 				return false;
 			}
 		})(),
-		pushStateRoot: (function () {
+		pushStateRoot: (function() {
 			return location.pathname;
 		})(),
 		pushStateSeparator: '#!'
-	},
-
+	}
 });
 
 /*
@@ -103,7 +110,7 @@ var app = new Framework7({
 |------------------------------------------------------------------------------
 */
 
-app.on('init', function () {
+app.on('init', function() {
 	initializeServiceWorker();
 	initializeViews();
 	initializeTheme();
@@ -113,23 +120,22 @@ app.on('init', function () {
 	getInternetConnectionStatus();
 	setAJAXDefaults();
 	setFormValidatorDefaults();
-	//initializeFacebookJsSdk();
-	noBackExitApp();
+	initializeFacebookJsSdk();
 });
 
-app.on('pageInit', function () {
+app.on('pageInit', function() {
 	localizeApp();
 });
 
-app.on('panelOpen', function () {
+app.on('panelOpen', function() {
 	app.$('.navbar .hamburger').addClass('is-active');
 });
 
-app.on('panelClose', function () {
+app.on('panelClose', function() {
 	app.$('.navbar .hamburger').removeClass('is-active');
 });
 
-app.on('routerAjaxError', function () {
+app.on('routerAjaxError', function() {
 	app.toast.show({
 		text: 'No Internet Connection',
 		position: 'bottom',
@@ -161,18 +167,15 @@ function initializeViews() {
 	});
 
 	if (window.config.theme.navigation == 'tabbar') {
-		// var orders = app.views.create('.view-orders', {
-		// 	url: '/orders', loadInitialPage: false
-		// });
-		// var transactions = app.views.create('.view-transactions', {
-		// 	url: '/transactions'
-		// });
-		// var inbox = app.views.create('.view-inbox', {
-		// 	url: '/inbox'
-		// });
-		// var moreView = app.views.create('.view-more', {
-		// 	url: '/more'
-		// });
+		var componentsView = app.views.create('.view-components', {
+			url: '/components'
+		});
+		var screensView = app.views.create('.view-screens', {
+			url: '/screens'
+		});
+		var moreView = app.views.create('.view-more', {
+			url: '/more'
+		});
 	}
 }
 
@@ -200,18 +203,18 @@ function initializeI18n() {
 	i18next
 		.use(i18nextXHRBackend)
 		.init({
-			lng: language.lang,
-			fallbackLng: 'en',
-			whitelist: ['en', 'hi', 'ar'],
-			nonExplicitWhitelist: true,
-			preload: ['en', 'hi', 'ar'],
-			backend: {
-				loadPath: 'assets/custom/i18n/{{lng}}.json'
-			}
-		},
-			function () {
-				app.utils.i18n.setLanguage(language);
-			});
+		lng: language.lang,
+		fallbackLng: 'en',
+		whitelist: ['en', 'hi', 'ar'],
+		nonExplicitWhitelist: true,
+		preload: ['en', 'hi', 'ar'],
+		backend: {
+			loadPath: 'assets/custom/i18n/{{lng}}.json'
+		}
+	},
+					function() {
+		app.utils.i18n.setLanguage(language);
+	});
 }
 
 /*
@@ -233,39 +236,38 @@ function localizeApp() {
 */
 
 function initializeA2HS() {
-	let deferredPrompt;
-	window.addEventListener('beforeinstallprompt', function (event) {
+	window.addEventListener('beforeinstallprompt', function(event) {
 		event.preventDefault();
 		app.a2hs = event;
 		var dialog = app.dialog.create({
 			title: '',
-			content: '<div class="block no-margin no-padding text-align-center" style="font-size: 14px;"><img src="assets/custom/img/konbini-logo.svg" width="84" alt="" /><p><b>Add Konbini to your Home Screen?</b></p><p>Install Konbini on your home screen for quick and easy access when you\'re on the go.</p></div>',
+			content: '<div class="block no-margin no-padding text-align-center" style="font-size: 14px;"><img src="'+ window.config.app.logo +'" width="84" alt="" /><p><b>Add Konbi to your Home Screen?</b></p><p>Install Konbi on your home screen for quick and easy access when you\'re on the go.</p></div>',
 			verticalButtons: true,
 			buttons: [
 				{
 					text: 'Add to Home Screen',
 					bold: true,
 					color: 'green',
-					onClick: function () {
+					onClick: function() {
 						app.a2hs.prompt();
 						app.a2hs.userChoice
-							.then(function (choice) {
-								if (choice.outcome == 'accepted') {
-									app.toast.show({
-										text: 'Yaay! Added to Home Screen',
-										position: 'bottom',
-										cssClass: 'toast-round bg-color-green'
-									});
-								}
-								else {
-									app.toast.show({
-										text: 'Oops! Could not add to Home Screen',
-										position: 'bottom',
-										cssClass: 'toast-round bg-color-red'
-									});
-								}
-								app.a2hs = null;
-							});
+							.then(function(choice) {
+							if (choice.outcome == 'accepted') {
+								app.toast.show({
+									text: 'Yaay! Added to Home Screen',
+									position:'bottom',
+									cssClass: 'toast-round bg-color-green'
+								});
+							}
+							else {
+								app.toast.show({
+									text: 'Oops! Could not add to Home Screen',
+									position:'bottom',
+									cssClass: 'toast-round bg-color-red'
+								});
+							}
+							app.a2hs = null;
+						});
 						app.dialog.close();
 					}
 				},
@@ -275,55 +277,10 @@ function initializeA2HS() {
 				}
 			]
 		});
-
-		deferredPrompt = event;
-
-		setTimeout(function () {
+		setTimeout(function() {
 			dialog.open();
 		}, 60000);
-
-		showAddToHomeScreen();
 	});
-	function showAddToHomeScreen() {
-		var a2hsBtn = document.querySelector(".ad2hs-prompt");
-		a2hsBtn.style.display = "block";
-		a2hsBtn.addEventListener("click", addToHomeScreen);
-	}
-
-	function addToHomeScreen() {
-		let a2hsBtn = document.querySelector(".ad2hs-prompt");  // hide our user interface that shows our A2HS button
-		a2hsBtn.style.display = 'none';  // Show the prompt
-		deferredPrompt.prompt();  // Wait for the user to respond to the prompt
-		deferredPrompt.userChoice
-			.then(function (choiceResult) {
-				if (choiceResult.outcome === 'accepted') {
-					console.log('User accepted the A2HS prompt');
-				} else {
-					console.log('User dismissed the A2HS prompt');
-				}
-				deferredPrompt = null;
-			});
-	}
-	function showIosInstall() {
-		var iosPrompt = document.querySelector(".ios-prompt");
-		iosPrompt.style.display = "block";
-		iosPrompt.addEventListener("click", () => {
-			iosPrompt.style.display = "none";
-		});
-	}
-	// Detects if device is on iOS
-	const isIos = () => {
-		const userAgent = window.navigator.userAgent.toLowerCase();
-		return /iphone|ipad|ipod/.test(userAgent);
-	}
-	// Detects if device is in standalone mode
-	const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
-	// Checks if should display install popup notification:
-	if (isIos() && !isInStandaloneMode()) {
-		// this.setState({ showInstallMessage: true });
-
-		showIosInstall();
-	}
 }
 
 /*
@@ -333,7 +290,7 @@ function initializeA2HS() {
 */
 
 function initializeBackButton() {
-	document.addEventListener('backbutton', function (event) {
+	document.addEventListener('backbutton', function(event) {
 		event.preventDefault();
 		var dismissibleModals = app.$('.actions-modal.modal-in').length + app.$('.login-screen.modal-in').length + app.$('.notification.modal-in').length + app.$('.panel-active').length + app.$('.popover.modal-in').length + app.$('.popup.modal-in').length + app.$('.sheet-modal.modal-in').length + app.$('.swipeout-opened').length + app.$('.td-wrap').length + app.$('.toast.modal-in').length + app.$('.tooltip.tooltip-in').length;
 		var nonDismissibleModals = app.$('.dialog.modal-in').length;
@@ -359,7 +316,7 @@ function initializeBackButton() {
 				app.dialog.confirm(
 					'<div class="text-align-center"><img src="assets/custom/img/exit.svg" width="80" alt="" /><div>Do you want to exit the app?</div></div>',
 					'',
-					function () {
+					function() {
 						navigator.app.exitApp();
 					}
 				);
@@ -386,14 +343,14 @@ function initializeBackButton() {
 */
 
 function getInternetConnectionStatus() {
-	window.addEventListener('online', function () {
+	window.addEventListener('online', function() {
 		app.toast.show({
 			text: 'Connected to Internet',
 			position: 'bottom',
 			cssClass: 'bg-color-green'
 		});
 	});
-	window.addEventListener('offline', function () {
+	window.addEventListener('offline', function() {
 		app.toast.show({
 			text: 'No Internet Connection',
 			position: 'bottom',
@@ -401,38 +358,7 @@ function getInternetConnectionStatus() {
 		});
 	});
 }
-/*
-|------------------------------------------------------------------------------
-| No Back Exit App
-|------------------------------------------------------------------------------
-*/
-function noBackExitApp() {
-	window.addEventListener('load', function () {
-		window.history.pushState({ noBackExitsApp: true }, '')
-	})
 
-	window.addEventListener('popstate', function (event) {
-		if (event.state && event.state.noBackExitsApp) {
-			window.history.pushState({ noBackExitsApp: true }, 'Click again to exit')
-		}
-	})
-
-	// var backPresses = 0;
-	// var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1;
-	// var maxBackPresses = 2;
-	// function handleBackButton(init) {
-	// 	if (init !== true)
-	// 		backPresses++;
-	// 	if ((!isAndroid && backPresses >= maxBackPresses) ||
-	// 		(isAndroid && backPresses >= maxBackPresses - 1))
-	// 		window.history.back();
-	// 	else
-	// 		window.history.pushState({}, '');
-	// }
-
-	// handleBackButton(true);
-	// window.addEventListener('popstate', handleBackButton);
-}
 /*
 |------------------------------------------------------------------------------
 | Set AJAX Defaults
@@ -445,10 +371,10 @@ function setAJAXDefaults() {
 			'Authorization': 'bearer ' + localStorage.getItem('WOKPPL_accessToken'),
 			'Content-Type': 'application/json'
 		},
-		beforeSend: function () {
+		beforeSend: function() {
 			app.preloader.show();
 		},
-		complete: function () {
+		complete: function() {
 			app.preloader.hide();
 		}
 	});
@@ -462,8 +388,8 @@ function setAJAXDefaults() {
 
 function setFormValidatorDefaults() {
 	jQuery.validator.setDefaults({
-		errorElement: 'div',
-		errorPlacement: function (error, element) {
+		errorElement : 'div',
+		errorPlacement: function(error, element) {
 			error.appendTo(element.siblings('.input-error-message'));
 		}
 	});
@@ -476,8 +402,8 @@ function setFormValidatorDefaults() {
 */
 
 function initializeFacebookJsSdk() {
-	LazyLoad.js(['https://connect.facebook.net/en_US/sdk.js'], function () {
-		window.fbAsyncInit = function () {
+	LazyLoad.js(['https://connect.facebook.net/en_US/sdk.js'], function() {
+		window.fbAsyncInit = function() {
 			FB.init({
 				appId: window.config.facebook.appId,
 				autoLogAppEvents: true,
@@ -485,10 +411,10 @@ function initializeFacebookJsSdk() {
 				version: 'v3.3'
 			});
 		};
-		app.on('pageInit', function () {
+		app.on('pageInit', function() {
 			FB.XFBML.parse();
 		});
-		app.on('pageReInit', function () {
+		app.on('pageReInit', function() {
 			FB.XFBML.parse();
 		});
 	});

@@ -1,7 +1,7 @@
 {
-	"name": "Konbi.PreOrder App",
-	"short_name": "Konbi.PreOrder",
-	"description": "Konbi.PreOrder Mobile Web App",
+	"name": "Nectar Lite",
+	"short_name": "Nectar Lite",
+	"description": "Mobile Web App Kit",
 	"start_url": ".",
 	"display": "standalone",
 	"orientation": "portrait",
