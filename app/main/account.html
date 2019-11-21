@@ -3,7 +3,7 @@
 
         <div class="navbar">
             <div class="navbar-inner">
-                    <img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
+                <img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
                 <div class="right">
                     <a href="#" class="link back">
                         <span>Back</span>
@@ -26,8 +26,8 @@
                                 </i>
                             </div>
                             <div class="item-inner">
-                                <div class="item-title">Canteen name</div>
-                                <div class="item-after">(id)</div>
+                                <div class="item-title">{{canteenName}}</div>
+                                <div class="item-after">({{canteenId}})</div>
                             </div>
                         </div>
                         <ul>
@@ -40,7 +40,7 @@
                                         </i>
                                     </div>
                                     <div class="item-inner">
-                                        <div class="item-title">Username</div>
+                                        <div class="item-title">{{name}}</div>
                                         <a href="/more/user-profile" class="item-link">
                                             <div class="item-after">
                                                 <i class="far fa-edit"></i>
@@ -58,7 +58,7 @@
                                         </i>
                                     </div>
                                     <div class="item-inner">
-                                        <div class="item-title">Phone number</div>
+                                        <div class="item-title">{{mobile}}</div>
                                         <div class="item-after">
 
                                         </div>
@@ -117,7 +117,35 @@
     return {
         data: function () {
             return {
+                name: '',
+                mobile: '',
+                canteenName: '',
+                canteenId: ''
+            }
+        },
+        methods: {
 
+        },
+        on: {
+            pageInit: function () {
+                var self = this;
+                //get current login infomations
+                app.request.get(window.config.url + 'api/services/app/Session/GetCurrentLoginInformations',
+                    function (suc) {
+                        let response = JSON.parse(suc)
+                        console.log('suc', response);
+                        if (response.result)
+                            self.$setState({
+                                name: response.result.user.name,
+                                mobile: response.result.user.userName,
+                                canteenName:  response.result.tenant.name,
+                                canteenId:  response.result.tenant.id
+                            })
+
+                    },
+                    function (err) {
+                        console.log('err', err);
+                    })
             }
         }
     }
