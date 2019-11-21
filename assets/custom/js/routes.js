@@ -1,31 +1,9 @@
 'use strict';
 
-window.routes = [
+window.routes = [	
 	{
 		path: '/',
-		componentUrl: './app/user/signin.html'
-	},
-	{
-		path: '/signin',
-		componentUrl: './app/user/signin.html'
-	},
-	{
-		path: '/signup',
-		componentUrl: './app/user/signup.html',
-		routes: [
-			{
-				path: '/otp',
-				componentUrl: './app/user/signup-otp.html',
-			},
-			{
-				path: '/password',
-				componentUrl: './app/user/signup-password.html',
-			}
-		]
-	},
-	{
-		path: 'main',
-		url: './app/main/index.html',
+		componentUrl: './app/main/index.html',
 		tabs: [
 			{
 				path: '/',
@@ -280,54 +258,52 @@ window.routes = [
 				component: {
 					template: `
 					<div class="page no-swipeback">
-
-		<div class="navbar">
-			<div class="navbar-inner">
-				<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
-				<div class="right">
-					<a href="/orders/cart" class="link icon-only">
-						<i class="icon material-icons">shopping_cart<span
-								class="badge color-red">{{quantity}}</span></i></a>
-					<span class="text-color-red">$ {{total.toFixed(2)}}</span>
-				</div>
-				<div class="subnavbar">
-					<div class="subnavbar-inner" style="justify-content: center;">
-						<div class="row" style="align-content: center;">
-							<div class="col">
-								<div class="item-inner">
-									<div class="item-title item-label">Date</div>
-									<div class="item-input-wrap">
-										<input type="date" name="pickDate" value="2019-11-02" />
-									</div>
+						<div class="navbar">
+							<div class="navbar-inner">
+								<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
+								<div class="right">
+									<a href="/orders-cart" class="link icon-only">
+									<i class="icon material-icons">shopping_cart<span
+										class="badge color-red">{{quantity}}</span></i></a>
+									<span class="text-color-red">$ {{total.toFixed(2)}}</span>
 								</div>
-							</div>
-							<div class="col">
-								<div class="item-inner">
-									<div class="item-title item-label">Session</div>
-									<div class="item-input-wrap input-dropdown-wrap">
-										<select>
-											<option value="1">Session 1</option>
-											<option value="2">Session 2</option>
-											<option value="3">Session 3</option>
-										</select>
+								<div class="subnavbar">
+									<div class="subnavbar-inner" style="justify-content: center;">
+										<div class="row" style="align-content: center;">
+											<div class="col">
+												<div class="item-inner">
+													<div class="item-title item-label">Date</div>
+													<div class="item-input-wrap">
+														<input type="date" name="pickDate" value="2019-11-02" />
+													</div>
+												</div>
+											</div>
+										<div class="col">
+											<div class="item-inner">
+												<div class="item-title item-label">Session</div>
+												<div class="item-input-wrap input-dropdown-wrap">
+													<select>
+														<option value="1">Session 1</option>
+														<option value="2">Session 2</option>
+														<option value="3">Session 3</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col" style="margin-top: 5px;">
+											<div class="item-inner">
+												<button type="button"
+													class="button button-small button-round button-fill">Search</button>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-							<div class="col" style="margin-top: 5px;">
-								<div class="item-inner">
-									<button type="button"
-										class="button button-small button-round button-fill">Search</button>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-			</div>
-		</div>
-
-		<div class="page-content">
-			<div class="toolbar tabbar tabbar-scrollable tabbar-sticky">
+					<div class="page-content">
+						<div class="toolbar tabbar tabbar-scrollable tabbar-sticky">
 				<div class="toolbar-inner categoriesFont">
 					<a href="#tab-pizza" class="tab-link tab-link-active">Pizzas</a>
 					<a href="#tab-drink" class="tab-link">Drinks</a>
@@ -357,7 +333,7 @@ window.routes = [
 											<div class="item-text">{{this.description}}
 											</div>
 											<div class="item-after" style="color: red; font-weight: bold;">
-												<a href="/orders/options" @click="selectOption({{this.id}})"
+												<a href="/orders-options" @click="selectOption({{this.id}})"
 													class="item-link tooltip-init"
 													data-tooltip="Add to Cart">
 													<i class="fas fa-fw fa-lg fa-cart-plus text-color-red"></i></a>
@@ -796,25 +772,23 @@ window.routes = [
 							console.log(id)
 						}
 					},
-					on: {
-						pageInit: function () {
-							var self = this;
-							let dt = new Date();
-							self.endDate = dt.toISOString().substr(0, 10);
-							let dat = new Date();
-							dat.setDate(1);
-							self.startDate = dat.toISOString().substr(0, 10);
-							// self.loadData(self.startDate, self.endDate);
+					mounted() {
+						var self = this;
+						let dt = new Date();
+						self.endDate = dt.toISOString().substr(0, 10);
+						let dat = new Date();
+						dat.setDate(1);
+						self.startDate = dat.toISOString().substr(0, 10);
+						// self.loadData(self.startDate, self.endDate);
 
-							// self.$('input[name=fromDate]').change(function () {
-							//     self.startDate = $(this).val()
-							//     console.log($(this).val())
-							// });
-							// self.$('input[name=toDate]').change(function () {
-							//     self.endDate = $(this).val()
-							//     console.log($(this).val())
-							// });
-						}
+						// self.$('input[name=fromDate]').change(function () {
+						//     self.startDate = $(this).val()
+						//     console.log($(this).val())
+						// });
+						// self.$('input[name=toDate]').change(function () {
+						//     self.endDate = $(this).val()
+						//     console.log($(this).val())
+						// });
 					}
 				}
 			},
@@ -1200,6 +1174,50 @@ window.routes = [
 				}
 			},
 		]
+	},
+	{
+		path: '/signin',
+		componentUrl: './app/user/signin.html'
+	},
+	{
+		path: '/signup',
+		componentUrl: './app/user/signup.html',
+		routes: [
+			{
+				path: '/otp',
+				componentUrl: './app/user/signup-otp.html',
+			},
+			{
+				path: '/password',
+				componentUrl: './app/user/signup-password.html',
+			}
+		]
+	},
+	{
+		path: '/forgot-password',
+		componentUrl: './app/user/forgot-password.html',
+		routes: [
+			{
+				path: '/new',
+				componentUrl: './app/user/forgot-password-new.html',
+			},
+			{
+				path: '/otp',
+				componentUrl: './app/user/forgot-password-otp.html',
+			}
+		]
+	},
+	{
+		path: '/orders-options',
+		componentUrl: './app/main/orders-options.html'
+	},
+	{
+		path: '/orders-checkout',
+		componentUrl: './app/main/orders-checkout.html'
+	},
+	{
+		path: '/orders-cart',
+		componentUrl: './app/main/orders-cart.html'
 	},
 	{
 		path: '/inbox-detail',
