@@ -158,7 +158,8 @@
 
 				console.log(value)
                 if (length == self.digitsLength) {
-                    let phoneNumber = localStorage.getItem("WOKPPL_mobile");
+					let phoneNumber = localStorage.getItem("WOKPPL_mobile");
+					console.log(phoneNumber)
                     app.request.postJSON(window.config.url + 'api/services/app/Account/CompleteRegisterWithMobile',
                         { mobile: phoneNumber, otpCode: value },
                         function (suc) {
