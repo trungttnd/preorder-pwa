@@ -272,30 +272,24 @@ window.routes = [
 										<div class="row" style="align-content: center;">
 											<div class="col">
 												<div class="item-inner">
-													<div class="item-title item-label">Date</div>
-													<div class="item-input-wrap">
-														<input type="date" name="pickDate" value="2019-11-02" />
+													<div class="item-input-wrap input-dropdown-wrap">
+														<select>
+															<option value="1">Session 1</option>
+															<option value="2">Session 2</option>
+															<option value="3">Session 3</option>
+														</select>
 													</div>
 												</div>
 											</div>
-										<div class="col">
-											<div class="item-inner">
-												<div class="item-title item-label">Session</div>
-												<div class="item-input-wrap input-dropdown-wrap">
-													<select>
-														<option value="1">Session 1</option>
-														<option value="2">Session 2</option>
-														<option value="3">Session 3</option>
-													</select>
+											<div class="col">
+												<div class="item-inner">
+													<div class="item-input-wrap">
+													<input type="text" value="{{today}}" readonly="readonly" id="date"/>
+													</div>
 												</div>
 											</div>
-										</div>
-										<div class="col" style="margin-top: 5px;">
-											<div class="item-inner">
-												<button type="button"
-													class="button button-small button-round button-fill">Search</button>
-											</div>
-										</div>
+										
+										
 									</div>
 								</div>
 							</div>
@@ -369,6 +363,7 @@ window.routes = [
 					`,
 					data: function () {
 						return {
+							today: null,
 							quantity: 0,
 							total: 0.00,
 							tempQuantity: 0,
@@ -422,6 +417,16 @@ window.routes = [
 					},
 					mounted() {
 						var self = this;
+						let date = new Date();
+						
+						self.$setState({
+							today : date.toDateString("DDD, MMM, dd, yyyy")
+						});
+						console.log(self.today)
+						var calendarDateFormat = app.calendar.create({
+							inputEl: '#date',
+							dateFormat: 'DD, MM dd, yyyy'
+						  });
 					}
 				}
 			},
