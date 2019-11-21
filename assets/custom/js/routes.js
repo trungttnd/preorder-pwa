@@ -272,8 +272,8 @@ window.routes = [
 										<a href="#" @click="prev" class="item-link">
 											<i class="fas fa-caret-left" style="margin-right: 10px"></i>
 										</a>
-										<div class="item-input-wrap" style="width: 6rem;">
-											<input type="text" value="{{today}}" readonly="readonly" id="date"/>
+										<div class="item-input-wrap" >
+											<input type="text" value="{{today}}" readonly="readonly" id="date" style="width: 5.5rem;"/>
 										</div>
 										<a href="#" @click="next" class="item-link">
 											<i class="fas fa-caret-right" style="margin-left: 10px"></i>
@@ -382,9 +382,13 @@ window.routes = [
 						prev:function(){
 							var self = this;
 							let dt = $('#date').val();
-							dt = dt.substr(6) + '/' + dt.substr(3,2) + '/' + dt.substr(0,2)
+							let arr = dt.split('/');
+							console.log('dt1',dt)
+							dt = arr[2] + '/' + arr[1] + '/' + arr[0]
+							console.log('dt2',dt)
 							let date = new Date(dt);
-							date.setTime(date.getTime() - (1000*60*60*24))							
+							date.setTime(date.getTime() - (1000*60*60*24))	
+							console.log('date',date)
 							self.$setState({
 								today: date.toLocaleDateString()
 							});
@@ -392,9 +396,13 @@ window.routes = [
 						next:function(){
 							var self = this;
 							let dt = $('#date').val();
-							dt = dt.substr(6) + '/' + dt.substr(3,2) + '/' + dt.substr(0,2)
+							let arr = dt.split('/');
+							console.log('dt1',dt)
+							dt = arr[2] + '/' + arr[1] + '/' + arr[0]
+							console.log('dt2',dt)
 							let date = new Date(dt);
-							date.setTime(date.getTime() + (1000*60*60*24))							
+							date.setTime(date.getTime() + (1000*60*60*24))	
+							console.log('date',date)
 							self.$setState({
 								today: date.toLocaleDateString()
 							});
