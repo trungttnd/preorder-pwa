@@ -269,36 +269,30 @@ window.routes = [
 								</div>
 								<div class="subnavbar">
 									<div class="subnavbar-inner" style="justify-content: center;">
-										<div class="row" style="align-content: center;">
-											<div class="col">
-												<div class="item-inner">
-													<div class="item-input-wrap input-dropdown-wrap">
-														<select>
-															<option value="1">Session 1</option>
-															<option value="2">Session 2</option>
-															<option value="3">Session 3</option>
-														</select>
-													</div>
-												</div>
-											</div>
-											<div class="col">
-												<div class="item-inner">
-													<div class="item-input-wrap">
-													<input type="text" value="{{today}}" readonly="readonly" id="date"/>
-													</div>
-												</div>
-											</div>
-										
-										
+										<a href="#" @click="prev" class="item-link">
+											<i class="fas fa-caret-left" style="margin-right: 10px"></i>
+										</a>
+										<div class="item-input-wrap" style="width: 6rem;">
+											<input type="text" value="{{today}}" readonly="readonly" id="date"/>
+										</div>
+										<a href="#" @click="next" class="item-link">
+											<i class="fas fa-caret-right" style="margin-left: 10px"></i>
+										</a>
+										<div class="item-input-wrap input-dropdown-wrap" style="margin-left: 1.5rem">
+											<select>
+												<option value="1">Session 1</option>
+												<option value="2">Session 2</option>
+												<option value="3">Session 3</option>
+											</select>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="page-content">
-						<div class="toolbar tabbar tabbar-scrollable tabbar-sticky">
-				<div class="toolbar-inner categoriesFont">
+						<div class="page-content">
+							<div class="toolbar tabbar tabbar-scrollable tabbar-sticky">
+								<div class="toolbar-inner categoriesFont">
 					<a href="#tab-pizza" class="tab-link tab-link-active">Pizzas</a>
 					<a href="#tab-drink" class="tab-link">Drinks</a>
 					<a href="#tab-cake" class="tab-link">Cakes</a>
@@ -385,10 +379,24 @@ window.routes = [
 						}
 					},
 					methods: {
-						showToolbar: function () {
+						prev:function(){
 							var self = this;
-							setTimeout(function () {
-								self.$('.toolbar').removeClass('toolbar-hidden');
+							let dt = $('#date').val();
+							dt = dt.substr(6) + '/' + dt.substr(3,2) + '/' + dt.substr(0,2)
+							let date = new Date(dt);
+							date.setTime(date.getTime() - (1000*60*60*24))							
+							self.$setState({
+								today: date.toLocaleDateString()
+							});
+						},
+						next:function(){
+							var self = this;
+							let dt = $('#date').val();
+							dt = dt.substr(6) + '/' + dt.substr(3,2) + '/' + dt.substr(0,2)
+							let date = new Date(dt);
+							date.setTime(date.getTime() + (1000*60*60*24))							
+							self.$setState({
+								today: date.toLocaleDateString()
 							});
 						},
 						selectOption: function (id) {
@@ -420,12 +428,12 @@ window.routes = [
 						let date = new Date();
 						
 						self.$setState({
-							today : date.toDateString("DDD, MMM, dd, yyyy")
+							today : date.toLocaleDateString()
 						});
 						console.log(self.today)
 						var calendarDateFormat = app.calendar.create({
 							inputEl: '#date',
-							dateFormat: 'DD, MM dd, yyyy'
+							dateFormat: 'dd/mm/yyyy'
 						  });
 					}
 				}
