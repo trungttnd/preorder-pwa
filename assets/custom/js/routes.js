@@ -1,6 +1,6 @@
 'use strict';
 
-window.routes = [	
+window.routes = [
 	{
 		path: '/',
 		componentUrl: './app/main/index.html',
@@ -268,12 +268,12 @@ window.routes = [
 									<span class="text-color-red">$ {{total.toFixed(2)}}</span>
 								</div>
 								<div class="subnavbar">
-									<div class="subnavbar-inner" style="justify-content: center;">
+									<div class="subnavbar-inner" style="justify-content: center; font-size: larger;">
 										<a href="#" @click="prev" class="item-link">
 											<i class="fas fa-caret-left" style="margin-right: 10px"></i>
 										</a>
 										<div class="item-input-wrap" >
-											<input type="text" value="{{today}}" readonly="readonly" id="date" style="width: 5.5rem;"/>
+											<input type="text" value="{{today}}" readonly="readonly" id="date" style="width: 6.5rem;"/>
 										</div>
 										<a href="#" @click="next" class="item-link">
 											<i class="fas fa-caret-right" style="margin-left: 10px"></i>
@@ -379,30 +379,32 @@ window.routes = [
 						}
 					},
 					methods: {
-						prev:function(){
+						prev: function () {
 							var self = this;
+							let now = new Date();
 							let dt = $('#date').val();
-							let arr = dt.split('/');
-							console.log('dt1',dt)
-							dt = arr[2] + '/' + arr[1] + '/' + arr[0]
-							console.log('dt2',dt)
-							let date = new Date(dt);
-							date.setTime(date.getTime() - (1000*60*60*24))	
-							console.log('date',date)
-							self.$setState({
-								today: date.toLocaleDateString()
-							});
+							console.log('now', now.toLocaleDateString())
+							console.log('dt', dt)
+							if (dt != now.toLocaleDateString()) {
+								let arr = dt.split('/');
+								dt = arr[2] + '/' + arr[1] + '/' + arr[0]
+								let date = new Date(dt);
+								date.setTime(date.getTime() - (1000 * 60 * 60 * 24))
+								self.$setState({
+									today: date.toLocaleDateString()
+								});
+							}
 						},
-						next:function(){
+						next: function () {
 							var self = this;
 							let dt = $('#date').val();
 							let arr = dt.split('/');
-							console.log('dt1',dt)
+							console.log('dt1', dt)
 							dt = arr[2] + '/' + arr[1] + '/' + arr[0]
-							console.log('dt2',dt)
+							console.log('dt2', dt)
 							let date = new Date(dt);
-							date.setTime(date.getTime() + (1000*60*60*24))	
-							console.log('date',date)
+							date.setTime(date.getTime() + (1000 * 60 * 60 * 24))
+							console.log('date', date)
 							self.$setState({
 								today: date.toLocaleDateString()
 							});
@@ -434,15 +436,16 @@ window.routes = [
 					mounted() {
 						var self = this;
 						let date = new Date();
-						
+
 						self.$setState({
-							today : date.toLocaleDateString()
+							today: date.toLocaleDateString()
 						});
 						console.log(self.today)
 						var calendarDateFormat = app.calendar.create({
 							inputEl: '#date',
-							dateFormat: 'dd/mm/yyyy'
-						  });
+							dateFormat: 'd/m/yyyy',
+							minDate: new Date(),
+						});
 					}
 				}
 			},
