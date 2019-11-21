@@ -1159,17 +1159,16 @@ window.routes = [
 						},
 						logout: function () {
 							var self = this;
-							app.tab.show('#tab-home');
 
-							app.request.get(window.config.url + 'api/TokenAuth/LogOut',
-								function (suc) {
-									console.log('Logout success')
-									console.log(suc);
-								},
-								function (err) {
-									console.log('Logout error')
-									console.log(err);
-								});
+							// app.request.get(window.config.url + 'api/TokenAuth/LogOut',
+							// 	function (suc) {
+							// 		console.log('Logout success')
+							// 		console.log(suc);
+							// 	},
+							// 	function (err) {
+							// 		console.log('Logout error')
+							// 		console.log(err);
+							// 	});
 							self.removeCookie();
 							app.views.current.router.navigate('/signin');
 							self.hideToolbar();
@@ -1179,7 +1178,6 @@ window.routes = [
 						},
 						removeCookie: function () {
 							localStorage.removeItem('WOKPPL_OldUser');
-							localStorage.removeItem('WOKPPL_OldUser1');
 							localStorage.removeItem('WOKPPL_accessToken');
 							localStorage.removeItem('WOKPPL_expireInSeconds');
 							localStorage.removeItem('WOKPPL_expired');
@@ -1189,6 +1187,7 @@ window.routes = [
 							localStorage.removeItem('WOKPPL_email');
 							localStorage.removeItem('WOKPPL_username');
 							localStorage.removeItem('WOKPPL_userId');
+							localStorage.removeItem('WOKPPL_passcode');
 						}
 					},
 					mounted() {

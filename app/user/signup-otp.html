@@ -160,7 +160,7 @@
                 if (length == self.digitsLength) {
 					let phoneNumber = localStorage.getItem("WOKPPL_mobile");
 					console.log(phoneNumber)
-                    app.request.postJSON(window.config.url + 'api/services/app/Account/CompleteRegisterWithMobile',
+                    app.request.postJSON(window.config.url + 'api/services/app/Account/VerifyOtpCode',
                         { mobile: phoneNumber, otpCode: value },
                         function (suc) {
                             console.log('code success');
@@ -170,7 +170,7 @@
                                 position: 'bottom',
                                 cssClass: 'toast-round bg-color-green'
                             });
-                            localStorage.setItem('WOKPPL_registerSuccess', true);
+                            //localStorage.setItem('WOKPPL_registerSuccess', true);
                             app.views.current.router.navigate(self.nextScreen);
                         },
                         function (err) {
