@@ -130,10 +130,16 @@
             pageInit: function () {
                 var self = this;
                 //get current login infomations
+                app.request.setup({
+                    headers: {
+                        'Authorization': 'bearer ' + localStorage.getItem('WOKPPL_accessToken'),
+                        'Content-Type': 'application/json'
+                    }
+                });
                 app.request.get(window.config.url + 'api/services/app/Session/GetCurrentLoginInformations',
                     function (suc) {
                         let response = JSON.parse(suc)
-                        console.log('suc', response);
+                        console.log('current login', response);
                         if (response.result)
                             self.$setState({
                                 name: response.result.user.name,

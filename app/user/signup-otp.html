@@ -193,7 +193,8 @@
 				self.numpadEl.setValue('');
 				let mobile = localStorage.getItem("WOKPPL_mobile");
                 app.request.postJSON(window.config.url + 'api/services/app/Account/ResendOtpCode', {
-                    mobile: mobile
+                    mobile: mobile,
+					isResetPassword: false
                 },
                     function (suc) {
                         console.log('code 200');
