@@ -6,7 +6,6 @@
                 <img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
             </div>
         </div> -->
-
         <div class="toolbar tabbar tabbar-labels">
             <div class="toolbar-inner">
                 <a href="/" class="tab-link" data-route-tab-id="tab-home">
@@ -47,7 +46,7 @@
     return {
         data: function (){
             return {
-
+                oldUser: localStorage.getItem('WOKPPL_OldUser')
             }
         },
         methods: {
@@ -58,12 +57,22 @@
                 var self = this;
                 localStorage.removeItem('WOKPPL_password');
                 localStorage.removeItem('WOKPPL_registerSuccess');
-                setTimeout(function () {
-					if (!localStorage.getItem('WOKPPL_OldUser')) {
-                        console.log('main')
+                // setTimeout(function () {
+				// 	if (!localStorage.getItem('WOKPPL_OldUser')) {
+                //         console.log('main')
+				// 		app.views.current.router.navigate('/signin');
+				// 	};
+                // }, 0);
+					
+                
+            },
+            pageBeforeIn: function(){
+                var self = this;
+                console.log('main')
+                if (!localStorage.getItem('WOKPPL_OldUser')) {
+                        
 						app.views.current.router.navigate('/signin');
 					};
-				}, 0);
             }
         }
     }
