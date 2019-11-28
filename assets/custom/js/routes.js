@@ -445,6 +445,7 @@ window.routes = [
 							inputEl: '#date',
 							dateFormat: 'd/m/yyyy',
 							minDate: new Date(),
+							closeOnSelect: true
 						});
 					}
 				}
