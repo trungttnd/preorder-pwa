@@ -135,13 +135,7 @@ function onBackKeyDown() {
 	// 	app.views.main.router.back();
 	// 	return false;
 	// }
-	app.dialog.confirm(
-		'<div class="text-align-center"><img src="assets/custom/img/exit.svg" width="80" alt="" /><div>Do you want to exit the app?</div></div>',
-		'',
-		function() {
-			navigator.app.exitApp();
-		}
-	);
+	alert("Hello! I am an alert box!!");
 }
 
 app.on('pageInit', function() {
