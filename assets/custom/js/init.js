@@ -116,7 +116,7 @@ app.on('init', function() {
 	initializeTheme();
 	initializeI18n();
 	initializeA2HS();
-	initializeBackButton();
+	//initializeBackButton();
 	getInternetConnectionStatus();
 	setAJAXDefaults();
 	setFormValidatorDefaults();
@@ -292,17 +292,6 @@ function initializeA2HS() {
 function initializeBackButton() {
 	document.addEventListener('backbutton', function(event) {
 		event.preventDefault();
-		//
-		var currentRoute1 = app.views.current.router.currentRoute.url;
-			if (currentRoute1 =='/signup/otp'){
-				app.dialog.confirm(
-					'<div class="text-align-center"><img src="assets/custom/img/exit.svg" width="80" alt="" /><div>Cancel Registration?</div></div>',
-					'',
-					function() {
-						navigator.app.exitApp();
-					}
-				);
-			}
 		var dismissibleModals = app.$('.actions-modal.modal-in').length + app.$('.login-screen.modal-in').length + app.$('.notification.modal-in').length + app.$('.panel-active').length + app.$('.popover.modal-in').length + app.$('.popup.modal-in').length + app.$('.sheet-modal.modal-in').length + app.$('.swipeout-opened').length + app.$('.td-wrap').length + app.$('.toast.modal-in').length + app.$('.tooltip.tooltip-in').length;
 		var nonDismissibleModals = app.$('.dialog.modal-in').length;
 		if (nonDismissibleModals) {
@@ -322,27 +311,27 @@ function initializeBackButton() {
 			app.$('.tooltip').remove();
 		}
 		else {
-			
-			// if (currentRoute == '/main' || currentRoute == '/') {
-			// 	app.dialog.confirm(
-			// 		'<div class="text-align-center"><img src="assets/custom/img/exit.svg" width="80" alt="" /><div>Do you want to exit the app?</div></div>',
-			// 		'',
-			// 		function() {
-			// 			navigator.app.exitApp();
-			// 		}
-			// 	);
-			// }
-			// else if (app.data.config.theme.navigation == 'tabbar' && (currentRoute == '/components' || currentRoute == '/screens' || currentRoute == '/more')) {
-			// 	app.tab.show('#tab-home');
-			// }
-			// else {
-			// 	if (app.$('.page.page-current .navbar .back').length) {
-			// 		app.views.current.router.back();
-			// 	}
-			// 	else {
-			// 		return false;
-			// 	}
-			// }
+			var currentRoute = app.views.current.router.currentRoute.url;
+			if (currentRoute == '/main' || currentRoute == '/') {
+				app.dialog.confirm(
+					'<div class="text-align-center"><img src="assets/custom/img/exit.svg" width="80" alt="" /><div>Do you want to exit the app?</div></div>',
+					'',
+					function() {
+						navigator.app.exitApp();
+					}
+				);
+			}
+			else if (app.data.config.theme.navigation == 'tabbar' && (currentRoute == '/components' || currentRoute == '/screens' || currentRoute == '/more')) {
+				app.tab.show('#tab-home');
+			}
+			else {
+				if (app.$('.page.page-current .navbar .back').length) {
+					app.views.current.router.back();
+				}
+				else {
+					return false;
+				}
+			}
 		}
 	});
 }
