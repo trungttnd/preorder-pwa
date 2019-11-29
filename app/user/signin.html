@@ -214,7 +214,11 @@
                     };
                 }, 0);
                 self.initializeFormValidator();
-            }
+            },
+            pageAfterIn() {
+                var self = this;
+                app.views.main.router.clearPreviousHistory();
+            },
         }
     }
 </script>
