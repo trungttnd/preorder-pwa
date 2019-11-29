@@ -312,6 +312,15 @@ function initializeBackButton() {
 		}
 		else {
 			var currentRoute = app.views.current.router.currentRoute.url;
+			if (currentRoute =='/signup/otp'){
+				app.dialog.confirm(
+					'<div class="text-align-center"><img src="assets/custom/img/exit.svg" width="80" alt="" /><div>Cancel Registration?</div></div>',
+					'',
+					function() {
+						navigator.app.exitApp();
+					}
+				);
+			}
 			if (currentRoute == '/main' || currentRoute == '/') {
 				app.dialog.confirm(
 					'<div class="text-align-center"><img src="assets/custom/img/exit.svg" width="80" alt="" /><div>Do you want to exit the app?</div></div>',
