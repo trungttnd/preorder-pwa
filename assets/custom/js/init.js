@@ -89,15 +89,14 @@ var app = new Framework7({
 		fastClicksExclude: '.ap-dropdown-menu, .pac-container .pac-item'
 	},
 	view: {
-		// pushState: (function() {
-		// 	if (window.config.theme.navigation == 'hamburger') {
-		// 		return !Framework7.device.cordova;
-		// 	}
-		// 	else {
-		// 		return false;
-		// 	}
-		// })(),
-		pushState: false,
+		pushState: (function() {
+			if (window.config.theme.navigation == 'hamburger') {
+				return !Framework7.device.cordova;
+			}
+			else {
+				return false;
+			}
+		})(),
 		pushStateRoot: (function() {
 			return location.pathname;
 		})(),
