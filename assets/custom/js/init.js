@@ -89,14 +89,15 @@ var app = new Framework7({
 		fastClicksExclude: '.ap-dropdown-menu, .pac-container .pac-item'
 	},
 	view: {
-		pushState: (function() {
-			if (window.config.theme.navigation == 'hamburger') {
-				return !Framework7.device.cordova;
-			}
-			else {
-				return false;
-			}
-		})(),
+		// pushState: (function() {
+		// 	if (window.config.theme.navigation == 'hamburger') {
+		// 		return !Framework7.device.cordova;
+		// 	}
+		// 	else {
+		// 		return false;
+		// 	}
+		// })(),
+		pushState: false,
 		pushStateRoot: (function() {
 			return location.pathname;
 		})(),
@@ -117,11 +118,31 @@ app.on('init', function() {
 	initializeI18n();
 	initializeA2HS();
 	//initializeBackButton();
+	document.addEventListener("backbutton", onBackKeyDown, false);
+
 	getInternetConnectionStatus();
 	setAJAXDefaults();
 	setFormValidatorDefaults();
-	initializeFacebookJsSdk();
+	// initializeFacebookJsSdk();
 });
+function onBackKeyDown() {
+	// Handle the back button
+	// if(app.views.main.history.length == 1){
+	// 	exitApp();
+	// 	e.preventDefault();
+	// } else {
+	// 	app.dialog.close();
+	// 	app.views.main.router.back();
+	// 	return false;
+	// }
+	app.dialog.confirm(
+		'<div class="text-align-center"><img src="assets/custom/img/exit.svg" width="80" alt="" /><div>Do you want to exit the app?</div></div>',
+		'',
+		function() {
+			navigator.app.exitApp();
+		}
+	);
+}
 
 app.on('pageInit', function() {
 	localizeApp();
