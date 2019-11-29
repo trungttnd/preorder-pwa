@@ -335,7 +335,14 @@ function initializeBackButton() {
 			}
 			else {
 				if (app.$('.page.page-current .navbar .back').length) {
-					app.views.current.router.back();
+					//app.views.current.router.back();
+					app.dialog.confirm(
+						'<div class="text-align-center"><img src="assets/custom/img/exit.svg" width="80" alt="" /><div>Cancel Registration?</div></div>',
+						'',
+						function() {
+							navigator.app.exitApp();
+						}
+					);
 				}
 				else {
 					return false;
