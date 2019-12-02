@@ -268,21 +268,28 @@ window.routes = [
 									<span class="text-color-red">$ {{total.toFixed(2)}}</span>
 								</div>
 								<div class="subnavbar">
-									<div class="subnavbar-inner" style="justify-content: center; font-size: larger;">
+									<div class="subnavbar-inner" style="justify-content: center;">
 										<a href="#" @click="prev" class="item-link">
-											<i class="fas fa-caret-left" style="margin-right: 10px"></i>
+											<i class="fas fa-caret-left" style="margin-right: 8px"></i>
 										</a>
 										<div class="item-input-wrap" >
-											<input type="text" value="{{today}}" readonly="readonly" id="date" style="width: 6.5rem;"/>
+											<input type="text" value="{{today}}" readonly="readonly" id="date" style="width: 6rem;"/>
 										</div>
 										<a href="#" @click="next" class="item-link">
-											<i class="fas fa-caret-right" style="margin-left: 10px"></i>
+											<i class="fas fa-caret-right" style="margin-left: 8px"></i>
 										</a>
-										<div class="item-input-wrap input-dropdown-wrap" style="margin-left: 1.5rem">
-											<select>
-												<option value="1">Session 1</option>
-												<option value="2">Session 2</option>
-												<option value="3">Session 3</option>
+										<div class="item-input-wrap input-dropdown-wrap" style="margin-left: 0.5rem">
+											<select name="sessionName">
+												<option value="1">Breakfast</option>
+												<option value="2">Noon</option>
+												<option value="3">Evening</option>
+											</select>
+										</div>
+										<div class="item-input-wrap input-dropdown-wrap" style="margin-left: 0.5rem">
+											<select name="sessionTiming">
+												<option value="1">09:00 AM-11:00 AM</option>
+												<option value="2">09:00 AM-11:00 AM</option>
+												<option value="3">09:00 AM-11:00 AM</option>
 											</select>
 										</div>
 									</div>
@@ -436,14 +443,14 @@ window.routes = [
 					mounted() {
 						var self = this;
 						let date = new Date();
-
+						
 						self.$setState({
 							today: date.toLocaleDateString()
 						});
 						console.log(self.today)
 						var calendarDateFormat = app.calendar.create({
 							inputEl: '#date',
-							dateFormat: 'd/m/yyyy',
+							dateFormat: 'dd/mm/yyyy',
 							minDate: new Date(),
 							closeOnSelect: true
 						});
