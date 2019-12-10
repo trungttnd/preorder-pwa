@@ -254,208 +254,16 @@ window.routes = [
 				path: '/tab-order/',
 				id: 'tab-order',
 				// Fill this tab content with Ajax request:
-				//componentUrl: './app/main/orders.html',
-				component: {
-					template: `
-					<div class="page no-swipeback">
-						<div class="navbar">
-							<div class="navbar-inner">
-								<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
-								<div class="right">
-									<a href="/orders-cart" class="link icon-only">
-									<i class="icon material-icons">shopping_cart<span
-										class="badge color-red">{{quantity}}</span></i></a>
-									<span class="text-color-red">$ {{total.toFixed(2)}}</span>
-								</div>
-								<div class="subnavbar">
-									<div class="subnavbar-inner" style="justify-content: center;">
-										<a href="#" @click="prev" class="item-link">
-											<i class="fas fa-caret-left" style="margin-right: 8px"></i>
-										</a>
-										<div class="item-input-wrap" >
-											<input type="text" value="{{today}}" readonly="readonly" id="date" style="width: 6rem;"/>
-										</div>
-										<a href="#" @click="next" class="item-link">
-											<i class="fas fa-caret-right" style="margin-left: 8px"></i>
-										</a>
-										<div class="item-input-wrap input-dropdown-wrap" style="margin-left: 0.5rem">
-											<select name="sessionName">
-												<option value="1">Breakfast</option>
-												<option value="2">Noon</option>
-												<option value="3">Evening</option>
-											</select>
-										</div>
-										<div class="item-input-wrap input-dropdown-wrap" style="margin-left: 0.5rem">
-											<select name="sessionTiming">
-												<option value="1">09:00 AM-11:00 AM</option>
-												<option value="2">09:00 AM-11:00 AM</option>
-												<option value="3">09:00 AM-11:00 AM</option>
-											</select>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+				componentUrl: './app/main/orders.html',
+				// component: {
+				// 	template: `
+					
+				// 	`,
+				// 	style: `
 
-						<div class="page-content">
-							<div class="toolbar tabbar tabbar-scrollable tabbar-sticky">
-								<div class="toolbar-inner categoriesFont">
-					<a href="#tab-pizza" class="tab-link tab-link-active">Pizzas</a>
-					<a href="#tab-drink" class="tab-link">Drinks</a>
-					<a href="#tab-cake" class="tab-link">Cakes</a>
-					<a href="#tab-food" class="tab-link">Foods</a>
-				</div>
-			</div>
-			<div class="tabs">
-				<div id="tab-pizza" class="tab tab-active">
-					<div class="list media-list no-hairlines no-hairlines-between margin-vertical descriptionFont">
-						<ul>
-							{{#if productList}}
-							{{#each productList}}
-							<li>
-								<div class="item-content">
-									<div class="item-media"><img
-											src="https://images.foody.vn/res/g79/785913/s570x570/8d125f53-e2eb-4d3c-a994-af251ae25c26.jpg"
-											width="80" /></div>
-									<div class="item-inner">
-										<div class="item-title-row">
-											<div class="item-title">{{this.name}}</div>
-											<div class="item-title" style="font-weight: bold;">
-												$ {{this.price.toFixed(2)}}</div>
-										</div>
-										<div class="item-subtitle">Pizzas</div>
-										<div class="item-row">
-											<div class="item-text">{{this.description}}
-											</div>
-											<div class="item-after" style="color: red; font-weight: bold;">
-												<a href="/orders-options" @click="selectOption({{this.id}})"
-													class="item-link tooltip-init"
-													data-tooltip="Add to Cart">
-													<i class="fas fa-fw fa-lg fa-cart-plus text-color-red"></i></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							{{/each}}
-							{{/if}}
-						</ul>
-					</div>
-
-				</div>
-
-				<div id="tab-drink" class="tab">
-
-				</div>
-				<div id="tab-cake" class="tab">
-
-				</div>
-				<div id="tab-food" class="tab">
-
-				</div>
-			</div>
-
-
-		</div>
-
-	</div>
-					`,
-					style: `
-					`,
-					data: function () {
-						return {
-							today: null,
-							quantity: 0,
-							total: 0.00,
-							tempQuantity: 0,
-							tempTotal: 0.00,
-							detQuantity: 0,
-							productList: [
-								{ id: 1, name: 'SUN PIZZA', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
-								{ id: 2, name: 'MOON PIZZA', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
-								{ id: 3, name: 'CHEESY BITES TRIO SHRIMP', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
-								{ id: 4, name: 'SEAFOOD DELUXE', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
-								{ id: 5, name: 'SUPER SUPREME', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
-								{ id: 6, name: 'SEAFOOD PESTO', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
-								{ id: 7, name: 'OCEAN DELIGHT', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
-								{ id: 8, name: 'SUPREME', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
-								{ id: 9, name: 'SEAFOOD BLACK PEPPER', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
-								{ id: 10, name: 'SUPREME MEAT LOVER', description: 'Shrimp, zucchini, 2-color cheese, Mozza cheese, tomato, olive, parsley, Pesto sauce', price: 11.50 },
-							],
-							detail: null
-						}
-					},
-					methods: {
-						prev: function () {
-							var self = this;
-							let now = new Date();
-							let dt = $('#date').val();
-							console.log('now', now.toLocaleDateString())
-							console.log('dt', dt)
-							if (dt != now.toLocaleDateString()) {
-								let arr = dt.split('/');
-								dt = arr[2] + '/' + arr[1] + '/' + arr[0]
-								let date = new Date(dt);
-								date.setTime(date.getTime() - (1000 * 60 * 60 * 24))
-								self.$setState({
-									today: date.toLocaleDateString()
-								});
-							}
-						},
-						next: function () {
-							var self = this;
-							let dt = $('#date').val();
-							let arr = dt.split('/');
-							console.log('dt1', dt)
-							dt = arr[2] + '/' + arr[1] + '/' + arr[0]
-							console.log('dt2', dt)
-							let date = new Date(dt);
-							date.setTime(date.getTime() + (1000 * 60 * 60 * 24))
-							console.log('date', date)
-							self.$setState({
-								today: date.toLocaleDateString()
-							});
-						},
-						selectOption: function (id) {
-							var self = this;
-							console.log(id);
-							let det = self.productList.find(function (el) {
-								return el.id == +id;
-							})
-							self.$setState({
-								detail: det,
-								tempQuantity: self.tempQuantity + 1,
-								tempTotal: self.tempTotal + det.price
-							})
-							console.log(self.detail)
-						},
-
-						addToCart: function () {
-							var self = this;
-							app.toast.show({
-								icon: '<i class="fas fa-fw fa-lg fa-cart-plus"></i>',
-								text: 'Added to Cart',
-								position: 'bottom',
-								cssClass: 'toast-round bg-color-green'
-							});
-						}
-					},
-					mounted() {
-						var self = this;
-						let date = new Date();
-						
-						self.$setState({
-							today: date.toLocaleDateString()
-						});
-						console.log(self.today)
-						var calendarDateFormat = app.calendar.create({
-							inputEl: '#date',
-							dateFormat: 'dd/mm/yyyy',
-							minDate: new Date(),
-							closeOnSelect: true
-						});
-					}
-				}
+				// 	`,
+					
+				// }
 			},
 			{
 				path: '/tab-transaction/',
@@ -1152,15 +960,6 @@ window.routes = [
 
 						},
 
-
-						hideToolbar: function () {
-							var self = this;
-							setTimeout(function () {
-								self.$('.toolbar').addClass('toolbar-hidden');
-								self.$('.toolbar').removeClass('tabbar');
-								self.$('.toolbar').removeClass('tabbar-labels');
-							});
-						},
 						refreshSearchbar: function () {
 							var self = this;
 							app.searchbar.clear('.searchbar');
@@ -1179,7 +978,6 @@ window.routes = [
 							// 	});
 							self.removeCookie();
 							app.views.current.router.navigate('/signin');
-							self.hideToolbar();
 						},
 						exitApp: function () {
 							navigator.app.exitApp();
@@ -1196,6 +994,8 @@ window.routes = [
 							localStorage.removeItem('WOKPPL_username');
 							localStorage.removeItem('WOKPPL_userId');
 							localStorage.removeItem('WOKPPL_passcode');
+							localStorage.removeItem('addProduct');
+							localStorage.removeItem('cartItems');
 						}
 					},
 					mounted() {
