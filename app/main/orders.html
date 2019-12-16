@@ -33,9 +33,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="page-content">
+		<div class="page-content" style="padding-top: 44px;">
 			{{#if categories}}
-			<div class="toolbar tabbar tabbar-scrollable tabbar-sticky" style="margin-top: 44px;">
+			<div id="menuCats" class="toolbar tabbar tabbar-scrollable tabbar-sticky" style="">
 				<div class="toolbar-inner categoriesFont">
 					<a href="#" id="undefined" class="cat-link tab-link-active" style="margin-left: 10px"
 						@click="selectCat(undefined)">ALL</a>
@@ -97,6 +97,7 @@
 				tempQuantity: 0,
 				session: null,
 				categories: null,
+				allProducts: null,
 				productList: null,
 				detail: null,
 				selected: undefined,
@@ -104,14 +105,16 @@
 					quantity: 0,
 					total: 0.00,
 					items: []
-				}
+				},
+				listOrderDate: null,
+				listOrderSession: null,
 			}
 		},
 		methods: {
 			formatDate: function (date, langCode) {
-				var day = date.toLocaleString(langCode, {day: '2-digit'});   // DD
-				var month = date.toLocaleString(langCode, {month: '2-digit'}); // MM
-				var year = date.toLocaleString(langCode, {year: 'numeric'}); // YYYY
+				var day = date.toLocaleString(langCode, { day: '2-digit' });   // DD
+				var month = date.toLocaleString(langCode, { month: '2-digit' }); // MM
+				var year = date.toLocaleString(langCode, { year: 'numeric' }); // YYYY
 				console.log('year', year)
 				return `${day}/${month}/${year}`;
 			},
@@ -137,7 +140,7 @@
 				let dt = $('#date').val();
 				let arr = dt.split('/');
 				console.log('dt1', dt)
-				dt = arr[2] + '/' + arr[1] + '/'  + arr[0]
+				dt = arr[2] + '/' + arr[1] + '/' + arr[0]
 				console.log('dt2', dt)
 				let date = new Date(dt);
 				date.setTime(date.getTime() + (1000 * 60 * 60 * 24))
@@ -149,6 +152,8 @@
 			},
 			selectOption: function (id) {
 				var self = this;
+				let orderDate = $('#date').val();
+				let orderSession = self.$('select[name=session]').val();
 				console.log(id);
 				let det = self.productList.find(function (el) {
 					return el.id == id;
@@ -159,6 +164,14 @@
 					tempQuantity: self.tempQuantity + 1,
 				})
 				//console.log(self.detail)
+				self.listOrderDate = orderDate;
+				for (let i = 0; i < self.session.length; i++) {
+					if (orderSession == self.session[i].id) {
+						self.listOrderSession = self.session[i];
+					}
+				}
+				localStorage.setItem('listOrderDate', JSON.stringify(self.listOrderDate));
+				localStorage.setItem('listOrderSession', JSON.stringify(self.listOrderSession));
 				app.views.current.router.navigate('/orders-options');
 			},
 			selectCat: function (selected) {
@@ -175,9 +188,24 @@
 				let sess = self.$('select[name=session]').val();
 				let arr = $('#date').val().split('/');
 				let dateInput = arr[1] + '/' + arr[0] + '/' + arr[2]
-				if (selected == undefined) self.loadProduct(dateInput, sess,'')
-				else
-					self.loadProduct(dateInput, sess, selected);
+				if (selected == undefined) {
+					// self.loadProduct(dateInput, sess, '')
+					self.$setState({
+						productList: self.allProducts
+					})
+
+				}
+				else {
+					// self.loadProduct(dateInput, sess, selected);
+					self.$setState({
+						productList: self.allProducts.filter(function (el) {
+							for (let i = 0; i < el.categories.length; i++) {
+								return el.categories[i].id == selected
+							}
+						})
+					})
+				}
+
 			},
 			loadSession: function () {
 				var self = this;
@@ -209,6 +237,7 @@
 			},
 			loadProduct(date, sessionId, categoryId) {
 				var self = this;
+				console.log(categoryId)
 				app.request.get(window.config.url + 'api/services/app/Preorder/GetProductMenuBrowsingList',
 					{
 						Date: date, SessionId: sessionId, CategoryId: categoryId
@@ -217,14 +246,16 @@
 						let response = JSON.parse(suc)
 						console.log('get product success', response)
 						self.$setState({
-							productList: response.result.items
+							allProducts: response.result.items,
+							productList: response.result.items,
 						})
+						console.log('ABC: ', self.productList)
 					},
 					function (err) {
 						console.log('get product error', err)
 					})
 			},
-			updateProducts:function(){
+			updateProducts: function () {
 				var self = this;
 				let sess = self.$('select[name=session]').val();
 				let arr = $('#date').val().split('/');
@@ -236,21 +267,28 @@
 					else
 						$('a[id=' + id + ']').removeClass('tab-link-active');
 				})
-				self.loadProduct(dt,sess,'')
+				self.loadProduct(dt, sess, '')
 			}
 		},
 		mounted() {
+			localStorage.removeItem('isEdit');
 			var self = this;
 			let date = new Date();
-			let dateInput = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
+			let dateInput = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
 			console.log(dateInput);
-
+			
 			self.$setState({
 				today: self.formatDate(date, 'en'),
 				cartItems: JSON.parse(localStorage.getItem('cartItems')) == undefined ? { quantity: 0, total: 0.00, items: [] } : JSON.parse(localStorage.getItem('cartItems')),
 				session: JSON.parse(localStorage.getItem('sessions')),
 				categories: JSON.parse(localStorage.getItem('categories'))
 			});
+			// setTimeout(function () {
+			// 	console.log('setTimeout')
+			// 	self.$setState({
+			// 		cartItems: JSON.parse(localStorage.getItem('cartItems')) == undefined ? { quantity: 0, total: 0.00, items: [] } : JSON.parse(localStorage.getItem('cartItems')),
+			// 	});
+			// });
 			console.log('test', self.cartItems)
 			var calendarDateFormat = app.calendar.create({
 				inputEl: '#date',
@@ -259,21 +297,23 @@
 				closeOnSelect: true
 			});
 
-			// self.loadSession();
+			//self.loadSession();
 			// self.loadCategory();
-			self.loadProduct(dateInput,self.session[0].id,'');
-
-			self.$('select[name=session]').change(function(){
+			self.loadProduct(dateInput, self.session[0].id, '');
+			self.$("#menuCats").css("margin-top", "44px")
+			self.$('select[name=session]').change(function () {
 				self.updateProducts();
 			})
 
-			self.$('#date').change(function(){
+			self.$('#date').change(function () {
 				self.updateProducts();
 			})
-
+			// $('#tab-order').on('tab:show', function () {
+			// 	app.views.current.router.refreshPage();
+			// });
 		},
 		on: {
-			pageInit: function(){
+			pageInit: function () {
 				console.log('pageInit')
 			}
 		}
