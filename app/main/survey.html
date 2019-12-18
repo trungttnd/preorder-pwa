@@ -1,0 +1,103 @@
+<template>
+    <div class="page">
+
+        <div class="navbar">
+            <div class="navbar-inner">
+                    <img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
+            </div>
+        </div>
+
+        <div class="page-content">
+            <div class="block text-align-center">
+                <p>Thank you for completing this survey. We value your opinion and will take on board any suggestions you make that are cost effective and comply with our healthy eating policy.</p>
+            </div>
+            <form name="survey" action="#" method="POST" enctype="multipart/form-data">
+                <div class="list no-hairlines no-hairlines-between">
+                    <ul>
+                        <li>
+                            <div class="item-content item-input item-input-with-info">
+                                <div class="item-inner">
+                                    <div class="item-title item-label" style="font-size: 16px; height: 30px;">1. Food Quality?</div>
+                                    <div>
+                                        <input type="hidden" name="rating" required />
+                                        <div class="rating-full-star"></div>
+                                    </div>
+                                    <div class="block">
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content item-input item-input-with-info">
+                                <div class="item-inner">
+                                    <div class="item-title item-label" style="font-size: 16px; height: 30px;">2. Value?</div>
+                                    <div>
+                                        <input type="hidden" name="rating" required />
+                                        <div class="rating-full-star"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="block">
+                    <button type="submit" class="button button-big button-fill" data-i18n="survey">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>
+
+<script>
+    return {
+        data: function () {
+            return {
+                formValidator: null,
+            }
+        },
+        methods: {
+            initializeRatingFullStar: function () {
+                var self = this;
+                jQuery('.rating-full-star').rateYo({
+                    fullStar: true,
+                    normalFill: '#FFF9DB',
+                    ratedFill: '#FCC419',
+                    rating: 3,
+                    spacing: '10px',
+                    starWidth: '32px'
+                });
+            },
+            initializeFormValidator: function () {
+				var self = this;
+				self.formValidator = jQuery('form[name=survey]').validate({
+					submitHandler: function (form) {
+                        self.submitForm(form);
+					}
+
+				});
+			},
+            submitForm: function (form) {
+				var self = this;
+                var dialog = app.dialog.create({
+                    content: '<div class="block no-margin margin-top text-align-center"><i class="fa-stack fa-3x"><span class="fas fa-stack-2x fa-circle text-color-orange"></span><span class="fas fa-stack-1x fa-inverse fa-exclamation"></span></i><p>Thanks for your rating.<br /> Transaction ID: 12345678</p></div>',
+                    buttons: [
+                        {
+                            text: 'OK',
+                            bold: true,
+                            color: 'orange'
+                        }
+                    ]
+                });
+                dialog.open();
+			},
+        },
+        on: {
+            pageInit: function () {
+                var self = this;
+                self.initializeRatingFullStar();
+                self.initializeFormValidator();
+            }
+        }
+    }
+</script>
