@@ -276,6 +276,8 @@
                     self.updateCartList.listOrderSession.name = null;
                     self.updateCartList.listOrderSession.startTime = '';
                     self.updateCartList.listOrderSession.endTime = '';
+                    self.updateCartList.quantity = 0;
+                    self.updateCartList.total = 0;
                     self.$setState({
                         listOrderDate: null,
                         orderSessionName: null,
@@ -400,10 +402,15 @@
                     //     self.newOrder.collectionTime = dat.toISOString();
                     //     //self.newOrder.orderDate = dat.toISOString();
                     // }
+                    let today = new Date();
+                    var offset = -(today.getTimezoneOffset() / 60);
                     console.log(self.$('input[id=timepicker-24]').val())
                     let arr = self.listOrderDate.split('/');
                     let time = self.$('input[id=timepicker-24]').val().split(':');
                     let dat = new Date(arr[2], arr[1] - 1, arr[0], time[0], time[1]);
+                    var hours = dat.getHours();
+                    hours += offset;
+                    dat.setHours(hours);
 
                     self.newOrder.collectionTime = dat.toISOString();
                     self.newOrder.type = 2;
@@ -439,14 +446,15 @@
                         }
                         self.newOrder.orderItems.push(temp)
                     })
-                    
-                    // app.views.current.router.navigate('/orders-finish'); 
+                    console.log(self.newOrder)
+                    //app.views.current.router.navigate('/orders-finish'); 
                     //create new order
                     app.request.postJSON(window.config.url + 'api/services/app/Preorder/CreateOrder',
                         {
                             collectionTime: self.newOrder.collectionTime,
                             type: self.newOrder.type,
                             orderItems: self.newOrder.orderItems,
+                            payments: self.newOrder.payments,
                             sessionId: self.newOrder.sessionId
                         },
                         function (suc) {
@@ -466,6 +474,7 @@
                 var self = this;
                 self.initializeTimepicker24()
                 let cartTemp = JSON.parse(localStorage.getItem('cartItems'));
+                console.log('cartTemp:', cartTemp);
                 let tempString = [];
                 if (cartTemp != null)
                     for (let i = 0; i < cartTemp.items.length; i++) {
