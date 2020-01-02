@@ -13,7 +13,7 @@ window.config.app = {
 	version: '2.8.0',
 	title: 'Konbini',
 	tagline: 'Mobile Web App Kit',
-	logo: 'assets/custom/img/konbini-logo.svg'
+	logo: 'assets/custom/img/wokppllogo.png'
 };
 
 /*
@@ -278,3 +278,5 @@ window.config.theme = {
 window.config.url = 'https://wokpplapi.konbi.cloud/';
 
 window.config.upload = 'https://wokpplapi.konbi.cloud/uploads/'
+
+window.config.appServerPublicKey = 'BGjDoQIlXlVAhLwEiwPM3NQsNXX0qz-gKx8pFV8pYx8gWyDUKk7A8zZiF6Mt1vaKTOGKGOPfQ3rzM92X3_R7Rms'

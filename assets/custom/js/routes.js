@@ -13,7 +13,7 @@ window.routes = [
 					<div class="page no-swipeback">
 					<div class="navbar">
 					<div class="navbar-inner">
-						<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
+						<img class="theme-light-only" src="assets/custom/img/wokppllogo.png" height="36" alt="" />
 					</div>
 				</div>	
 					<div class="page-content" style="padding-top: 44px;">
@@ -191,7 +191,7 @@ window.routes = [
 							function (suc) {
 								let response = JSON.parse(suc)
 								console.log(response.result.user)
-								if (response.result.user == null) 
+								if (response.result.user == null || response.result.user == 'null') 
 								//console.log(response.result.user)
 								 self.logout();
 							},
@@ -357,7 +357,7 @@ window.routes = [
 
 		<div class="navbar">
 			<div class="navbar-inner">
-				<img class="theme-light-only" src="assets/custom/img/konbini-logo.svg" height="24" alt="" />
+				<img class="theme-light-only" src="assets/custom/img/wokppllogo.png" height="36" alt="" />
 				<div class="right">
                     
                 </div>
@@ -573,7 +573,7 @@ window.routes = [
 		componentUrl: './app/main/details-only.html'
 	},
 	{
-		path: '/inbox-detail',
+		path: '/inbox-detail/:id',
 		componentUrl: './app/main/inbox-detail.html',
 	},
 	{
