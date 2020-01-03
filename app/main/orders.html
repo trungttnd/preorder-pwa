@@ -24,7 +24,7 @@
 							<select name="session">
 								{{#if session}}
 								{{#each session}}
-								<option value="{{this.id}}">{{this.name}}: {{this.startTime}} - {{this.endTime}}
+								<option value="{{this.id}}">{{this.name}}: {{this.startTime.substr(0,5)}} - {{this.endTime.substr(0,5)}}
 								</option>
 								{{/each}}
 								{{/if}}
@@ -76,7 +76,13 @@
 									{{/each}}
 								</div> -->
 								<div class="item-subtitle"><a href="#" @click="selectOption('{{this.id}}')"
-										class="item-link">Available numbers: {{this.quantity}}</a></div>
+										class="item-link">
+										{{#if this.isAvailable}}
+										Available numbers: {{this.quantity}}
+										{{else}}
+										Not Available
+										{{/if}}
+									</a></div>
 								<div class="item-row">
 									<div class="item-text"><a href="#" @click="selectOption('{{this.id}}')"
 											class="item-link">{{this.description}}</a>
@@ -90,15 +96,14 @@
 									</div>
 									{{else}}
 									<div class="item-after" style="color: red; font-weight: bold;">
-										<img @click="selectOption('{{this.id}}')" class="theme-light-only" title="Sold Out"
-											src="assets/custom/img/sold.png" height="35" alt="" />
+										<img @click="selectOption('{{this.id}}')" class="theme-light-only"
+											title="Sold Out" src="assets/custom/img/sold.png" height="35" alt="" />
 									</div>
 									{{/js_if}}
-									{{else}}
-									<div class="item-after" style="color: red; font-weight: bold;">
+									<!-- <div class="item-after" style="color: red; font-weight: bold;">
 										<img class="theme-light-only" title="Not Available"
 											src="assets/custom/img/notavailable.png" height="24" alt="" />
-									</div>
+									</div> -->
 									{{/if}}
 								</div>
 							</div>
@@ -245,26 +250,25 @@
 				let orderDate = $('#date').val();
 				let orderSession = self.$('select[name=session]').val();
 				console.log(id, orderDate, orderSession);
-				console.log(self.cartItems)
-				if (self.cartItems.quantity==0 || (orderDate == self.cartItems.listOrderDate && orderSession == self.cartItems.listOrderSession.id)) {
-					for (let i = 0; i < self.productList.length; i++) {
-						self.productList[i].orderQuantity = null;
+				console.log(self.cartItems);
+				for (let i = 0; i < self.productList.length; i++) {
+					self.productList[i].orderQuantity = null;
+				}
+				let det = self.productList.find(function (el) {
+					return el.id == id;
+				})
+				localStorage.setItem('addProduct', JSON.stringify(det))
+				self.$setState({
+					detail: det,
+					tempQuantity: self.tempQuantity + 1,
+				})
+				self.listOrderDate = orderDate;
+				for (let i = 0; i < self.session.length; i++) {
+					if (orderSession == self.session[i].id) {
+						self.listOrderSession = self.session[i];
 					}
-					let det = self.productList.find(function (el) {
-						return el.id == id;
-					})
-					localStorage.setItem('addProduct', JSON.stringify(det))
-					self.$setState({
-						detail: det,
-						tempQuantity: self.tempQuantity + 1,
-					})
-					//console.log('self.session', self.session)
-					self.listOrderDate = orderDate;
-					for (let i = 0; i < self.session.length; i++) {
-						if (orderSession == self.session[i].id) {
-							self.listOrderSession = self.session[i];
-						}
-					}
+				}
+				if ((self.cartItems.quantity == 0) || (orderDate == self.cartItems.listOrderDate && orderSession == self.cartItems.listOrderSession.id)) {
 					localStorage.setItem('listOrderDate', JSON.stringify(self.listOrderDate));
 					localStorage.setItem('listOrderSession', JSON.stringify(self.listOrderSession));
 					if (det.quantity != null && det.quantity > 0) {
@@ -275,8 +279,8 @@
 					}
 				}
 				else {
-
-					self.openDialog().open();
+					if (det.isAvailable && det.quantity > 0)
+						self.openDialog().open();
 					app.views.current.router.navigate('/details-only');
 				}
 
@@ -471,44 +475,29 @@
 					newDate = changeDate;
 				}
 				//console.log('newDate', newDate);
+				self.session = [];
+				let arr = [];
 				for (let i = 0; i < listSession.length; i++) {
 					if (Date.parse(newDate + ' ' + listSession[i].startTime) < Date.parse(dateInput + ' ' + timeNow) && Date.parse(dateInput + ' ' + timeNow) > Date.parse(newDate + ' ' + listSession[i].endTime)) {
 						count++;
 					}
+					else {
+						arr.push(listSession[i])
+					}
 				}
-				listSession.splice(0, count);
-				for (let i = 0; i < listSession.length; i++) {
-					let arrStart = listSession[i].startTime.split(':');
-					let arrEnd = listSession[i].endTime.split(':');
-					listSession[i].startTime = arrStart[0] + ':' + arrStart[1];
-					listSession[i].endTime = arrEnd[0] + ':' + arrEnd[1];
-				}
+				// listSession.splice(0, count);
+				// for (let i = 0; i < listSession.length; i++) {
+				// 	let arrStart = listSession[i].startTime.split(':');
+				// 	let arrEnd = listSession[i].endTime.split(':');
+				// 	listSession[i].startTime = arrStart[0] + ':' + arrStart[1];
+				// 	listSession[i].endTime = arrEnd[0] + ':' + arrEnd[1];
+				// }
 				self.$setState({
-					session: listSession,
+					session: arr,
 				});
 				console.log(listSession);
 			},
-			logout: function () {
-				var self = this;
-				localStorage.removeItem('WOKPPL_OldUser');
-				localStorage.removeItem('WOKPPL_accessToken');
-				localStorage.removeItem('WOKPPL_expireInSeconds');
-				localStorage.removeItem('WOKPPL_expired');
-				localStorage.removeItem('WOKPPL_refreshToken');
-				localStorage.removeItem('WOKPPL_mobile');
-				localStorage.removeItem('WOKPPL_name');
-				localStorage.removeItem('WOKPPL_email');
-				localStorage.removeItem('WOKPPL_username');
-				localStorage.removeItem('WOKPPL_userId');
-				localStorage.removeItem('WOKPPL_passcode');
-				localStorage.removeItem('addProduct');
-				localStorage.removeItem('cartItems');
-				localStorage.removeItem('listOrderSession');
-				localStorage.removeItem('listOrderDate');
-				localStorage.removeItem('categories');
-				localStorage.removeItem('editProduct');
-				localStorage.removeItem('sessions');
-			},
+			
 			openDialog: function () {
 				var dialog = app.dialog.create({
 					title: '',
@@ -567,7 +556,10 @@
 					let response = JSON.parse(suc)
 					console.log(response.result.user)
 					if (response.result.user == null || response.result.user == 'null')
-						self.logout();
+						{
+							app.utils.custom.removeCookie();
+							app.views.current.router.navigate('/signin');
+						}
 				},
 				function (err) {
 					console.log(err)
@@ -591,7 +583,7 @@
 					//self.goCartDialog().open();
 				}
 			}
-			
+
 			// console.log('orderDateTemp', orderDateTemp);
 			// console.log('dateInput', dateInput);
 
@@ -627,6 +619,9 @@
 			console.log('orderDateTemp', orderDateTemp);
 			if (sessionTemp != null) {
 				self.$('select[name=session]').val(sessionTemp.id);
+			}
+			else {
+				self.$('select[name=session]').val(self.session[0].id);
 			}
 			if (orderDateTemp != null) {
 				self.$setState({
