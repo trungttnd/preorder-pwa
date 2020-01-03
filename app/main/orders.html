@@ -602,7 +602,7 @@
 				let arrFirstDay = orderDateTemp.split('/');
 				firstLoadDay = arrFirstDay[1] + '/' + arrFirstDay[0] + '/' + arrFirstDay[2];
 				if (Date.parse(firstLoadDay + ' ' + sessionTemp.endTime) < Date.parse(dateInput + ' ' + timeNow)) {
-					localStorage.setItem('disableCheckout', JSON.stringify('true'))
+					//localStorage.setItem('disableCheckout', JSON.stringify('true'))
 					//self.goCartDialog().open();
 				}
 			}
