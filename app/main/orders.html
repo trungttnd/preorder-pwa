@@ -59,11 +59,19 @@
 					{{#each productList}}
 					<li>
 						<div class="item-content">
+							{{#if this.isNoImage}}
+							<div class="item-media"><a href="#" @click="selectOption('{{this.id}}')"
+								class="item-link"><img
+									src="assets/custom/img/{{this.imageFileName}}"
+									width="80" /></a>
+							</div>
+							{{else}}
 							<div class="item-media"><a href="#" @click="selectOption('{{this.id}}')"
 									class="item-link"><img
 										src="https://wokpplapi.konbi.cloud/uploads/{{this.imageFileName}}"
 										width="80" /></a>
 							</div>
+							{{/if}}
 							<div class="item-inner">
 								<div class="row">
 									<div class="item-title col-80">
@@ -272,17 +280,18 @@
 				if ((self.cartItems.quantity == 0) || (orderDate == self.cartItems.listOrderDate && orderSession == self.cartItems.listOrderSession.id)) {
 					localStorage.setItem('listOrderDate', JSON.stringify(self.listOrderDate));
 					localStorage.setItem('listOrderSession', JSON.stringify(self.listOrderSession));
-					if (det.quantity != null && det.quantity > 0) {
-						app.views.current.router.navigate('/orders-options');
+					if (det.isAvailable) {
+						if (det.quantity != null && det.quantity > 0) {
+							app.views.current.router.navigate('/orders-options');
+						}
+						else
+							app.views.current.router.navigate('/details-only');
 					}
-					else {
-						app.views.current.router.navigate('/details-only');
-					}
+					else app.views.current.router.navigate('/details-only');
 				}
 				else {
-					if (det.isAvailable && det.quantity > 0)
-						self.openDialog().open();
-					app.views.current.router.navigate('/details-only');
+					if (det.isAvailable && det.quantity > 0) self.openDialog().open();
+					// app.views.current.router.navigate('/orders-options');
 				}
 
 			},
@@ -434,6 +443,13 @@
 							else {
 								response.result.items[i].isSoldOut = false;
 							}
+							if (response.result.items[i].imageFileName == '' || response.result.items[i].imageFileName == null){
+								response.result.items[i].imageFileName = 'noimage.png';
+								response.result.items[i].isNoImage = true;
+							}
+							else{
+								response.result.items[i].isNoImage = false;
+							}
 						}
 						console.log('get product success', response)
 						self.$setState({
@@ -487,52 +503,61 @@
 					}
 				}
 				// listSession.splice(0, count);
-				// for (let i = 0; i < listSession.length; i++) {
-				// 	let arrStart = listSession[i].startTime.split(':');
-				// 	let arrEnd = listSession[i].endTime.split(':');
-				// 	listSession[i].startTime = arrStart[0] + ':' + arrStart[1];
-				// 	listSession[i].endTime = arrEnd[0] + ':' + arrEnd[1];
-				// }
+				for (let i = 0; i < arr.length; i++) {
+					let arrStart = arr[i].startTime.split(':');
+					let arrEnd = arr[i].endTime.split(':');
+					arr[i].startTime = arrStart[0] + ':' + arrStart[1];
+					arr[i].endTime = arrEnd[0] + ':' + arrEnd[1];
+				}
 				self.$setState({
 					session: arr,
 				});
+				console.log(arr);
 				console.log(listSession);
 			},
-
 			openDialog: function () {
+				var self = this;
 				var dialog = app.dialog.create({
 					title: '',
-					content: '<div class="block no-margin no-padding text-align-center" style="font-size: 14px;"><img src="' + window.config.app.logo + '" width="84" alt="" /><p><b>Your cart is not empty!</b></p><p>Please checkout or empty your cart before continue!.</p></div>',
+					content: '<div class="block no-margin no-padding text-align-center" style="font-size: 14px;"><img src="' + window.config.app.logo + '" width="84" alt="" /><p><b>Your cart has a product from a different session!</b></p><p>Clear cart and add product from this session?</p></div>',
 					verticalButtons: true,
 					buttons: [
 						{
-							text: 'Open cart!',
+							text: 'Yes!',
 							bold: true,
 							color: 'green',
 							onClick: function () {
-								app.views.current.router.navigate('/orders-cart');
+								self.clearCartWhenSessionExpired();
+								localStorage.setItem('listOrderDate', JSON.stringify(self.listOrderDate));
+								localStorage.setItem('listOrderSession', JSON.stringify(self.listOrderSession));							
+								app.views.current.router.navigate('/orders-options');
 							}
 						},
 						{
 							text: 'No!',
-							color: 'gray'
+							color: 'gray',
+							onClick: function () {
+								app.views.current.router.navigate('/tab-order/');
+							}
 						}
 					]
 				});
 				return dialog;
 			},
 			goCartDialog: function () {
+				var self = this;
 				var dialog = app.dialog.create({
 					title: '',
 					content: '<div class="block no-margin no-padding text-align-center" style="font-size: 14px;"><img src="' + window.config.app.logo + '" width="84" alt="" /><p><b>Over time!</b></p><p>Please empty your cart before continue!.</p></div>',
 					verticalButtons: true,
 					buttons: [
 						{
-							text: 'Open cart!',
+							text: 'Empty cart!',
 							bold: true,
 							color: 'green',
 							onClick: function () {
-								app.views.current.router.navigate('/orders-cart');
+								self.clearCartWhenSessionExpired();
+								app.views.current.router.navigate('/tab-order/');
 							}
 						},
 						{
@@ -546,6 +571,12 @@
 					]
 				});
 				return dialog;
+			},
+			clearCartWhenSessionExpired: function (){
+				localStorage.removeItem('listOrderSession');
+				localStorage.removeItem('listOrderDate');
+				localStorage.removeItem('disableCheckout');
+				localStorage.removeItem('cartItems');
 			}
 		},
 		removeCookie: function () {
@@ -601,9 +632,11 @@
 			else {
 				let arrFirstDay = orderDateTemp.split('/');
 				firstLoadDay = arrFirstDay[1] + '/' + arrFirstDay[0] + '/' + arrFirstDay[2];
+				console.log('Ngay session', firstLoadDay + ' ' + sessionTemp.endTime);
+				console.log('Ngay hien tai', dateInput + ' ' + timeNow);
 				if (Date.parse(firstLoadDay + ' ' + sessionTemp.endTime) < Date.parse(dateInput + ' ' + timeNow)) {
-					//localStorage.setItem('disableCheckout', JSON.stringify('true'))
-					//self.goCartDialog().open();
+					localStorage.setItem('disableCheckout', JSON.stringify('true'))
+					self.goCartDialog().open();
 				}
 			}
 

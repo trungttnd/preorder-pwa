@@ -32,11 +32,11 @@
                     </div>
                 </div>
             </div> -->
-            <div class="block text-align-left"></div>
+            <div class="block text-align-left" style="margin: 10px;"></div>
             <div class="content-block block-card text-align-left">
                 <div class="your-cart">All orders</div>
             </div>
-            <div class="list">
+            <div class="list" style="margin: 10px;">
                 <div id="list-infinite-scroll" class="list-group">
                     <ul>
                         <!-- {{#each items}}
@@ -135,7 +135,7 @@
                         for (let i = 0; i < tempItem.length; i++) {
                             let orderTime = new Date(tempItem[i].orderTimeDisplay);
                             let tempTotalPrice = 0;
-                            tempItem[i].orderTime = orderTime.getDate() + "/" + (orderTime.getMonth() + 1) + "/" + orderTime.getFullYear() + " " + orderTime.getHours() + ":" + orderTime.getMinutes();
+                            tempItem[i].orderTime = ("0" + orderTime.getDate()).slice(-2) + "/" + ("0" + orderTime.getMonth() + 1).slice(-2) + "/" + orderTime.getFullYear() + " " + ("0" + orderTime.getHours()).slice(-2) + ":" + ("0" + orderTime.getMinutes()).slice(-2);
                             for (let j = 0; j < tempItem[i].orderItems.length; j++) {
                                 tempTotalPrice += tempItem[i].orderItems[j].price;
                                 console.log(tempTotalPrice)
@@ -158,7 +158,7 @@
                                 html += '<span class="fas fa-shopping-cart fa-stack-1x fa-inverse"></span></i></div>'
                                 html += '<div class="item-inner"><div class="item-title"><span>' + self.items[i].orderNumber + '</span>'
                                 html += '<div class="item-header">' + self.items[i].orderTime + '</div> </div>'
-                                html += '<div class="item-title" style="text-align: right;"><div class="item-header text-color-red">'
+                                html += '<div class="item-title" style="text-align: right;"><div class="item-header text-color-red">$'
                                 html += self.items[i].totalPrice.toFixed(2) + '</div>'
                                 html += self.items[i].status == 5 ? '<span class="badge color-green">' + self.items[i].statusName + '</span>' : self.items[i].status == 3 ? '<span class="badge color-yellow">' + self.items[i].statusName + '</span>' : '<span class="badge color-red">' + self.items[i].statusName + '</span>'
                                 html += '</div> </div></div></a>'
