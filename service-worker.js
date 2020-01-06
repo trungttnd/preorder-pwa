@@ -65,21 +65,23 @@ self.addEventListener('push', function (event) {
 
 self.addEventListener('notificationclick', function (event) {
   console.log('[Service Worker] Notification click Received.');
-  console.log(JSON.parse(event.data.text()))
-  let dataContent = JSON.parse(event.data.text());
-  const message = dataContent.message;
-  let arr = message.split(' ');
-  let orderNumber = arr.filter(function (el) {
-    return el.substr(0, 1) == '#'
-  })
-  event.notification.close();
-  if (orderNumber == null || orderNumber == 'null') {
-    event.waitUntil(
-      clients.openWindow('https://preorder-pwa.netlify.com/')
-    );
-  }
-  else
-    event.waitUntil(      
-      clients.openWindow('https://preorder-pwa.netlify.com/#!/inbox-detail/'+orderNumber.subtring(1))
-    );
+  // console.log(JSON.parse(event.data.text()))
+  // let dataContent = JSON.parse(event.data.text());
+  // const message = dataContent.message;
+  // let arr = message.split(' ');
+  // let orderNumber = arr.filter(function (el) {
+  //   return el.substr(0, 1) == '#'
+  // })
+  // event.notification.close();
+  // if (orderNumber == null || orderNumber == 'null') {
+  //   event.waitUntil(
+  //     clients.openWindow('https://preorder-pwa.netlify.com/')
+  //   );
+  // }
+  // else
+  //   event.waitUntil(      
+  //     clients.openWindow('https://preorder-pwa.netlify.com/#!/inbox-detail/'+orderNumber.subtring(1))
+  //   );
+    event.notification.close();
+    clients.openWindow('https://preorder-pwa.netlify.com/')
 });
