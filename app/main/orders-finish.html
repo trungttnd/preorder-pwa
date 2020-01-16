@@ -64,13 +64,17 @@
         methods: {
             closeApp: function () {
                 var self = this;
+                app.views.main.router.history = ['/'];
+                app.views.main.router.clearPreviousHistory();
+                // app.view.main.history.pop();
                 // $('.page-previous, .navbar-previous').remove();
                 // app.view.main.history = ['/']; // url of the home pagec
-                // app.view.main.router.history = ['/'];
-                app.views.current.router.clearPreviousHistory();
+                
+                //app.views.current.router.clearPreviousHistory();
+                console.log(app.views.main.router.history);
                 console.log('close App1')
 
-                app.views.current.router.back();
+                app.views.main.router.back();
             },
             getUrlVars: function () {
                 var vars = [], hash;
