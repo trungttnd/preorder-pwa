@@ -3,48 +3,60 @@
 
         <div class="navbar" style="height: 72px;">
             <div class="navbar-inner">
-                    <img class="theme-light-only" src="assets/custom/img/wokppllogo.png" height="60px" alt="" />
+                <img class="theme-light-only" src="assets/custom/img/wokppllogo.png" height="60px" alt="" />
             </div>
         </div>
 
         <div class="page-content">
-            <div class="block text-align-center">
-                <p>Thank you for completing this survey. We value your opinion and will take on board any suggestions you make that are cost effective and comply with our healthy eating policy.</p>
+            {{#if listQuestion}}
+            <div class="block-title">{{listQuestion.title}}</div>
+            {{#each listQuestion.questions}}
+            <div class="card">
+                <div class="card-content card-content-padding">
+                    <p>{{this.question}}</p>
+                    {{#js_if "this.questionType=='2'"}}
+                    {{#if this.answerOptions}}
+                    {{#each this.answerOptions}}
+                    <p>
+                        <label class="radio">
+                            <input type="radio" name="name" />
+                            <i class="icon-radio"></i>
+                        </label>
+                        <span>{{this.content}}&nbsp;</span>
+                    </p>
+
+                    {{/each}}
+                    {{/if}}
+                    {{else}}
+                    {{#js_if "this.questionType=='1'"}}
+                    <div class="item-input-wrap">
+                        <textarea class="resizable" style="height: 50px;"></textarea>
+                    </div>
+                    {{else}}
+                    {{#js_if "this.questionType=='3'"}}
+                    {{#if this.answerOptions}}
+                    {{#each this.answerOptions}}
+                    <p>
+                        <label class="checkbox">
+                            <input type="checkbox" name="checkbox" />
+                            <i class="icon-checkbox"></i>
+                        </label>
+                        <span>{{this.content}}</span>
+                    </p>
+                    {{/each}}
+                    {{/if}}
+                    {{else}}
+                    <div class="item-input-wrap">
+                        <input type="text" />
+                        <span class="input-clear-button"></span>
+                    </div>
+                    {{/js_if}}
+                    {{/js_if}}
+                    {{/js_if}}
+                </div>
             </div>
-            <form name="survey" action="#" method="POST" enctype="multipart/form-data">
-                <div class="list no-hairlines no-hairlines-between">
-                    <ul>
-                        <li>
-                            <div class="item-content item-input item-input-with-info">
-                                <div class="item-inner">
-                                    <div class="item-title item-label" style="font-size: 16px; height: 30px;">1. Food Quality?</div>
-                                    <div>
-                                        <input type="hidden" name="rating" required />
-                                        <div class="rating-full-star"></div>
-                                    </div>
-                                    <div class="block">
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-content item-input item-input-with-info">
-                                <div class="item-inner">
-                                    <div class="item-title item-label" style="font-size: 16px; height: 30px;">2. Value?</div>
-                                    <div>
-                                        <input type="hidden" name="rating" required />
-                                        <div class="rating-full-star"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="block">
-                    <button type="submit" class="button button-big button-fill" data-i18n="survey">Submit</button>
-                </div>
-            </form>
+            {{/each}}
+            {{/if}}
         </div>
     </div>
 </template>
@@ -53,51 +65,28 @@
     return {
         data: function () {
             return {
-                formValidator: null,
+                listQuestion: null
             }
         },
         methods: {
-            initializeRatingFullStar: function () {
+            loadData: function () {
                 var self = this;
-                jQuery('.rating-full-star').rateYo({
-                    fullStar: true,
-                    normalFill: '#FFF9DB',
-                    ratedFill: '#FCC419',
-                    rating: 3,
-                    spacing: '10px',
-                    starWidth: '32px'
-                });
-            },
-            initializeFormValidator: function () {
-				var self = this;
-				self.formValidator = jQuery('form[name=survey]').validate({
-					submitHandler: function (form) {
-                        self.submitForm(form);
-					}
-
-				});
-			},
-            submitForm: function (form) {
-				var self = this;
-                var dialog = app.dialog.create({
-                    content: '<div class="block no-margin margin-top text-align-center"><i class="fa-stack fa-3x"><span class="fas fa-stack-2x fa-circle text-color-orange"></span><span class="fas fa-stack-1x fa-inverse fa-exclamation"></span></i><p>Thanks for your rating.<br /> Transaction ID: 12345678</p></div>',
-                    buttons: [
-                        {
-                            text: 'OK',
-                            bold: true,
-                            color: 'orange'
-                        }
-                    ]
-                });
-                dialog.open();
-			},
+                app.request.json('assets/custom/dataset/survey.json',
+                    function (suc) {
+                        console.log('suc', suc);
+                        self.$setState({
+                            listQuestion: suc.result
+                        })
+                    },
+                    function (err) {
+                        console.log(err)
+                    })
+            }
         },
         on: {
             pageInit: function () {
                 var self = this;
-                self.initializeRatingFullStar();
-                self.initializeFormValidator();
+                self.loadData();
             }
         }
     }
-</script>
