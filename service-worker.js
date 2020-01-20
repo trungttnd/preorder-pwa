@@ -82,13 +82,13 @@ self.addEventListener('notificationclick', function (event) {
   if (!event.action) {
     event.waitUntil(
       // clients.openWindow('https://preorder-pwa.netlify.com/#!/transactions-detail/' + orderNumber)
-      clients.openWindow('https://preorder-pwa.netlify.com')
+      clients.openWindow('https://preorder-pwa.netlify.com', '_system')
     );
   }
   switch (event.action) {
     case 'yes':
       event.waitUntil(
-        clients.openWindow('https://preorder-pwa.netlify.com/#!/survey')
+        clients.openWindow('https://preorder-pwa.netlify.com/#!/survey', '_system')
       );
       break;
     default:
