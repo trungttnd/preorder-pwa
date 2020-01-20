@@ -92,6 +92,6 @@ self.addEventListener('notificationclick', function (event) {
       );
       break;
     default:
-      break
+      break;
   }
 });
