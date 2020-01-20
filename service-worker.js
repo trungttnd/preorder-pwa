@@ -60,7 +60,7 @@ self.addEventListener('push', function (event) {
     badge: 'assets/custom/favicon/android-chrome-icon-16x16.png'
   };
   console.log('title', title)
-  if (title != "Order Info")
+  if (title != "Order info")
     options.actions = [
       { "action": "yes", "title": "Yes", "icon": "images/yes.png" },
       { "action": "no", "title": "No", "icon": "images/no.png" }
@@ -87,7 +87,9 @@ self.addEventListener('notificationclick', function (event) {
   }
   switch (event.action) {
     case 'yes':
-      clients.openWindow('https://preorder-pwa.netlify.com/#!/survey');
+      event.waitUntil(
+        clients.openWindow('https://preorder-pwa.netlify.com/#!/survey')
+      );
       break;
     default:
       break
