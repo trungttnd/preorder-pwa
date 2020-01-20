@@ -1,73 +1,90 @@
 {
-    "result": {
-        "id": 4,
-        "title": "Trả lời sự kiện",
-        "description": "Địa chỉ diễn ra sự kiện: 123 Tên đường phố, Quận/Huyện, Tỉnh/Thành phố.Hãy liên hệ với chúng tôi theo số (+84) 000-0000 hoặc địa chỉ email: no_reply@example.com",
-        "isActive": true,
-        "questions": [
-            {
-                "id": 3,
-                "question": "Bạn có thể tham dự không?",
-                "isMandatory": true,
-                "answerLength": 0,
-                "questionType": 2,
-                "answerOptions": [
-                    {
-                        "id": 6,
-                        "content": "Có,tôi sẽ tới đó"
-                    },
-                    {
-                        "id": 7,
-                        "content": "Rất tiếc, tôi không thể tham dự"
-                    }
-                ]
-            },
-            {
-                "id": 4,
-                "question": "Tên của những người tham dự là gì?",
-                "isMandatory": false,
-                "answerLength": 100,
-                "questionType": 1,
-                "answerOptions": []
-            },
-            {
-                "id": 5,
-                "question": "Bạn biết đến sự kiện này qua kênh nào?",
-                "isMandatory": false,
-                "answerLength": 0,
-                "questionType": 3,
-                "answerOptions": [
-                    {
-                        "id": 8,
-                        "content": "Trang web"
-                    },
-                    {
-                        "id": 9,
-                        "content": "Bạn bè"
-                    },
-                    {
-                        "id": 10,
-                        "content": "Bản tin"
-                    },
-                    {
-                        "id": 11,
-                        "content": "Quảng cáo"
-                    }
-                ]
-            },
-            {
-                "id": 6,
-                "question": "Nhận xét và/hoặc câu hỏi",
-                "isMandatory": false,
-                "answerLength": 100,
-                "questionType": 1,
-                "answerOptions": []
-            }
-        ]
-    },
-    "targetUrl": null,
-    "success": true,
-    "error": null,
-    "unAuthorizedRequest": false,
-    "__abp": true
+	"result": {
+		"id": 1,
+		"title": "Aenean luctus at orci eu tempus!",
+		"description": "Aliquam fringilla faucibus convallis. Sed quis ultrices sapien. In diam urna, sollicitudin sed lobortis vel, feugiat lobortis neque. In ut nisl quam. Praesent ac cursus urna.",
+		"isActive": true,
+		"questions": [
+			{
+				"id": 0,
+				"question": "Etiam vestibulum consectetur felis?",
+				"isMandatory": false,
+				"answerLength": 100,
+				"questionType": 0,
+				"answerOptions": []
+			},
+			{
+				"id": 1,
+				"question": "Sed nec metus ut felis fringilla commodo?",
+				"isMandatory": false,
+				"answerLength": 0,
+				"questionType": 1,
+				"answerOptions": [
+					{
+						"id": 1,
+						"content": "Nullam volutpat"
+					},
+					{
+						"id": 2,
+						"content": "Cras vitae"
+					},
+					{
+						"id": 3,
+						"content": "Nunc scelerisque"
+					},
+					{
+						"id": 4,
+						"content": "Curabitur vel"
+					}
+				]
+			},
+			{
+				"id": 2,
+				"question": "Cras vitae laoreet mauris?",
+				"isMandatory": true,
+				"answerLength": 0,
+				"questionType": 2,
+				"answerOptions": [
+					{
+						"id": 5,
+						"content": "In nisi augue"	
+					},
+					{
+						"id": 6,
+						"content": "Praesent a ma"
+					}
+				]
+			},
+			{
+				"id": 3,
+				"question": "Curabitur ut lacus ut dui faucibus sagittis!",
+				"isMandatory": false,
+				"answerLength": 200,
+				"questionType": 0,
+				"answerOptions": []
+			},
+			{
+				"id": 4,
+				"question": "Maecenas consectetur, lectus sed dapibus!",
+				"isMandatory": false,
+				"answerLength": 0,
+				"questionType": 3,
+				"answerOptions": [
+					{
+						"id": 7,
+						"content": "In nisi augue"	
+					},
+					{
+						"id": 8,
+						"content": "Praesent a ma"
+					}
+				]
+			}
+		]
+	},
+	"targetUrl": null,
+	"success": true,
+	"error": null,
+	"unAuthorizedRequest": false,
+	"__abp": true
 }
