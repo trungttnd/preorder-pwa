@@ -82,7 +82,7 @@ self.addEventListener('notificationclick', function (event) {
   if (!event.action) {
     event.waitUntil(
       // clients.openWindow('https://preorder-pwa.netlify.com/#!/transactions-detail/' + orderNumber)
-      clients.openWindow('https://preorder-pwa.netlify.com/#!/inbox-detail/' + orderNumber)
+      clients.openWindow('https://preorder-pwa.netlify.com')
     );
   }
   switch (event.action) {
