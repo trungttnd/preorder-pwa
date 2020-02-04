@@ -274,7 +274,7 @@ window.config.theme = {
 	layout: 'light',
   navigation: 'hamburger'
 };
-//api path
+//api url
 window.config.url = 'https://wokpplapi.konbi.cloud/';
 //image path
 window.config.upload = 'https://wokpplapi.konbi.cloud/uploads/'

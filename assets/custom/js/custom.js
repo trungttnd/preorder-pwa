@@ -45,5 +45,5 @@ Framework7.utils.custom = {
     localStorage.removeItem('sessions');
     localStorage.removeItem('detTransactions');
     localStorage.removeItem('cartAvailable');
-  }
+  },
 }
