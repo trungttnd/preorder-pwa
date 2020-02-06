@@ -314,6 +314,9 @@
                     earnPointRate: 0.0,
                     redeemPointRate: 0.0
                 },
+                defaultPickerDate: new Date(),
+                isFutureOrder: false,
+
             }
         },
         methods: {
@@ -475,13 +478,14 @@
                 self.validateOk = true;
                 console.log(self.$('input[id=timepicker-24]').val())
                 let arrTime = self.$('input[id=timepicker-24]').val().split(':')
-                //self.checkCollectionTime(arrTime)
+                self.checkCollectionTime(arrTime)
                 if (self.validateOk == true)
                     self.checkout();
             },
             checkout: function () {
                 var self = this;
                 let cartTemp = JSON.parse(localStorage.getItem('cartItems'));
+                let sessionTemp = JSON.parse(localStorage.getItem('listOrderSession'));
                 // de tam day sua sau
                 // let orderDateTemp = JSON.parse(localStorage.getItem('listOrderDate'));
                 // let arrDate = orderDateTemp.split('/');
@@ -510,7 +514,8 @@
                     // var hours = dat.getHours();
                     // hours += offset;
                     // dat.setHours(hours);
-
+                    let startTime = new Date(arr[2], arr[1] - 1, arr[0], sessionTemp.startTime.split(':')[0],sessionTemp.startTime.split(':')[0])
+                    let endTime = new Date(arr[2], arr[1] - 1, arr[0], sessionTemp.endTime.split(':')[0],sessionTemp.endTime.split(':')[0])
                     self.newOrder.collectionTime = dat.toISOString();
                     //self.newOrder.type = 
                     self.newOrder.sessionId = self.listOrderSession.id;
@@ -556,11 +561,15 @@
                             type: self.newOrder.type,
                             orderItems: self.newOrder.orderItems,
                             //payments: self.newOrder.payments,
-                            sessionId: self.newOrder.sessionId
+                            sessionId: self.newOrder.sessionId,
+                            startTime: startTime.toISOString(),
+                            endTime: endTime.toISOString()
                         },
                         function (suc) {
                             console.log('suc', suc)
-                            localStorage.removeItem('cartItems')
+                            localStorage.removeItem('cartItems');
+                            localStorage.removeItem('listOrderSession');
+                            localStorage.removeItem('listOrderDate');
                             app.views.current.router.navigate('/orders-finish?order=' + suc.result.orderNumber);
                         },
                         function (err) {
@@ -591,10 +600,34 @@
                 var today = new Date();
                 let minStart = 0;
                 let minEnd = 59;
-                let sessionTemp = JSON.parse(localStorage.getItem('listOrderSession'))
+                let sessionTemp = JSON.parse(localStorage.getItem('listOrderSession'));
+                let orderDateTemp = JSON.parse(localStorage.getItem('listOrderDate'));
+
+                // Doan nay compare ngay hien tai va ngay tuong lai
+                // Hoi loang ngoang
+                let orderDateTempNew = orderDateTemp.split('/');
+                orderDateTempNew = orderDateTempNew[1] + '/' + orderDateTempNew[0] + '/' + orderDateTempNew[2];
+                let orderDateTempDefault = orderDateTempNew
+                orderDateTempNew = new Date(orderDateTempNew);
+                let todayNew = new Date();
+                let todayWithDayOnly = new Date((todayNew.getMonth() + 1) + '/' + todayNew.getDate() + '/' + todayNew.getFullYear());
+                let orderDateTempWithDayOnly = new Date((orderDateTempNew.getMonth() + 1) + '/' + orderDateTempNew.getDate() + '/' + orderDateTempNew.getFullYear());
+                if (orderDateTempWithDayOnly > todayWithDayOnly){
+                    let dateTimeDefault = orderDateTempDefault + ' ' + sessionTemp.startTime;
+                    dateTimeDefault = new Date(dateTimeDefault);
+                    // let dateTimeDefaultExtend = new Date();
+                    // dateTimeDefaultExtend.setTime(dateTimeDefault.getTime() + (sessionTemp.preparationTime * 60 * 1000) + (sessionTemp.bufferTime * 60 * 1000));
+                    // dateTimeDefaultExtend = new Date(dateTimeDefaultExtend);
+                    // today = dateTimeDefault;
+                }
+                console.log('today', today);
+                // Het doan compare
+
                 today.setTime(today.getTime() + (sessionTemp.preparationTime * 60 * 1000) + (sessionTemp.bufferTime * 60 * 1000));
                 console.log('today', today);
                 today = new Date(today);
+                console.log('today.getHours()', today.getHours());
+                console.log('+self.hourStart', +self.hourStart);
                 var pickerInline = app.picker.create({
                     //containerEl: '#demo-picker-date-container',
                     inputEl: '#timepicker-24',
@@ -602,7 +635,7 @@
                     rotateEffect: true,
                     url: "/orders-cart",
                     value: [
-                        today.getHours(),
+                        (today.getHours() >= +self.hourStart && today.getHours() <= +self.hourEnd) ? (today.getHours() < 10 ? '0' + today.getHours() : today.getHours()) : self.hourStart,
                         today.getMinutes() < 10 ? '0' + today.getMinutes() : today.getMinutes()
                     ],
                     formatValue: function (values) {
@@ -613,7 +646,7 @@
                         {
                             values: (function () {
                                 var arr = [];
-                                for (var i = self.hourStart; i <= self.hourEnd; i++) { arr.push(i); }
+                                for (var i = +self.hourStart; i <= +self.hourEnd; i++) { i < 10 ? arr.push('0' + i) : arr.push(i); }
                                 return arr;
                             })(),
                         },
@@ -639,7 +672,7 @@
                         },
                         close: function (picker) {
                             console.log('picker', picker);
-                            //self.checkCollectionTime(picker.value);
+                            self.checkCollectionTime(picker.value);
                             self.$setState({
                                 disableCloseButton: false,
                             })
@@ -675,7 +708,7 @@
                 let sessionTemp = JSON.parse(localStorage.getItem('listOrderSession'));
                 nowDateTime.setTime(nowDateTime.getTime() + (sessionTemp.preparationTime * 60 * 1000) + (sessionTemp.bufferTime * 60 * 1000));
                 nowDateTime = new Date(nowDateTime);
-                var nowHours = nowDateTime.getHours();
+                var nowHours = nowDateTime.getHours() < 10 ? '0' + nowDateTime.getHours() : nowDateTime.getHours();
                 var nowMinutes = nowDateTime.getMinutes() < 10 ? '0' + nowDateTime.getMinutes() : nowDateTime.getMinutes();
                 var timeNow = nowHours + ':' + nowMinutes;
                 return timeNow;
@@ -766,7 +799,7 @@
                 // }
 
                 if (acceptPicker == 2) {
-                    self.$('input[id=timepicker-24]').val(dateTimeNowExtend.getHours() + ':' + (dateTimeNowExtend.getMinutes() < 10 ? '0' + dateTimeNowExtend.getMinutes() : dateTimeNowExtend.getMinutes()));
+                    self.$('input[id=timepicker-24]').val((dateTimeNowExtend.getHours() < 10 ? '0' + dateTimeNowExtend.getHours() : dateTimeNowExtend.getHours()) + ':' + (dateTimeNowExtend.getMinutes() < 10 ? '0' + dateTimeNowExtend.getMinutes() : dateTimeNowExtend.getMinutes()));
                 }
 
                 console.log('startDateTime', startDateTime);
@@ -893,6 +926,9 @@
                 let orderDateTemp = JSON.parse(localStorage.getItem('listOrderDate'));
                 console.log('sessionTemp', sessionTemp);
                 console.log('orderDateTemp', orderDateTemp);
+                console.log('orderDateTemp convert', new Date(orderDateTemp));
+
+                
 
                 self.$('input[id=timepicker-24]').click(function () {
                     self.$setState({
