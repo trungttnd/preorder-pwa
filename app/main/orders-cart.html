@@ -478,7 +478,7 @@
                 self.validateOk = true;
                 console.log(self.$('input[id=timepicker-24]').val())
                 let arrTime = self.$('input[id=timepicker-24]').val().split(':')
-                //self.checkCollectionTime(arrTime)
+                self.checkCollectionTime(arrTime)
                 if (self.validateOk == true)
                     self.checkout();
             },
@@ -618,7 +618,7 @@
                     // let dateTimeDefaultExtend = new Date();
                     // dateTimeDefaultExtend.setTime(dateTimeDefault.getTime() + (sessionTemp.preparationTime * 60 * 1000) + (sessionTemp.bufferTime * 60 * 1000));
                     // dateTimeDefaultExtend = new Date(dateTimeDefaultExtend);
-                    // today = dateTimeDefault;
+                    today = dateTimeDefault;
                 }
                 console.log('today', today);
                 // Het doan compare
@@ -672,7 +672,7 @@
                         },
                         close: function (picker) {
                             console.log('picker', picker);
-                            //self.checkCollectionTime(picker.value);
+                            self.checkCollectionTime(picker.value);
                             self.$setState({
                                 disableCloseButton: false,
                             })
@@ -737,8 +737,11 @@
                 // Gan ngay lay tu session voi startime
                 let startDateTime = sessionDate + ' ' + sessionTemp.startTime;
                 startDateTime = new Date(startDateTime);
+                console.log('Chan lai startDateTime', startDateTime, startDateTime.getHours());
+                console.log('sessionTemp', sessionTemp);
                 startDateTimeExtend.setTime(startDateTime.getTime() + (sessionTemp.preparationTime * 60 * 1000) + (sessionTemp.bufferTime * 60 * 1000));
                 startDateTimeExtend = new Date(startDateTimeExtend);
+                console.log('Chan lai startDateTimeExtend', startDateTimeExtend);
                 // Gan ngay lay tu session voi endtime
                 let endDateTime = sessionDate + ' ' + sessionTemp.endTime;
                 endDateTime = new Date(endDateTime);
