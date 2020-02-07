@@ -478,7 +478,7 @@
                 self.validateOk = true;
                 console.log(self.$('input[id=timepicker-24]').val())
                 let arrTime = self.$('input[id=timepicker-24]').val().split(':')
-                self.checkCollectionTime(arrTime)
+                //self.checkCollectionTime(arrTime)
                 if (self.validateOk == true)
                     self.checkout();
             },
@@ -672,7 +672,7 @@
                         },
                         close: function (picker) {
                             console.log('picker', picker);
-                            self.checkCollectionTime(picker.value);
+                            //self.checkCollectionTime(picker.value);
                             self.$setState({
                                 disableCloseButton: false,
                             })
